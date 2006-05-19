@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+
+<project name="exedio-cronjob" default="build" basedir=".">
+
+	<property name="src.dir"     value="src"/>
+	<property name="build.dir"   value="build"/>
+	<property name="classes.dir" value="${build.dir}/classes"/>
+	<property name="dist.dir" value="dist"/>
+
+	<target name="compile" >
+		<mkdir dir="${classes.dir}" />
+		<javac srcdir= "src"
+				destdir="${classes.dir}"
+				includeAntRuntime="false"
+				deprecation="on"
+				debug="on"
+				optimize="off">
+			<classpath>
+				<pathelement location="lib/servlet-api.jar" />
+			</classpath>
+			<compilerarg value="-Xlint:all" />
+		</javac>
+		<copy todir="${classes.dir}">
+			<fileset dir="${src.dir}">
+				<exclude name="**/*.java" />
+			</fileset>
+  		</copy>
+	</target>
+
+	<target name="jar" depends="compile">
+        <mkdir dir="${dist.dir}"/>
+        <jar destfile="${dist.dir}/exedio-cronjob.jar" basedir="${classes.dir}">
+            <manifest></manifest>
+        </jar>
+    </target>
+
+  	<target name="clean">
+		<delete dir="${build.dir}" />
+		<delete dir="${dist.dir}" />
+	</target>
+
+	<target name="build" depends="compile, jar" />
+
+	<target name="all" depends="build" />
+
+	<target name="cruise.full" depends="cruise.svn, cruise" description="is called from cruisecontrol" />
+
+	<target name="cruise.svn" depends="cruise.dir" description="updates all svn repositories">
+		<echo message="starting subversion update" />
+		<exec dir="${basedir}" executable="svn" failonerror="true" output="cruise/svn-update.log">
+			<arg value="update" />
+		</exec>
+		<echo message="finished subversion update" />
+		<echo message="starting subversion version" />
+		<exec dir="${basedir}" executable="svnversion" failonerror="true"
+				output="cruise/svn-version.log">
+			<arg value="--no-newline" />
+			<arg value="." />
+		</exec>
+		<echo message="finished subversion version" />
+		<LoadFile srcFile="cruise/svn-version.log" property="svn.revision" />
+		<property name="build.tag" value="svn.${svn.revision} ${label} ${cvstimestamp}" />
+		<echo message="${build.tag}" file="cruise/build-tag.log" />
+	</target>
+
+	<target name="cruise.dir" description="creates and cleans the cruise artifacts directory">
+		<delete dir="cruise" />
+		<mkdir dir="cruise" />
+	</target>
+
+	<target name="cruise" depends="cruise.dir" description="builds everything">
+		<antcall target="clean" />
+		<antcall target="all" />
+	</target>
+
+</project>
