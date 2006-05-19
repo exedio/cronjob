@@ -51,6 +51,8 @@
 
 	<target name="all" depends="build" />
 
+	<taskdef name="LoadFile" classname="org.apache.tools.ant.taskdefs.LoadFile" />
+
 	<target name="cruise.full" depends="cruise.svn, cruise" description="is called from cruisecontrol" />
 
 	<target name="cruise.svn" depends="cruise.dir" description="updates all svn repositories">
