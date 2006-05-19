@@ -6,6 +6,7 @@
 	<property name="build.dir"   value="build"/>
 	<property name="classes.dir" value="${build.dir}/classes"/>
 	<property name="dist.dir" value="dist"/>
+	<property name="cruise.dir" value="cruise"/>
 
 	<target name="compile" >
 		<mkdir dir="${classes.dir}" />
@@ -30,7 +31,14 @@
 	<target name="jar" depends="compile">
         <mkdir dir="${dist.dir}"/>
         <jar destfile="${dist.dir}/exedio-cronjob.jar" basedir="${classes.dir}">
-            <manifest></manifest>
+           <manifest>
+					<attribute name="Specification-Title" value="exedio cronjob" />
+					<attribute name="Specification-Version" value="${build.tag}" />
+					<attribute name="Specification-Vendor" value="exedio GmbH" />
+					<attribute name="Implementation-Title" value="exedio cronjob" />
+					<attribute name="Implementation-Version" value="${build.tag}" />
+					<attribute name="Implementation-Vendor" value="exedio GmbH" />
+			</manifest>
         </jar>
     </target>
 
@@ -47,30 +55,34 @@
 
 	<target name="cruise.svn" depends="cruise.dir" description="updates all svn repositories">
 		<echo message="starting subversion update" />
-		<exec dir="${basedir}" executable="svn" failonerror="true" output="cruise/svn-update.log">
+		<exec dir="${basedir}" executable="svn" failonerror="true" output="${cruise.dir}/svn-update.log">
 			<arg value="update" />
 		</exec>
 		<echo message="finished subversion update" />
 		<echo message="starting subversion version" />
 		<exec dir="${basedir}" executable="svnversion" failonerror="true"
-				output="cruise/svn-version.log">
+				output="${cruise.dir}/svn-version.log">
 			<arg value="--no-newline" />
 			<arg value="." />
 		</exec>
 		<echo message="finished subversion version" />
-		<LoadFile srcFile="cruise/svn-version.log" property="svn.revision" />
+		<LoadFile srcFile="${cruise.dir}/svn-version.log" property="svn.revision" />
 		<property name="build.tag" value="svn.${svn.revision} ${label} ${cvstimestamp}" />
-		<echo message="${build.tag}" file="cruise/build-tag.log" />
+		<echo message="${build.tag}" file="${cruise.dir}/build-tag.log" />
 	</target>
 
 	<target name="cruise.dir" description="creates and cleans the cruise artifacts directory">
-		<delete dir="cruise" />
-		<mkdir dir="cruise" />
+		<delete dir="${cruise.dir}" />
+		<mkdir dir="${cruise.dir}" />
 	</target>
 
 	<target name="cruise" depends="cruise.dir" description="builds everything">
 		<antcall target="clean" />
 		<antcall target="all" />
+		<copy todir="${cruise.dir}">
+			<fileset dir="${dist.dir}">
+			</fileset>
+  		</copy>
 	</target>
 
 </project>
