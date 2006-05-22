@@ -164,65 +164,70 @@ public class CronjobManager extends HttpServlet
 			result+="\n<meta http-equiv=\"refresh\" content=\"5; URL="+uri+"\">";
 		}
 		result+="\n<style type=\"text/css\">\n th, td \n{ \npadding: 0 5 0 5\n}\n</style>";
-		result+="</head>\n<body><form action=\""+uri+"\" method=\"post\">\n<table width=100%><tr><td align=center>\n<h1>exedio cronjob</h1>"+
-			"<table><tr>" +
-			"<td>" +
-			"<input type=submit name=\""+enableOrDisableAutoRefreshButton+"\" value=\""+enableOrDisableAutoRefreshButton+"\"/>" +
-			"</td>" +
-			"</tr></table><br>"+
-			"<table border=1 width=1% cellpadding=0 cellspacing=0>"+
-			"<tr>" +
-			"<th rowspan=2>&nbsp;</th>" +
-			"<th rowspan=2>&nbsp;</th>" +
-			"<th rowspan=2>Name</th>" +
-			"<th rowspan=2><nobr>Intervall (m)</nobr></th>" +
-			"<th rowspan=2>Running</th>" +
-			"<th colspan=3>Last Execution</th>" +			
-			"<th rowspan=2>Successful Executions</th>" +
-			"<th rowspan=2>Fails</th>" +
-			"<th rowspan=2>Average Duration</th>" +
-			"</tr>"+
-			"<tr>"+
-			"<th>Status</th>" +		
-			"<th>Start</th>" +		
-			"<th>Duration</th>" +		
-			"</tr>";
-		for (final ObservedCronjob job : observedCronjobs)
-		{
-			String activate = "<input type=submit name=\""+job.getId()+"\" value=\""+ACTIVATE+"\" "+(job.isActivated() ? "disabled readonly" : "")+"/>";
-			String deactivate = "<input type=submit name=\""+job.getId()+"\" value=\""+DEACTIVATE+"\" "+(job.isActivated() ? "" : "disabled readonly")+"/>";
-			
-			result+="<tr>"+
-				"<td align=center><input type=submit name=\""+job.getId()+"\" value=\""+START_CRONJOB+"\"/></td>"+
-				"<td align=center><nobr>"+activate+" "+deactivate+"</nobr></td>"+
-				"<td align=center>"+job.getDisplayedName()+"</td>"+
-				"<td align=center>"+String.valueOf(job.getMinutesBetweenTwoJobs())+"</td>"+
-				"<td align=center>"+(job.isRunning() ? "since "+(new Date().getTime()-job.getLastTimeStarted().getTime()) : "no")+"</td>"+
-				"<td align=center style=\"font-weight:bold; color:"+((job.wasLastExecutionSuccessful()) ? "green" : "red")+"\">"+((job.wasLastExecutionSuccessful()) ? "OK" : "FAILED")+"</td>"+
-				"<td align=center><nobr>"+job.getLastTimeStartedAsString()+"</nobr></td>"+
-				"<td align=center><nobr>"+job.getTimeNeeded()+"</nobr></td>"+
-				"<td align=center><nobr>"+job.getSuccessfulRuns()+"</nobr></td>"+
-				"<td align=center><nobr>"+job.getNumberOfFails()+"</nobr></td>"+
-				"<td align=center><nobr>"+job.getAverageTimeNeeded()+"</nobr></td>"+
-				"</tr>";;
-		}
-		result+="</table><br>";
-		for (final ObservedCronjob job : observedCronjobs)
-		{
-			List<StackTraceElement> elements= new ArrayList<StackTraceElement>();
-			if (job.getLastException()!=null)
+		result+="</head>\n<body><form action=\""+uri+"\" method=\"post\">\n<table width=100%><tr><td align=center>\n<h1>exedio cronjob</h1>";			
+		if (!observedCronjobs.isEmpty())
+		{	
+			result+="<table><tr><td><input type=submit name=\""+enableOrDisableAutoRefreshButton+"\" value=\""+enableOrDisableAutoRefreshButton+"\"/>" +
+				"</td>" +
+				"</tr></table><br>"+
+				"<table border=1 width=1% cellpadding=0 cellspacing=0>"+
+				"<tr>" +
+				"<th rowspan=2>&nbsp;</th>" +
+				"<th rowspan=2>&nbsp;</th>" +
+				"<th rowspan=2>Name</th>" +
+				"<th rowspan=2><nobr>Intervall (m)</nobr></th>" +
+				"<th rowspan=2>Running</th>" +
+				"<th colspan=3>Last Execution</th>" +			
+				"<th rowspan=2>Successful Executions</th>" +
+				"<th rowspan=2>Fails</th>" +
+				"<th rowspan=2>Average Duration</th>" +
+				"</tr>"+
+				"<tr>"+
+				"<th>Status</th>" +		
+				"<th>Start</th>" +		
+				"<th>Duration</th>" +		
+				"</tr>";
+			for (final ObservedCronjob job : observedCronjobs)
 			{
-				result+="<br><table width=100% cellpadding=0 cellspacing=0>";
-				result+="<tr><td><h3>Stacktrace of last exception occured on Cronjob: "+job.getDisplayedName()+"&nbsp;&nbsp;" +
-					"<input type=submit name=\""+job.getId()+"\" value=\""+DELETE_LAST_EXCEPTION+"\"/></h3></td></tr>";
-				result+="<tr><td>"+job.getLastException().getMessage()+"</td></tr>";
-				elements = Arrays.asList(job.getLastException().getStackTrace());
-				for (final StackTraceElement el : elements)
-				{
-					result+="<tr><td align=left>"+el.toString()+"</td></tr>";
-				}
-				result+="</table>";
+				String activate = "<input type=submit name=\""+job.getId()+"\" value=\""+ACTIVATE+"\" "+(job.isActivated() ? "disabled readonly" : "")+"/>";
+				String deactivate = "<input type=submit name=\""+job.getId()+"\" value=\""+DEACTIVATE+"\" "+(job.isActivated() ? "" : "disabled readonly")+"/>";
+
+				result+="<tr>"+
+					"<td align=center><input type=submit name=\""+job.getId()+"\" value=\""+START_CRONJOB+"\"/></td>"+
+					"<td align=center><nobr>"+activate+" "+deactivate+"</nobr></td>"+
+					"<td align=center>"+job.getDisplayedName()+"</td>"+
+					"<td align=center>"+String.valueOf(job.getMinutesBetweenTwoJobs())+"</td>"+
+					"<td align=center>"+(job.isRunning() ? "since "+(new Date().getTime()-job.getLastTimeStarted().getTime())+" ms" : "no")+"</td>"+
+					"<td align=center style=\"font-weight:bold; color:"+((job.wasLastExecutionSuccessful()) ? "green" : "red")+"\">"+((job.wasLastExecutionSuccessful()) ? "OK" : "FAILED")+"</td>"+
+					"<td align=center><nobr>"+job.getLastTimeStartedAsString()+"</nobr></td>"+
+					"<td align=center><nobr>"+job.getTimeNeeded()+"</nobr></td>"+
+					"<td align=center><nobr>"+job.getSuccessfulRuns()+"</nobr></td>"+
+					"<td align=center><nobr>"+job.getNumberOfFails()+"</nobr></td>"+
+					"<td align=center><nobr>"+job.getAverageTimeNeeded()+"</nobr></td>"+
+					"</tr>";;
 			}
+			result+="</table><br>";
+			for (final ObservedCronjob job : observedCronjobs)
+			{
+				List<StackTraceElement> elements= new ArrayList<StackTraceElement>();
+				if (job.getLastException()!=null)
+				{
+					result+="<br><table width=100% cellpadding=0 cellspacing=0>";
+					result+="<tr><td><h3>Stacktrace of last exception occured on Cronjob: "+job.getDisplayedName()+"&nbsp;&nbsp;" +
+						"<input type=submit name=\""+job.getId()+"\" value=\""+DELETE_LAST_EXCEPTION+"\"/></h3></td></tr>";
+					result+="<tr><td>"+job.getLastException().getMessage()+"</td></tr>";
+					elements = Arrays.asList(job.getLastException().getStackTrace());
+					for (final StackTraceElement el : elements)
+					{
+						result+="<tr><td align=left>"+el.toString()+"</td></tr>";
+					}
+					result+="</table>";
+				}
+			}
+		}
+		else
+		{
+			result+="<table><tr><td>There are currently no Cronjobs installed.</td></tr></table>";
 		}
 		result+="<br><table width=100%><tr><td align=right style=\"font-size:12 \"><hr width=100%>"+
 			"&copy; <a href=\"http://www.exedio.com\">exedio</a> - Gesellschaft f&uuml;r Softwareentwicklung mbH</td></tr></table>";
