@@ -260,7 +260,7 @@ public class CronjobManager extends HttpServlet
 				result+="<tr><td align=center><b>The cronjobs are not activated.</b></td></tr>"+
 					"<tr><td>&nbsp;</td></tr>"+
 					"<tr><td align=left>"+
-					"To activate the cronjobs, the class:<b> "+storeName +" has to return true in its isActive() method"+
+					"To activate the cronjobs, the class:<b> "+storeName +"</b> has to return true in its isActive() method"+
 					"</td></tr>";
 			}
 			result+="</table>";
