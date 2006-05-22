@@ -236,13 +236,12 @@ public class CronjobManager extends HttpServlet
 		else
 		{
 			result+="<table width=100%>" +
-				"<tr><td align=center>There are currently no cronjobs installed.</td></tr>" +
+				"<tr><td align=center><b>There are currently no cronjobs installed.</b></td></tr>" +
 				"<tr><td>&nbsp;</td></tr>"+
 				"<tr><td align=left>"+
-				"To install a new cronjob, just follow the instuctions below:<br>"+
+				"To install a new cronjob, just follow the instuctions below:<br><br>"+
 				"&nbsp;&nbsp;&nbsp;1. The cronjob-class has to implement the Chronjob-interface<br>"+
-				"&nbsp;&nbsp;&nbsp;2. The cronjob-class must be added to the method getAllCronjobs() in the class:<b> "+storeName +"</b><br>"+
-				"that's all !!!"+
+				"&nbsp;&nbsp;&nbsp;2. An instance of the cronjob-class must be added to the method getAllCronjobs() in the class:<b> "+storeName +"</b><br>"+
 				"</td></tr></table>";
 		}
 		result+="<br><table width=100%><tr><td align=right style=\"font-size:12 \"><hr width=100%>"+
