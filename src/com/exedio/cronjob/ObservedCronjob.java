@@ -28,8 +28,10 @@ class ObservedCronjob
 	private boolean runNow;
 	private int fails;
 	private RunningThread runningThread;
+	private Date createdAt;
+	private int initialDelayinMS;
 	
-	ObservedCronjob(final Cronjob cronjob, final String id)
+	ObservedCronjob(final Cronjob cronjob, final String id, final int initialDelayInMS)
 	{
 		this.id=id;
 		this.cronjob=cronjob;
@@ -45,7 +47,8 @@ class ObservedCronjob
 		runNow=false;
 		runningThread = new RunningThread();
 		runningThread.start();
-		
+		createdAt=new Date();
+		this.initialDelayinMS=initialDelayInMS;
 	}
 	
 	private boolean timeForExcecution()
@@ -132,6 +135,10 @@ class ObservedCronjob
 			return true;
 		}
 		boolean result = true;
+		if ((new Date().getTime()-createdAt.getTime())<initialDelayinMS)
+		{
+			result=false;
+		}
 		if (running)
 		{
 			result=false;

@@ -8,4 +8,5 @@ import java.util.List;
 public interface CronjobStore
 {
 	public List<Cronjob> getAllCronjobs();
+	public int getInitialDelayInMilliSeconds();
 }
