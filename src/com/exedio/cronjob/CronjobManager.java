@@ -74,6 +74,7 @@ public class CronjobManager extends HttpServlet
 	
 	public void destroy()
 	{
+		System.out.println("CronjobManager shut down....");
 		for (final ObservedCronjob job :observedCronjobs)
 		{
 			job.setActivated(false);
@@ -84,6 +85,12 @@ public class CronjobManager extends HttpServlet
 	{
 		idCounter++;
 		return "cronjob_"+String.valueOf(idCounter);
+	}
+	
+	private String getImplementationVersion()
+	{
+		String iv=CronjobManager.class.getPackage().getImplementationVersion();
+		return iv==null ? "" : iv;
 	}
 	
 	protected final void doGet(
@@ -230,7 +237,8 @@ public class CronjobManager extends HttpServlet
 			result+="<table><tr><td>There are currently no Cronjobs installed.</td></tr></table>";
 		}
 		result+="<br><table width=100%><tr><td align=right style=\"font-size:12 \"><hr width=100%>"+
-			"&copy; <a href=\"http://www.exedio.com\">exedio</a> - Gesellschaft f&uuml;r Softwareentwicklung mbH</td></tr></table>";
+			"exedio cronjob "+getImplementationVersion()+" &copy;  <a href=\"http://www.exedio.com\">exedio</a>" +
+			" - Gesellschaft f&uuml;r Softwareentwicklung mbH</td></tr></table>";
 		result+="</td></tr></table></form></body></html>";
 		out.println(result);
 		out.close();
