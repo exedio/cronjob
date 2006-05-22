@@ -11,6 +11,10 @@ import java.util.GregorianCalendar;
 
 class ObservedCronjob
 {
+	private final int DURATION_BETWEEN_CHECKS=2705;
+	private final DateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy - HH:mm:ss");
+	private final DateFormat DATE_FORMAT_SIMPLE = new SimpleDateFormat("HH:mm:ss");
+	
 	private String id=null;
 	private Cronjob cronjob;
 	private boolean running;
@@ -24,15 +28,13 @@ class ObservedCronjob
 	private boolean runNow;
 	private int fails;
 	private RunningThread runningThread;
+	private int minutesBetweenTwoJobs;
 	
-	private final int DURATION_BETWEEN_CHECKS=2705;
-	DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy - HH:mm:ss" );
-	DateFormat dateFormatOnlyHours = new SimpleDateFormat("HH:mm:ss" );
-	
-	ObservedCronjob(final Cronjob cronjob, String id)
+	ObservedCronjob(final Cronjob cronjob, final String id)
 	{
 		this.id=id;
 		this.cronjob=cronjob;
+		minutesBetweenTwoJobs=cronjob.getMinutesBetweenTwoJobs();
 		running=false;
 		lastTimeStarted=null;
 		lastException=null;
@@ -45,11 +47,12 @@ class ObservedCronjob
 		runNow=false;
 		runningThread = new RunningThread();
 		runningThread.start();
+		
 	}
 	
 	private boolean timeForExcecution()
 	{
-		if (lastTimeStarted==null)
+		if (lastTimeStarted == null)
 		{
 			return true;
 		}
@@ -65,10 +68,10 @@ class ObservedCronjob
 			{
 				return false;
 			}
-		}	
+		}
 	}
 	
-	String getName()
+	String getDisplayedName()
 	{
 		return cronjob.getClass().getName()+((cronjob.getName()!=null) ? " ("+cronjob.getName()+")" : " (name not specified)");
 	}
@@ -80,13 +83,13 @@ class ObservedCronjob
 			running=true;
 			lastTimeStarted=new Date();
 			long msb=lastTimeStarted.getTime();
-			System.out.println("\nStarting Cronjob: "+getName()+" at "+dateFormat.format(lastTimeStarted));
+			System.out.println("\nStarting Cronjob: "+getDisplayedName()+" at "+DATE_FORMAT.format(lastTimeStarted));
 			try
 			{
 				cronjob.excecuteJob();
-				lastExecutionSuccessful=true;				
 				Date finished =new Date();
-				System.out.println("Finished Cronjob: "+getName()+" at "+dateFormat.format(finished)+"\n");
+				lastExecutionSuccessful=true;
+				System.out.println("Finished Cronjob: "+getDisplayedName()+" at "+DATE_FORMAT.format(finished)+"\n");
 				long msa=finished.getTime();
 				timeNeeded=msa-msb;
 				updateAverageTimeNeeded(timeNeeded);
@@ -94,14 +97,14 @@ class ObservedCronjob
 			catch (Exception e)
 			{
 				lastException=e;
-				fails++;				
+				fails++;
 				Date failedAt= new Date();
 				timeNeeded=failedAt.getTime()-msb;
-				System.out.println("Execution of Cronjob: "+getName()+" FAILED at "+dateFormat.format(failedAt)+" !!!");
+				System.out.println("Execution of Cronjob: "+getDisplayedName()+" FAILED at "+DATE_FORMAT.format(failedAt)+" !!!");
 				System.out.println("******************** CronjobException - START ********************");
 				e.printStackTrace();
-				System.out.println("******************** CronjobException - END ********************");
-				lastExecutionSuccessful=false;				
+				System.out.println("******************** CronjobException - END **********************");
+				lastExecutionSuccessful=false;
 			}
 			finally
 			{
@@ -110,11 +113,11 @@ class ObservedCronjob
 		}
 	}
 	
-	private void updateAverageTimeNeeded(long timeNeeded)
+	private void updateAverageTimeNeeded(final long timeNeeded)
 	{
 		if (successfulRuns==0)
 		{
-			averageTimeNeeded=timeNeeded;			
+			averageTimeNeeded=timeNeeded;
 		}
 		else
 		{
@@ -130,7 +133,7 @@ class ObservedCronjob
 			runNow=false;
 			return true;
 		}
-		boolean result=true;		
+		boolean result = true;
 		if (running)
 		{
 			result=false;
@@ -141,12 +144,12 @@ class ObservedCronjob
 		}
 		if (!activated)
 		{
-			return false;
+			result=false;
 		}
 		return result;
 	}
 	
-	private boolean isToday(Date date)
+	private boolean isToday(final Date date)
 	{
 		Calendar c = new GregorianCalendar();
 		c.getInstance();
@@ -154,51 +157,47 @@ class ObservedCronjob
 		c.set(Calendar.MINUTE,0);
 		c.set(Calendar.SECOND,0);
 		c.set(Calendar.MILLISECOND,0);
-		Date midnight=c.getTime();
+		Date lastMidnight=c.getTime();
 		c.add(Calendar.DATE,1);
-		Date nextMidnigt=c.getTime();
-		if (date.after(midnight) && nextMidnigt.after(date))
+		Date nextMidnight = c.getTime();
+		if (date.after(lastMidnight) && nextMidnight.after(date))
+		{
 			return true;
+		}
 		else
+		{
 			return false;
+		}
 	}
 	
-	boolean isRunning()	{return running;}
-	Cronjob getCronjob(){return cronjob;}
-	Date getLastTimeStarted(){return lastTimeStarted;}
 	String getLastTimeStartedAsString()
 	{
 		if (lastTimeStarted!=null)
 		{
 			if (isToday(lastTimeStarted))
-				return dateFormatOnlyHours.format(lastTimeStarted);	
+				return DATE_FORMAT_SIMPLE.format(lastTimeStarted);	
 			else
-				return dateFormat.format(lastTimeStarted);	
-		}			
+				return DATE_FORMAT.format(lastTimeStarted);	
+		}
 		else
+		{
 			return "x";
+		}
 	}
-	String getId(){	return id;	}
-	boolean wasLastExecutionSuccessful()	{return lastExecutionSuccessful;	}
-	void removeLastException(){lastException=null;}
-	boolean isActivated(){	return activated;	}
+	
 	void setActivated(boolean activated)
 	{
 		this.activated = activated;
-		System.out.println("Cronjob: "+cronjob.getName()+" was deactivated at "+dateFormat.format(new Date()));
+		System.out.println("Cronjob: "+getDisplayedName()+" was deactivated at "+DATE_FORMAT.format(new Date()));
 	}
-	long getAverageTimeNeeded(){ return averageTimeNeeded;}
-	long getTimeNeeded() {return timeNeeded;}
-	int getSuccessfulRuns(){return successfulRuns;}
-	int getNumberOfFails(){return fails;}
-	Exception getLastException(){return lastException;}
+	
 	void runNow()
-	{		
+	{
 		runNow=true;
 		runningThread.notifyWaiter();
 		try
 		{
-			Thread.sleep(100); //This for updating the running Parameter without risk
+			Thread.sleep(100); //This for updating the running Parameter
 		} 
 		catch (InterruptedException ex)
 		{
@@ -206,9 +205,23 @@ class ObservedCronjob
 		}
 	}
 	
+	String getId() {return id;	}
+	boolean wasLastExecutionSuccessful()	{return lastExecutionSuccessful;	}
+	void removeLastException(){lastException=null;}
+	boolean isActivated(){	return activated;	}
+	long getAverageTimeNeeded(){ return averageTimeNeeded;}
+	long getTimeNeeded() {return timeNeeded;}
+	int getSuccessfulRuns(){return successfulRuns;}
+	int getNumberOfFails(){return fails;}
+	Exception getLastException(){return lastException;}
+	boolean isRunning() {return running;}
+	int getMinutesBetweenTwoJobs() {return minutesBetweenTwoJobs;}
+	Date getLastTimeStarted() {return lastTimeStarted;}
+	
+	
 	class RunningThread extends Thread
 	{
-		private void doSomething()
+		private void doTheWork()
 		{
 			tryToExecute();
 		}
@@ -227,7 +240,7 @@ class ObservedCronjob
 		{
 			while (true)
 			{
-				doSomething();
+				doTheWork();
 				try
 				{
 					synchronized(WAITER)
@@ -237,7 +250,7 @@ class ObservedCronjob
 				}
 				catch (InterruptedException e)
 				{
-					throw new RuntimeException("unexpected interrupt");
+					throw new RuntimeException("nexpected interrupt");
 				}	
 			}
 		}

@@ -25,10 +25,10 @@ public class CronjobManager extends HttpServlet
 		
 	public void init() throws ServletException
 	{
-		final String STORE = "store";
-		idCounter=0;
 		super.init();
 		System.out.println("CronjobManager started....");
+		final String STORE = "store";
+		idCounter=0;
 		String storeName=getServletConfig().getInitParameter(STORE);
 		if (storeName==null)
 		{
@@ -70,13 +70,6 @@ public class CronjobManager extends HttpServlet
 		{
 			throw new ServletException("ERROR: Class "+storeClass+" must implement the CronjobStore-interface");
 		}		
-		
-	}
-	
-	private String getNewId()
-	{
-		idCounter++;
-		return "Chronjob_"+String.valueOf(idCounter);
 	}
 	
 	public void destroy()
@@ -86,13 +79,23 @@ public class CronjobManager extends HttpServlet
 			job.setActivated(false);
 		}
 	}
-		
-	protected final void doGet(final HttpServletRequest request,final HttpServletResponse response)	throws ServletException, IOException
+	
+	private String getNewId()
+	{
+		idCounter++;
+		return "cronjob_"+String.valueOf(idCounter);
+	}
+	
+	protected final void doGet(
+		final HttpServletRequest request,
+		final HttpServletResponse response)	throws ServletException, IOException
 	{
 		doRequest(request, response);
 	}
 
-	protected final void doPost(final HttpServletRequest request,final HttpServletResponse response) throws ServletException, IOException
+	protected final void doPost(
+		final HttpServletRequest request,
+		final HttpServletResponse response) throws ServletException, IOException
 	{
 		doRequest(request, response);
 	}
@@ -133,6 +136,7 @@ public class CronjobManager extends HttpServlet
 				{
 					job.setActivated(false);
 				}
+				else{}
 			}
 		}
 		
@@ -153,7 +157,7 @@ public class CronjobManager extends HttpServlet
 		
 		// Page-Content-Generation
 		PrintWriter out = response.getWriter();
-		String result="<html>\n<head>\n<title>Example</title>";
+		String result="<html>\n<head>\n<title>Cronjob Manager</title>";
 		uri=uri+"?"+AUTO_REFRESH+"="+(autoRefreshPage ? TRUE : FALSE);
 		if (autoRefreshPage)
 		{			
@@ -191,8 +195,8 @@ public class CronjobManager extends HttpServlet
 			result+="<tr>"+
 				"<td align=center><input type=submit name=\""+job.getId()+"\" value=\""+START_CRONJOB+"\"/></td>"+
 				"<td align=center><nobr>"+activate+" "+deactivate+"</nobr></td>"+
-				"<td align=center>"+job.getName()+"</td>"+
-				"<td align=center>"+String.valueOf(job.getCronjob().getMinutesBetweenTwoJobs())+"</td>"+
+				"<td align=center>"+job.getDisplayedName()+"</td>"+
+				"<td align=center>"+String.valueOf(job.getMinutesBetweenTwoJobs())+"</td>"+
 				"<td align=center>"+(job.isRunning() ? "since "+(new Date().getTime()-job.getLastTimeStarted().getTime()) : "no")+"</td>"+
 				"<td align=center style=\"font-weight:bold; color:"+((job.wasLastExecutionSuccessful()) ? "green" : "red")+"\">"+((job.wasLastExecutionSuccessful()) ? "OK" : "FAILED")+"</td>"+
 				"<td align=center><nobr>"+job.getLastTimeStartedAsString()+"</nobr></td>"+
@@ -209,7 +213,7 @@ public class CronjobManager extends HttpServlet
 			if (job.getLastException()!=null)
 			{
 				result+="<br><table width=100% cellpadding=0 cellspacing=0>";
-				result+="<tr><td><h3>Stacktrace of last exception occured on Cronjob: "+job.getName()+"&nbsp;&nbsp;" +
+				result+="<tr><td><h3>Stacktrace of last exception occured on Cronjob: "+job.getDisplayedName()+"&nbsp;&nbsp;" +
 					"<input type=submit name=\""+job.getId()+"\" value=\""+DELETE_LAST_EXCEPTION+"\"/></h3></td></tr>";
 				result+="<tr><td>"+job.getLastException().getMessage()+"</td></tr>";
 				elements = Arrays.asList(job.getLastException().getStackTrace());
