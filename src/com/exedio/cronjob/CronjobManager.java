@@ -235,7 +235,8 @@ public class CronjobManager extends HttpServlet
 		}
 		else
 		{
-			result+="<table><tr><td><h2>There are currently no cronjobs installed.</h2>"+
+			result+="<table width=100%><tr><td align=center>There are currently no cronjobs installed.</td></tr>"+
+				"<tr><td align=left>"+
 				"To install a new cronjob, just follow the instuctions below:<br>"+
 				"&nbsp;&nbsp;&nbsp;1. The cronjob-class has to implement the Chronjob-interface<br>"+
 				"&nbsp;&nbsp;&nbsp;2. The cronjob-class must be added to the method getAllCronjobs() in the class "+storeName +"<br>"+
