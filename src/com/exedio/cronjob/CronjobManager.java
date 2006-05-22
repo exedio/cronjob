@@ -22,6 +22,7 @@ public class CronjobManager extends HttpServlet
 	private final int DURATION_BETWEEN_CHECKS=2705;
 	private List<ObservedCronjob> observedCronjobs;
 	private int idCounter;
+	private String storeName;
 		
 	public void init() throws ServletException
 	{
@@ -29,7 +30,7 @@ public class CronjobManager extends HttpServlet
 		System.out.println("CronjobManager started....");
 		final String STORE = "store";
 		idCounter=0;
-		String storeName=getServletConfig().getInitParameter(STORE);
+		storeName=getServletConfig().getInitParameter(STORE);
 		if (storeName==null)
 		{
 			throw new ServletException("ERROR: Servlet-Init-Parameter: >> "+STORE+" << was expected but not found");
@@ -74,7 +75,7 @@ public class CronjobManager extends HttpServlet
 	
 	public void destroy()
 	{
-		System.out.println("CronjobManager shut down....");
+		System.out.println("CronjobManager terminates....");
 		for (final ObservedCronjob job :observedCronjobs)
 		{
 			job.setActivated(false);
@@ -89,7 +90,7 @@ public class CronjobManager extends HttpServlet
 	
 	private String getImplementationVersion()
 	{
-		String iv=CronjobManager.class.getPackage().getImplementationVersion();
+		String iv=CronjobManager.class.getPackage().getImplementationVersion();		
 		return iv==null ? "" : iv;
 	}
 	
@@ -234,10 +235,15 @@ public class CronjobManager extends HttpServlet
 		}
 		else
 		{
-			result+="<table><tr><td>There are currently no Cronjobs installed.</td></tr></table>";
+			result+="<table><tr><td><h2>There are currently no cronjobs installed.</h2>"+
+				"To install a new cronjob, just follow the instuctions below:<br>"+
+				"&nbsp;&nbsp;&nbsp;1. The cronjob-class has to implement the Chronjob-interface<br>"+
+				"&nbsp;&nbsp;&nbsp;2. The cronjob-class must be added to the method getAllCronjobs() in the class "+storeName +"<br>"+
+				"that's all !!!"+
+				"</td></tr></table>";
 		}
 		result+="<br><table width=100%><tr><td align=right style=\"font-size:12 \"><hr width=100%>"+
-			"exedio cronjob "+getImplementationVersion()+" &copy;  <a href=\"http://www.exedio.com\">exedio</a>" +
+			"exedio cronjob - "+getImplementationVersion()+" - &copy;  <a href=\"http://www.exedio.com\">exedio</a>" +
 			" - Gesellschaft f&uuml;r Softwareentwicklung mbH</td></tr></table>";
 		result+="</td></tr></table></form></body></html>";
 		out.println(result);

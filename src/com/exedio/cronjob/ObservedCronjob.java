@@ -28,13 +28,11 @@ class ObservedCronjob
 	private boolean runNow;
 	private int fails;
 	private RunningThread runningThread;
-	private int minutesBetweenTwoJobs;
 	
 	ObservedCronjob(final Cronjob cronjob, final String id)
 	{
 		this.id=id;
 		this.cronjob=cronjob;
-		minutesBetweenTwoJobs=cronjob.getMinutesBetweenTwoJobs();
 		running=false;
 		lastTimeStarted=null;
 		lastException=null;
@@ -215,7 +213,7 @@ class ObservedCronjob
 	int getNumberOfFails(){return fails;}
 	Exception getLastException(){return lastException;}
 	boolean isRunning() {return running;}
-	int getMinutesBetweenTwoJobs() {return minutesBetweenTwoJobs;}
+	int getMinutesBetweenTwoJobs() {return cronjob.getMinutesBetweenTwoJobs();}
 	Date getLastTimeStarted() {return lastTimeStarted;}
 	
 	
