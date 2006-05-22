@@ -84,7 +84,7 @@ class ObservedCronjob
 			System.out.println("\nStarting Cronjob: "+getDisplayedName()+" at "+DATE_FORMAT.format(lastTimeStarted));
 			try
 			{
-				cronjob.excecuteJob();
+				cronjob.executeJob();
 				Date finished =new Date();
 				lastExecutionSuccessful=true;
 				System.out.println("Finished Cronjob: "+getDisplayedName()+" at "+DATE_FORMAT.format(finished)+"\n");
