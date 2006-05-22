@@ -23,11 +23,12 @@ public class CronjobManager extends HttpServlet
 	private List<ObservedCronjob> observedCronjobs;
 	private int idCounter;
 	private String storeName;
+	private boolean active;
 		
 	public void init() throws ServletException
 	{
 		super.init();
-		System.out.println("CronjobManager started....");
+		System.out.println("CronjobManager is starting....");
 		final String STORE = "store";
 		idCounter=0;
 		storeName=getServletConfig().getInitParameter(STORE);
@@ -62,6 +63,7 @@ public class CronjobManager extends HttpServlet
 		{
 			store=(CronjobStore)o;
 			observedCronjobs = new ArrayList<ObservedCronjob>();
+			active=store.isActive();
 			if (store.isActive())
 			{
 				for (final Cronjob job: store.getAllCronjobs())
@@ -71,7 +73,7 @@ public class CronjobManager extends HttpServlet
 			}
 			else
 			{
-				System.out.println("No cronjobs will be executed, "+storeName+".isActive() returned false");
+				System.out.println("INFO: No cronjobs will be executed, "+storeName+".isActive() returned false");
 			}
 		}
 		else
@@ -242,14 +244,26 @@ public class CronjobManager extends HttpServlet
 		}
 		else
 		{
-			result+="<table width=100%>" +
-				"<tr><td align=center><b>There are currently no cronjobs installed.</b></td></tr>" +
-				"<tr><td>&nbsp;</td></tr>"+
-				"<tr><td align=left>"+
-				"To install a new cronjob, just follow the instuctions below:<br><br>"+
-				"&nbsp;&nbsp;&nbsp;1. The cronjob-class has to implement the Chronjob-interface<br>"+
-				"&nbsp;&nbsp;&nbsp;2. An instance of the cronjob-class must be added to the method getAllCronjobs() in the class:<b> "+storeName +"</b><br>"+
-				"</td></tr></table>";
+			result+="<table width=100%>";
+			if (active)
+			{
+				result+="<tr><td align=center><b>There are currently no cronjobs installed.</b></td></tr>"+
+					"<tr><td>&nbsp;</td></tr>"+
+					"<tr><td align=left>"+
+					"To install a new cronjob, just follow the instuctions below:<br><br>"+
+					"&nbsp;&nbsp;&nbsp;1. The cronjob-class has to implement the Chronjob-interface<br>"+
+					"&nbsp;&nbsp;&nbsp;2. An instance of the cronjob-class must be added to the method getAllCronjobs() in the class:<b> "+storeName +"</b><br>"+
+					"</td></tr>";
+			}
+			else
+			{
+				result+="<tr><td align=center><b>The cronjobs are not activated.</b></td></tr>"+
+					"<tr><td>&nbsp;</td></tr>"+
+					"<tr><td align=left>"+
+					"To activate the cronjobs, the class:<b> "+storeName +" has to return true in its isActive() method"+
+					"</td></tr>";
+			}
+			result+="</table>";
 		}
 		result+="<br><table width=100%><tr><td align=right style=\"font-size:12 \"><hr width=100%>"+
 			"exedio cronjob - "+getImplementationVersion()+" - &copy;  <a href=\"http://www.exedio.com\">exedio</a>" +
