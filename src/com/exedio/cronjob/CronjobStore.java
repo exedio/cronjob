@@ -9,4 +9,5 @@ public interface CronjobStore
 {
 	public List<Cronjob> getAllCronjobs();
 	public int getInitialDelayInMilliSeconds();
+	public boolean isActive();
 }

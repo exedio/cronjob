@@ -62,9 +62,16 @@ public class CronjobManager extends HttpServlet
 		{
 			store=(CronjobStore)o;
 			observedCronjobs = new ArrayList<ObservedCronjob>();
-			for (final Cronjob job: store.getAllCronjobs())
+			if (store.isActive())
 			{
-				observedCronjobs.add(new ObservedCronjob(job, getNewId(),store.getInitialDelayInMilliSeconds()));
+				for (final Cronjob job: store.getAllCronjobs())
+				{
+					observedCronjobs.add(new ObservedCronjob(job, getNewId(),store.getInitialDelayInMilliSeconds()));
+				}
+			}
+			else
+			{
+				System.out.println("No cronjobs will be executed, "+storeName+".isActive() returned false");
 			}
 		}
 		else
