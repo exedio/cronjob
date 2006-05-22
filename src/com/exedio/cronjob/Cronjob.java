@@ -8,4 +8,5 @@ public interface Cronjob
 	public void executeJob() throws Exception;
 	public int getMinutesBetweenTwoJobs();
 	public String getName();
+	public int getInitialDelayInMilliSeconds();	
 }

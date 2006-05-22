@@ -48,7 +48,7 @@ class ObservedCronjob
 		runningThread = new RunningThread();
 		runningThread.start();
 		createdAt=new Date();
-		this.initialDelayinMS=initialDelayInMS;
+		this.initialDelayinMS=initialDelayInMS+cronjob.getInitialDelayInMilliSeconds();
 	}
 	
 	private boolean timeForExcecution()
