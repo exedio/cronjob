@@ -25,22 +25,22 @@
 			<fileset dir="${src.dir}">
 				<exclude name="**/*.java" />
 			</fileset>
-  		</copy>
+		</copy>
 	</target>
 
 	<target name="jar" depends="compile">
-        <mkdir dir="${dist.dir}"/>
-        <jar destfile="${dist.dir}/exedio-cronjob.jar" basedir="${classes.dir}">
-           <manifest>
-					<attribute name="Specification-Title" value="exedio cronjob" />
-					<attribute name="Specification-Version" value="${build.tag}" />
-					<attribute name="Specification-Vendor" value="exedio GmbH" />
-					<attribute name="Implementation-Title" value="exedio cronjob" />
-					<attribute name="Implementation-Version" value="${build.tag}" />
-					<attribute name="Implementation-Vendor" value="exedio GmbH" />
+		<mkdir dir="${dist.dir}"/>
+		<jar destfile="${dist.dir}/exedio-cronjob.jar" basedir="${classes.dir}">
+			<manifest>
+				<attribute name="Specification-Title" value="exedio cronjob" />
+				<attribute name="Specification-Version" value="${build.tag}" />
+				<attribute name="Specification-Vendor" value="exedio GmbH" />
+				<attribute name="Implementation-Title" value="exedio cronjob" />
+				<attribute name="Implementation-Version" value="${build.tag}" />
+				<attribute name="Implementation-Vendor" value="exedio GmbH" />
 			</manifest>
-        </jar>
-    </target>
+		</jar>
+	</target>
 
   	<target name="clean">
 		<delete dir="${build.dir}" />
@@ -84,7 +84,7 @@
 		<copy todir="${cruise.dir}">
 			<fileset dir="${dist.dir}">
 			</fileset>
-  		</copy>
+		</copy>
 	</target>
 
 </project>
