@@ -66,7 +66,7 @@
 		</exec>
 		<echo message="finished subversion version" />
 		<LoadFile srcFile="${cruise.dir}/svn-version.log" property="svn.revision" />
-		<property name="build.tag" value="svn.${svn.revision} ${label} ${cvstimestamp}" />
+		<property name="build.tag" value="svn.${svn.revision} ${label} ${cctimestamp}" />
 		<echo message="${build.tag}" file="${cruise.dir}/build-tag.log" />
 	</target>
 
