@@ -178,6 +178,7 @@ public class CronjobManager extends HttpServlet
 		}
 		
 		// Page-Content-Generation
+		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = response.getWriter();
 		String result="<html>\n<head>\n<title>Cronjob Manager</title>";
 		uri=uri+"?"+AUTO_REFRESH+"="+(autoRefreshPage ? TRUE : FALSE);
