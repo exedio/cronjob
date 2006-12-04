@@ -26,6 +26,7 @@ public class CronjobManager extends HttpServlet
 	private String storeName;
 	private boolean active;
 		
+	@Override
 	public void init() throws ServletException
 	{
 		super.init();
@@ -83,6 +84,7 @@ public class CronjobManager extends HttpServlet
 		}		
 	}
 	
+	@Override
 	public void destroy()
 	{
 		System.out.println("CronjobManager terminates....");
@@ -104,6 +106,7 @@ public class CronjobManager extends HttpServlet
 		return iv==null ? "" : iv;
 	}
 	
+	@Override
 	protected final void doGet(
 		final HttpServletRequest request,
 		final HttpServletResponse response)	throws ServletException, IOException
@@ -111,6 +114,7 @@ public class CronjobManager extends HttpServlet
 		doRequest(request, response);
 	}
 
+	@Override
 	protected final void doPost(
 		final HttpServletRequest request,
 		final HttpServletResponse response) throws ServletException, IOException
