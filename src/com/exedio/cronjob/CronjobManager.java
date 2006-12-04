@@ -158,7 +158,7 @@ public class CronjobManager extends HttpServlet
 				{
 					job.setActivated(false);
 				}
-				else{}
+				else{/* NOTHING */}
 			}
 		}
 		
