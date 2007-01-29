@@ -30,7 +30,7 @@ public class CronjobManager extends HttpServlet
 	public void init() throws ServletException
 	{
 		super.init();
-		System.out.println("CronjobManager is starting....");
+		System.out.println("CronjobManager is starting ... (" + System.identityHashCode(this) + ')');
 		final String STORE = "store";
 		idCounter=0;
 		storeName=getServletConfig().getInitParameter(STORE);
@@ -82,16 +82,18 @@ public class CronjobManager extends HttpServlet
 		{
 			throw new ServletException("ERROR: Class "+storeClass+" must implement the CronjobStore-interface");
 		}		
+		System.out.println("CronjobManager is started. (" + System.identityHashCode(this) + ')');
 	}
 	
 	@Override
 	public void destroy()
 	{
-		System.out.println("CronjobManager terminates....");
+		System.out.println("CronjobManager is terminating ... (" + System.identityHashCode(this) + ')');
 		for (final ObservedCronjob job :observedCronjobs)
 		{
 			job.setActivated(false);
 		}
+		System.out.println("CronjobManager is terminated. (" + System.identityHashCode(this) + ')');
 	}
 	
 	private String getNewId()
@@ -273,7 +275,7 @@ public class CronjobManager extends HttpServlet
 		}
 		result+="<br><table width=100%><tr><td align=right style=\"font-size:12 \"><hr width=100%>"+
 			"exedio cronjob - "+getImplementationVersion()+" - &copy;  <a href=\"http://www.exedio.com\">exedio</a>" +
-			" - Gesellschaft f&uuml;r Softwareentwicklung mbH</td></tr></table>";
+			" - Gesellschaft f&uuml;r Softwareentwicklung mbH (" + System.identityHashCode(this) + ")</td></tr></table>";
 		result+="</td></tr></table></form></body></html>";
 		out.println(result);
 		out.close();
