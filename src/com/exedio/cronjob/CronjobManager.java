@@ -45,7 +45,7 @@ public class CronjobManager extends HttpServlet
 		}
 		catch (ClassNotFoundException e)
 		{
-			throw new ServletException("ERROR: A class with name: "+storeName+" was not found");
+			throw new ServletException("ERROR: A class with name: "+storeName+" was not found", e);
 		}
 		Object o=null;
 		try
@@ -54,11 +54,11 @@ public class CronjobManager extends HttpServlet
 		}
 		catch(InstantiationException e)
 		{
-			throw new ServletException("ERROR: Class "+storeClass+" could not be instantiated (must not be abstract or an interface)");
+			throw new ServletException("ERROR: Class "+storeClass+" could not be instantiated (must not be abstract or an interface)", e);
 		}
 		catch(IllegalAccessException e)
 		{
-			throw new ServletException("ERROR: Class "+storeClass+" or its null-constructor could not be accessed ");
+			throw new ServletException("ERROR: Class "+storeClass+" or its null-constructor could not be accessed ", e);
 		}		
 		CronjobStore store = null;		
 		if (o instanceof CronjobStore)
