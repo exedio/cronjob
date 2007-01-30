@@ -6,10 +6,14 @@ package com.exedio.cronjob;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -38,7 +42,8 @@ public class CronjobManager extends HttpServlet
 		{
 			throw new ServletException("ERROR: Servlet-Init-Parameter: >> "+STORE+" << was expected but not found");
 		}
-		Class storeClass=null;
+
+		final Class storeClass;
 		try
 		{
 			storeClass = Class.forName(storeName);
@@ -47,10 +52,25 @@ public class CronjobManager extends HttpServlet
 		{
 			throw new ServletException("ERROR: A class with name: "+storeName+" was not found", e);
 		}
-		Object o=null;
+
+		final Constructor storeConstructor;
 		try
 		{
-			o = storeClass.newInstance();
+			storeConstructor = storeClass.getConstructor(ServletContext.class);
+		}
+		catch(NoSuchMethodException e)
+		{
+			throw new ServletException("ERROR: Class "+storeClass+" has no suitable constructor", e);
+		}
+		
+		final Object o;
+		try
+		{
+			o = storeConstructor.newInstance(getServletContext());
+		}
+		catch(InvocationTargetException e)
+		{
+			throw new ServletException("ERROR: Class "+storeClass+" constructor throw exception", e);
 		}
 		catch(InstantiationException e)
 		{
