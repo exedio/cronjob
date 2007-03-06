@@ -42,7 +42,7 @@ public class CronjobManager extends HttpServlet
 			storeName=getServletConfig().getInitParameter(STORE);
 			if (storeName==null)
 			{
-				throw new ServletException("ERROR: Servlet-Init-Parameter: >> "+STORE+" << was expected but not found");
+				throw new RuntimeException("ERROR: Servlet-Init-Parameter: >> "+STORE+" << was expected but not found");
 			}
 	
 			final Class storeClass;
@@ -52,7 +52,7 @@ public class CronjobManager extends HttpServlet
 			}
 			catch (ClassNotFoundException e)
 			{
-				throw new ServletException("ERROR: A class with name: "+storeName+" was not found", e);
+				throw new RuntimeException("ERROR: A class with name: "+storeName+" was not found", e);
 			}
 	
 			final Constructor storeConstructor;
@@ -62,7 +62,7 @@ public class CronjobManager extends HttpServlet
 			}
 			catch(NoSuchMethodException e)
 			{
-				throw new ServletException("ERROR: Class "+storeClass+" has no suitable constructor", e);
+				throw new RuntimeException("ERROR: Class "+storeClass+" has no suitable constructor", e);
 			}
 			
 			final Object o;
@@ -72,15 +72,15 @@ public class CronjobManager extends HttpServlet
 			}
 			catch(InvocationTargetException e)
 			{
-				throw new ServletException("ERROR: Class "+storeClass+" constructor throw exception", e);
+				throw new RuntimeException("ERROR: Class "+storeClass+" constructor throw exception", e);
 			}
 			catch(InstantiationException e)
 			{
-				throw new ServletException("ERROR: Class "+storeClass+" could not be instantiated (must not be abstract or an interface)", e);
+				throw new RuntimeException("ERROR: Class "+storeClass+" could not be instantiated (must not be abstract or an interface)", e);
 			}
 			catch(IllegalAccessException e)
 			{
-				throw new ServletException("ERROR: Class "+storeClass+" or its null-constructor could not be accessed ", e);
+				throw new RuntimeException("ERROR: Class "+storeClass+" or its null-constructor could not be accessed ", e);
 			}		
 			CronjobStore store = null;		
 			if (o instanceof CronjobStore)
@@ -102,20 +102,13 @@ public class CronjobManager extends HttpServlet
 			}
 			else
 			{
-				throw new ServletException("ERROR: Class "+storeClass+" must implement the CronjobStore-interface");
+				throw new RuntimeException("ERROR: Class "+storeClass+" must implement the CronjobStore-interface");
 			}		
 		}
 		catch(RuntimeException e)
 		{
 			// tomcat does not print stack trace or exception message, so we do
 			System.err.println("RuntimeException in CronjobManager.init");
-			e.printStackTrace();
-			throw e;
-		}
-		catch(ServletException e)
-		{
-			// tomcat does not print stack trace or exception message, so we do
-			System.err.println("ServletException in CronjobManager.init");
 			e.printStackTrace();
 			throw e;
 		}
