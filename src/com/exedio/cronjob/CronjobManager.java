@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.ServletContext;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -58,7 +58,7 @@ public class CronjobManager extends HttpServlet
 			final Constructor storeConstructor;
 			try
 			{
-				storeConstructor = storeClass.getConstructor(ServletContext.class);
+				storeConstructor = storeClass.getConstructor(ServletConfig.class);
 			}
 			catch(NoSuchMethodException e)
 			{
@@ -68,7 +68,7 @@ public class CronjobManager extends HttpServlet
 			final Object o;
 			try
 			{
-				o = storeConstructor.newInstance(getServletContext());
+				o = storeConstructor.newInstance(getServletConfig());
 			}
 			catch(InvocationTargetException e)
 			{
