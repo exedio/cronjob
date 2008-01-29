@@ -40,13 +40,22 @@
 		</jar>
 	</target>
 
+	<target name="jar.src">
+		<mkdir dir="${build.dir}" />
+		<zip destfile="${build.dir}/exedio-cronjob.jar-src.zip">
+			<zipfileset dir="${basedir}/src">
+				<include name="**/*.java" />
+			</zipfileset>
+		</zip>
+	</target>
+	
 	<target name="clean">
 		<delete dir="${build.dir}" />
 	</target>
 
 	<target name="build" depends="compile, jar" />
 
-	<target name="all" depends="build" />
+	<target name="all" depends="build, jar.src" />
 
 	<taskdef name="LoadFile" classname="org.apache.tools.ant.taskdefs.LoadFile" />
 
@@ -79,6 +88,7 @@
 		<antcall target="clean" />
 		<antcall target="all" />
 		<copy file="${build.dir}/exedio-cronjob.jar" todir="${cruise.dir}" />
+		<copy file="${build.dir}/exedio-cronjob.jar-src.zip" todir="${cruise.dir}" />
 	</target>
 
 </project>
