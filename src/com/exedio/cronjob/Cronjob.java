@@ -6,8 +6,8 @@ package com.exedio.cronjob;
 
 public interface Cronjob
 {
-	public void executeJob() throws Exception;
-	public int getMinutesBetweenTwoJobs();
-	public String getName();
-	public int getInitialDelayInMilliSeconds();	
+	void executeJob() throws Exception;
+	int getMinutesBetweenTwoJobs();
+	String getName();
+	int getInitialDelayInMilliSeconds();	
 }
