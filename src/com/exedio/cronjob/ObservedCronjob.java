@@ -10,7 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-class ObservedCronjob
+final class ObservedCronjob
 {
 	private final int DURATION_BETWEEN_CHECKS=2705;
 	private final DateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy - HH:mm:ss");
@@ -32,6 +32,9 @@ class ObservedCronjob
 	private Date createdAt;
 	private int initialDelayinMS;
 	
+	/**
+	 * After construction use #startThread() to start running of the job.
+	 */
 	ObservedCronjob(final Cronjob cronjob, final String id, final int initialDelayInMS)
 	{
 		this.id=id;
@@ -46,8 +49,6 @@ class ObservedCronjob
 		timeNeeded=0;
 		fails=0;
 		runNow=false;
-		runningThread = new RunningThread();
-		runningThread.start();
 		createdAt=new Date();
 		this.initialDelayinMS=initialDelayInMS+cronjob.getInitialDelayInMilliSeconds();
 	}
@@ -224,6 +225,11 @@ class ObservedCronjob
 	int getMinutesBetweenTwoJobs() {return cronjob.getMinutesBetweenTwoJobs();}
 	Date getLastTimeStarted() {return lastTimeStarted;}
 	
+	void startThread()
+	{
+		runningThread = new RunningThread();
+		runningThread.start();
+	}
 	
 	class RunningThread extends Thread
 	{

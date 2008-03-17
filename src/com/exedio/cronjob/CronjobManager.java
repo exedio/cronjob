@@ -92,7 +92,9 @@ public class CronjobManager extends HttpServlet
 				{
 					for (final Cronjob job: store.getAllCronjobs())
 					{
-						observedCronjobs.add(new ObservedCronjob(job, getNewId(),store.getInitialDelayInMilliSeconds()));
+						ObservedCronjob observedCronjob = new ObservedCronjob(job, getNewId(),store.getInitialDelayInMilliSeconds());
+						observedCronjobs.add(observedCronjob);
+						observedCronjob.startThread();
 					}
 				}
 				else
