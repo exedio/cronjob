@@ -327,7 +327,7 @@ public class CronjobManager extends HttpServlet
 			result+="</table>";
 		}
 		result+="<br><table width=100%><tr><td align=right style=\"font-size:12 \"><hr width=100%>"+
-			"exedio cronjob - "+getImplementationVersion()+" - &copy;  <a href=\"http://www.exedio.com\">exedio</a>" +
+			"exedio cronjob - "+getImplementationVersion()+" - &copy;  <a href=\"http://www.exedio.com/\">exedio</a>" +
 			" - Gesellschaft f&uuml;r Softwareentwicklung mbH (" + System.identityHashCode(this) + ")</td></tr></table>";
 		result+="</td></tr></table></form></body></html>";
 		out.println(result);
