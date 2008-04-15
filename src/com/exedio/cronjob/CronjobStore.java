@@ -22,7 +22,7 @@ import java.util.List;
 
 public interface CronjobStore
 {
-	List<Cronjob> getAllCronjobs();
+	List<? extends Cronjob> getAllCronjobs();
 	int getInitialDelayInMilliSeconds();
 	boolean isActive();
 }
