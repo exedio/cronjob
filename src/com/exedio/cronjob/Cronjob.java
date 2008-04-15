@@ -20,8 +20,8 @@ package com.exedio.cronjob;
 
 public interface Cronjob
 {
+	String getName();
 	void executeJob() throws Exception;
 	int getMinutesBetweenTwoJobs();
-	String getName();
 	int getInitialDelayInMilliSeconds();	
 }
