@@ -95,7 +95,7 @@ final class ObservedCronjob
 	
 	private void tryToExecute()
 	{
-		if (canExecuteChronjob())
+		if (canExecuteJob())
 		{
 			running=true;
 			lastTimeStarted=new Date();
@@ -143,7 +143,7 @@ final class ObservedCronjob
 		successfulRuns++;
 	}
 	
-	private boolean canExecuteChronjob()
+	private boolean canExecuteJob()
 	{
 		if (runNow && !running)
 		{
