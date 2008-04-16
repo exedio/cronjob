@@ -102,7 +102,7 @@ public class CronjobManager extends HttpServlet
 				active=store.isActive();
 				if (store.isActive())
 				{
-					for (final Job job: store.getAllCronjobs())
+					for (final Job job: store.getJobs())
 					{
 						ObservedCronjob observedCronjob = new ObservedCronjob(job, getNewId(),store.getInitialDelayInMilliSeconds());
 						observedCronjobs.add(observedCronjob);
@@ -311,7 +311,7 @@ public class CronjobManager extends HttpServlet
 					"<tr><td align=left>"+
 					"To install a new cronjob, just follow the instuctions below:<br><br>"+
 					"&nbsp;&nbsp;&nbsp;1. The cronjob-class has to implement the Cronjob-interface<br>"+
-					"&nbsp;&nbsp;&nbsp;2. An instance of the cronjob-class must be added to the method getAllCronjobs() in the class:<b> "+storeName +"</b><br>"+
+					"&nbsp;&nbsp;&nbsp;2. An instance of the cronjob-class must be added to the method getJobs() in the class:<b> "+storeName +"</b><br>"+
 					"</td></tr>";
 			}
 			else
