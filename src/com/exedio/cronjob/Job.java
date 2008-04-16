@@ -18,7 +18,7 @@
 
 package com.exedio.cronjob;
 
-public interface Cronjob
+public interface Job
 {
 	String getName();
 	void executeJob() throws Exception;

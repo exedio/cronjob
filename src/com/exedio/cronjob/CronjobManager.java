@@ -37,7 +37,7 @@ public class CronjobManager extends HttpServlet
 {
 	private static final long serialVersionUID =100000000000001L;
 	
-	private List<Cronjob> allCronjobs;
+	private List<Job> allCronjobs;
 	private final int DURATION_BETWEEN_CHECKS=2705;
 	private List<ObservedCronjob> observedCronjobs;
 	private int idCounter;
@@ -104,7 +104,7 @@ public class CronjobManager extends HttpServlet
 				active=store.isActive();
 				if (store.isActive())
 				{
-					for (final Cronjob job: store.getAllCronjobs())
+					for (final Job job: store.getAllCronjobs())
 					{
 						ObservedCronjob observedCronjob = new ObservedCronjob(job, getNewId(),store.getInitialDelayInMilliSeconds());
 						observedCronjobs.add(observedCronjob);

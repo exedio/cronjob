@@ -31,7 +31,7 @@ final class ObservedCronjob
 	private final DateFormat DATE_FORMAT_SIMPLE = new SimpleDateFormat("HH:mm:ss");
 	
 	private String id=null;
-	private Cronjob cronjob;
+	private Job cronjob;
 	private boolean running;
 	private Date lastTimeStarted;
 	private Exception lastException;
@@ -49,7 +49,7 @@ final class ObservedCronjob
 	/**
 	 * After construction use #startThread() to start running of the job.
 	 */
-	ObservedCronjob(final Cronjob cronjob, final String id, final int initialDelayInMS)
+	ObservedCronjob(final Job cronjob, final String id, final int initialDelayInMS)
 	{
 		this.id=id;
 		this.cronjob=cronjob;
