@@ -31,7 +31,7 @@ final class ObservedCronjob
 	private final DateFormat DATE_FORMAT_SIMPLE = new SimpleDateFormat("HH:mm:ss");
 	
 	private String id=null;
-	private Job cronjob;
+	private Job job;
 	private boolean running;
 	private Date lastTimeStarted;
 	private Exception lastException;
@@ -49,10 +49,10 @@ final class ObservedCronjob
 	/**
 	 * After construction use #startThread() to start running of the job.
 	 */
-	ObservedCronjob(final Job cronjob, final String id, final int initialDelayInMS)
+	ObservedCronjob(final Job job, final String id, final int initialDelayInMS)
 	{
 		this.id=id;
-		this.cronjob=cronjob;
+		this.job=job;
 		running=false;
 		lastTimeStarted=null;
 		lastException=null;
@@ -64,7 +64,7 @@ final class ObservedCronjob
 		fails=0;
 		runNow=false;
 		createdAt=new Date();
-		this.initialDelayinMS=initialDelayInMS+cronjob.getInitialDelayInMilliSeconds();
+		this.initialDelayinMS=initialDelayInMS+job.getInitialDelayInMilliSeconds();
 	}
 	
 	private boolean timeForExcecution()
@@ -77,7 +77,7 @@ final class ObservedCronjob
 		{
 			Long last = lastTimeStarted.getTime();
 			Long now = new Date().getTime();
-			if ((now-last)>=(cronjob.getMinutesBetweenTwoJobs()*1000*60))
+			if ((now-last)>=(job.getMinutesBetweenTwoJobs()*1000*60))
 			{
 				return true;
 			}
@@ -90,7 +90,7 @@ final class ObservedCronjob
 	
 	String getDisplayedName()
 	{
-		return cronjob.getClass().getName()+((cronjob.getName()!=null) ? " ("+cronjob.getName()+")" : " (name not specified)");
+		return job.getClass().getName()+((job.getName()!=null) ? " ("+job.getName()+")" : " (name not specified)");
 	}
 	
 	private void tryToExecute()
@@ -103,7 +103,7 @@ final class ObservedCronjob
 			System.out.println("\nStarting Cronjob: "+getDisplayedName()+" at "+DATE_FORMAT.format(lastTimeStarted));
 			try
 			{
-				cronjob.executeJob();
+				job.executeJob();
 				Date finished =new Date();
 				lastExecutionSuccessful=true;
 				System.out.println("Finished Cronjob: "+getDisplayedName()+" at "+DATE_FORMAT.format(finished)+"\n");
@@ -236,7 +236,7 @@ final class ObservedCronjob
 	int getNumberOfFails(){return fails;}
 	Exception getLastException(){return lastException;}
 	boolean isRunning() {return running;}
-	int getMinutesBetweenTwoJobs() {return cronjob.getMinutesBetweenTwoJobs();}
+	int getMinutesBetweenTwoJobs() {return job.getMinutesBetweenTwoJobs();}
 	Date getLastTimeStarted() {return lastTimeStarted;}
 	
 	void startThread()
