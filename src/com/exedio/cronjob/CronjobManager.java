@@ -272,7 +272,7 @@ public class CronjobManager extends HttpServlet
 					"<td align=center><input type=submit name=\""+job.getId()+"\" value=\""+START_CRONJOB+"\"/></td>"+
 					"<td align=center><nobr>"+activate+" "+deactivate+"</nobr></td>"+
 					"<td align=center>"+job.getDisplayedName()+"</td>"+
-					"<td align=center>"+String.valueOf(job.getMinutesBetweenTwoJobs())+"</td>"+
+					"<td align=center>"+String.valueOf(job.getMinutesBetweenExecutions())+"</td>"+
 					"<td align=center>"+(job.isRunning() ? "since "+(new Date().getTime()-job.getLastTimeStarted().getTime())+" ms" : "no")+"</td>"+
 					"<td align=center style=\"font-weight:bold; color:"+((job.wasLastExecutionSuccessful()) ? "green" : "red")+"\">"+((job.wasLastExecutionSuccessful()) ? "OK" : "FAILED")+"</td>"+
 					"<td align=center><nobr>"+job.getLastTimeStartedAsString()+"</nobr></td>"+

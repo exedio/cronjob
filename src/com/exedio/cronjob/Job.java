@@ -22,6 +22,6 @@ public interface Job
 {
 	String getName();
 	void execute() throws Exception;
-	int getMinutesBetweenTwoJobs();
+	int getMinutesBetweenExecutions();
 	int getInitialDelayInMilliSeconds();	
 }

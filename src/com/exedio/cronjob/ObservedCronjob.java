@@ -77,7 +77,7 @@ final class ObservedCronjob
 		{
 			Long last = lastTimeStarted.getTime();
 			Long now = new Date().getTime();
-			if ((now-last)>=(job.getMinutesBetweenTwoJobs()*1000*60))
+			if ((now-last)>=(job.getMinutesBetweenExecutions()*1000*60))
 			{
 				return true;
 			}
@@ -236,7 +236,7 @@ final class ObservedCronjob
 	int getNumberOfFails(){return fails;}
 	Exception getLastException(){return lastException;}
 	boolean isRunning() {return running;}
-	int getMinutesBetweenTwoJobs() {return job.getMinutesBetweenTwoJobs();}
+	int getMinutesBetweenExecutions() {return job.getMinutesBetweenExecutions();}
 	Date getLastTimeStarted() {return lastTimeStarted;}
 	
 	void startThread()
