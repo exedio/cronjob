@@ -37,8 +37,6 @@ public class CronjobManager extends HttpServlet
 {
 	private static final long serialVersionUID =100000000000001L;
 	
-	private List<Job> allCronjobs;
-	private final int DURATION_BETWEEN_CHECKS=2705;
 	private List<ObservedCronjob> observedCronjobs;
 	private int idCounter;
 	private String storeName;
