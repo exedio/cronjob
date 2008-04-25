@@ -23,6 +23,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 final class ObservedCronjob
 {
@@ -245,8 +247,31 @@ final class ObservedCronjob
 		runningThread.start();
 	}
 	
+	void stopThread()
+	{
+		if (runningThread!=null)
+		{
+			try
+			{
+				System.out.println("waiting for job:"+job.getName()+" to terminate");
+				runningThread.stopRunning();
+				if (runningThread.isAlive())
+				{
+					runningThread.notifyWaiter();
+				}
+				runningThread.join();
+				System.out.println("job:"+job.getName()+" terminated");
+			}
+			catch (InterruptedException ex)
+			{
+				Logger.getLogger(ObservedCronjob.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+	}
+	
 	class RunningThread extends Thread
 	{
+		private boolean doRun = true;
 		private void doTheWork()
 		{
 			tryToExecute();
@@ -262,10 +287,15 @@ final class ObservedCronjob
 		
 		private final Object WAITER = new Object();
 		
+		void stopRunning()
+		{
+			doRun = false;
+		}
+		
 		@Override
 		public void run()
 		{
-			while (true)
+			while (doRun)
 			{
 				doTheWork();
 				try
@@ -277,7 +307,7 @@ final class ObservedCronjob
 				}
 				catch (InterruptedException e)
 				{
-					throw new RuntimeException("nexpected interrupt");
+					throw new RuntimeException(e);
 				}	
 			}
 		}

@@ -143,6 +143,7 @@ public class CronjobManager extends HttpServlet
 		for (final ObservedCronjob job :observedCronjobs)
 		{
 			job.setActivated(false);
+			job.stopThread();
 		}
 		System.out.println("CronjobManager is terminated. (" + System.identityHashCode(this) + ')');
 	}
