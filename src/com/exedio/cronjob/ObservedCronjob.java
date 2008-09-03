@@ -102,13 +102,13 @@ final class ObservedCronjob
 			running=true;
 			lastTimeStarted=new Date();
 			long msb=lastTimeStarted.getTime();
-			System.out.println("\nStarting Cronjob: "+getDisplayedName()+" at "+DATE_FORMAT.format(lastTimeStarted));
+			//System.out.println("\nStarting Cronjob: "+getDisplayedName()+" at "+DATE_FORMAT.format(lastTimeStarted));
 			try
 			{
 				job.execute();
 				Date finished =new Date();
 				lastExecutionSuccessful=true;
-				System.out.println("Finished Cronjob: "+getDisplayedName()+" at "+DATE_FORMAT.format(finished)+"\n");
+				//System.out.println("Finished Cronjob: "+getDisplayedName()+" at "+DATE_FORMAT.format(finished)+"\n");
 				long msa=finished.getTime();
 				timeNeeded=msa-msb;
 				updateAverageTimeNeeded(timeNeeded);
