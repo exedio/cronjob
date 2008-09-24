@@ -1,0 +1,14 @@
+* test environment on a tomcat with several typical example tasks:
+	+ a task taking a long time
+	+ a task taking a short time
+	+ a task that fails always
+* a button to activate/deactivate all jobs
+* a public method for deactivate/activating all jobs
+	The deactivation method must wait until the all cronjobs are finished.
+	So this must be the same functionality as destroy()
+* careful evaluation, that no threads are losts
+* careful evaluation, that after destroy has been called, no
+	new cronjob can start
+* use jspm for the frontend
+* facility, to advice a cronjob, that it should terminate as soon as possible
+	so destroy() returns faster.
