@@ -57,7 +57,7 @@ public class CronjobManager extends HttpServlet
 				throw new RuntimeException("ERROR: Servlet-Init-Parameter: >> "+STORE+" << was expected but not found");
 			}
 	
-			final Class storeClass;
+			final Class<?> storeClass;
 			try
 			{
 				storeClass = Class.forName(storeName);
@@ -67,7 +67,7 @@ public class CronjobManager extends HttpServlet
 				throw new RuntimeException("ERROR: A class with name: "+storeName+" was not found", e);
 			}
 	
-			final Constructor storeConstructor;
+			final Constructor<?> storeConstructor;
 			try
 			{
 				storeConstructor = storeClass.getConstructor(ServletConfig.class);
