@@ -12,3 +12,4 @@
 * use jspm for the frontend
 * facility, to advice a cronjob, that it should terminate as soon as possible
 	so destroy() returns faster.
+* send email on failure
