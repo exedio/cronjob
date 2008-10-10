@@ -3,6 +3,7 @@
 	+ a task taking a short time
 	+ a task that fails always
 * a button to activate/deactivate all jobs
+* use GET-after-POST for all actions
 * a public method for deactivate/activating all jobs
 	The deactivation method must wait until the all cronjobs are finished.
 	So this must be the same functionality as destroy()
