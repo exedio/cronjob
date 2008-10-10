@@ -38,7 +38,6 @@ public class CronjobManager extends HttpServlet
 	private static final long serialVersionUID =100000000000001L;
 	
 	private List<ObservedCronjob> observedCronjobs;
-	private int idCounter;
 	private String storeName;
 	private boolean active;
 		
@@ -50,7 +49,6 @@ public class CronjobManager extends HttpServlet
 		{
 			System.out.println("CronjobManager is starting ... (" + System.identityHashCode(this) + ')');
 			final String STORE = "store";
-			idCounter=0;
 			storeName=getServletConfig().getInitParameter(STORE);
 			if (storeName==null)
 			{
@@ -102,9 +100,10 @@ public class CronjobManager extends HttpServlet
 				active=store.isActive();
 				if (store.isActive())
 				{
+					int idCounter = 1;
 					for (final Job job: store.getJobs())
 					{
-						ObservedCronjob observedCronjob = new ObservedCronjob(job, getNewId(),store.getInitialDelayInMilliSeconds());
+						ObservedCronjob observedCronjob = new ObservedCronjob(job, idCounter++, store.getInitialDelayInMilliSeconds());
 						observedCronjobs.add(observedCronjob);
 						observedCronjob.startThread();
 					}
@@ -149,12 +148,6 @@ public class CronjobManager extends HttpServlet
 			job.stopThread();
 		}
 		System.out.println("CronjobManager is terminated. (" + System.identityHashCode(this) + ')');
-	}
-	
-	private String getNewId()
-	{
-		idCounter++;
-		return "cronjob_"+String.valueOf(idCounter);
 	}
 	
 	private String getImplementationVersion()

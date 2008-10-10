@@ -52,9 +52,9 @@ final class ObservedCronjob
 	/**
 	 * After construction use #startThread() to start running of the job.
 	 */
-	ObservedCronjob(final Job job, final String id, final int initialDelayInMS)
+	ObservedCronjob(final Job job, final int id, final int initialDelayInMS)
 	{
-		this.id=id;
+		this.id = "cronjob_"+String.valueOf(id);
 		this.job=job;
 		this.jobName = job.getName();
 		running=false;
