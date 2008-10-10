@@ -18,36 +18,16 @@
 
 package com.exedio.cronjob.example;
 
-import java.util.Arrays;
-import java.util.List;
-
-import javax.servlet.ServletConfig;
-
-import com.exedio.cronjob.CronjobStore;
-import com.exedio.cronjob.Job;
-
-public class ExampleStore implements CronjobStore
+public class NullNameJob extends AbstractJob
 {
-	public ExampleStore(final ServletConfig config)
+	NullNameJob()
 	{
-		System.out.println("ExampleStore constructor");
-	}
-	
-	public List<? extends Job> getJobs()
-	{
-		System.out.println("ExampleStore.getJobs");
-		return Arrays.asList(new NormalJob(1), new NormalJob(2), new NormalJob(3), new NormalJob(4), new NullNameJob());
+		super("NullNameJob");
 	}
 
-	public int getInitialDelayInMilliSeconds()
+	@Override
+	public String getName()
 	{
-		System.out.println("ExampleStore.getInitialDelayInMilliSeconds");
-		return 1000;
-	}
-
-	public boolean isActive()
-	{
-		System.out.println("ExampleStore.isActive");
-		return true;
+		return null;
 	}
 }
