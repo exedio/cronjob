@@ -18,7 +18,7 @@
 
 package com.exedio.cronjob.example;
 
-public class NullNameJob extends AbstractJob
+final class NullNameJob extends AbstractJob
 {
 	NullNameJob()
 	{

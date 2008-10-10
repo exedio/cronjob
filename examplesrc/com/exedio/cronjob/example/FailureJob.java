@@ -20,7 +20,7 @@ package com.exedio.cronjob.example;
 
 import com.exedio.cronjob.Interrupter;
 
-public class FailureJob extends AbstractJob
+final class FailureJob extends AbstractJob
 {
 	FailureJob(final int number)
 	{

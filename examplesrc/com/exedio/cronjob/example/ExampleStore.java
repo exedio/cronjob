@@ -26,7 +26,7 @@ import javax.servlet.ServletConfig;
 import com.exedio.cronjob.CronjobStore;
 import com.exedio.cronjob.Job;
 
-public class ExampleStore implements CronjobStore
+public final class ExampleStore implements CronjobStore
 {
 	public ExampleStore(final ServletConfig config)
 	{

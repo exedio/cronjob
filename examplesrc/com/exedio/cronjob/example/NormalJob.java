@@ -18,7 +18,7 @@
 
 package com.exedio.cronjob.example;
 
-public class NormalJob extends AbstractJob
+final class NormalJob extends AbstractJob
 {
 	NormalJob(final int number)
 	{

@@ -21,7 +21,7 @@ package com.exedio.cronjob.example;
 import com.exedio.cronjob.Interrupter;
 import com.exedio.cronjob.Job;
 
-public class AbstractJob implements Job
+class AbstractJob implements Job
 {
 	protected final String name;
 	protected final int minutesBetweenExecutions;

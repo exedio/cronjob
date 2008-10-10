@@ -20,7 +20,7 @@ package com.exedio.cronjob.example;
 
 import com.exedio.cronjob.Interrupter;
 
-public class InterruptableSlowerJob extends AbstractJob
+final class InterruptableSlowerJob extends AbstractJob
 {
 	InterruptableSlowerJob()
 	{
