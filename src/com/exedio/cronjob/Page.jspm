@@ -92,7 +92,8 @@ final class Page_Jspm
 									final boolean isActivated = job.isActivated();
 									final boolean wasLastExecutionSuccessful = job.wasLastExecutionSuccessful();
 
-								%><tr>
+								%>
+								<tr>
 									<td align="center"><input type="submit" name="<%=job.getId()%>" value="<%=CronjobManager.START_CRONJOB%>"/></td>
 									<td align="center"><nobr>
 										<input type="submit" name="<%=id%>" value="<%=CronjobManager.ACTIVATE  %>"<% if( isActivated) { %> disabled readonly<% } %> />
