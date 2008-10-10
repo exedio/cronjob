@@ -74,7 +74,7 @@ final class Page_Jspm
 									<th rowspan=2>Active</th>
 									<th rowspan=2>Name</th>
 									<th rowspan=2>Interval<br>/min</th>
-									<th rowspan=2>Running</th>
+									<th rowspan=2>Running<br>since</th>
 									<th colspan=3>Last Execution</th>
 									<th rowspan=2>Successful Executions</th>
 									<th rowspan=2>Fails</th>
@@ -103,7 +103,7 @@ final class Page_Jspm
 									</nobr></td>
 									<td align="center" title="<%=className%>"><%=name%></td>
 									<td align="center"><%=job.getMinutesBetweenExecutions()%></td>
-									<td align="center"><% if(job.isRunning()) { %>since <%=(new Date().getTime()-job.getLastTimeStarted().getTime())%> ms<% } else { %>no<% } %></td>
+									<td align="center"><% if(job.isRunning()) { %><%=(new Date().getTime()-job.getLastTimeStarted().getTime())%> ms<% } else { %>no<% } %></td>
 									<td align="center" style="font-weight:bold; color:<% if(wasLastExecutionSuccessful){ %>green<% } else { %>red<% } %>"><% if(wasLastExecutionSuccessful){ %>OK<% } else { %>FAILED<% } %></td>
 									<td align="center"><nobr><%=job.getLastTimeStartedAsString()%></nobr></td>
 									<td align="center"><nobr><%=job.getTimeNeeded()%></nobr></td>
