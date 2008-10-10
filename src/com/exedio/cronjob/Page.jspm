@@ -28,6 +28,7 @@ final class Page_Jspm
 	static final void write(
 				final PrintWriter out,
 				final String uri,
+				final long now,
 				final boolean autoRefreshPage,
 				final String enableOrDisableAutoRefreshButton,
 				final List<ObservedCronjob> observedCronjobs,
@@ -106,11 +107,11 @@ final class Page_Jspm
 									<td align="center"><%
 										if(job.isRunning())
 										{
-											%><%=(new Date().getTime()-job.getLastTimeStarted().getTime())%> ms<%
+											%><%=(now-job.getLastTimeStarted().getTime())%> ms<%
 											final long lastInterruptRequest = job.getLastInterruptRequest();
 											if(lastInterruptRequest!=0)
 											{
-												%>,<br>LIR <%=(new Date().getTime()-job.getLastInterruptRequest())%> ms<%
+												%>,<br>LIR <%=(now-job.getLastInterruptRequest())%> ms<%
 											}
 										}
 										else

@@ -217,6 +217,7 @@ public class CronjobManager extends HttpServlet
 		PrintWriter out = response.getWriter();
 		Page_Jspm.write(out,
 				uri+"?"+AUTO_REFRESH+"="+(autoRefreshPage ? TRUE : FALSE),
+				System.currentTimeMillis(),
 				autoRefreshPage,
 				enableOrDisableAutoRefreshButton,
 				observedCronjobs,
