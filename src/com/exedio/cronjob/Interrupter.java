@@ -18,10 +18,7 @@
 
 package com.exedio.cronjob;
 
-public interface Job
+public interface Interrupter
 {
-	String getName();
-	void execute(Interrupter interrupter) throws Exception;
-	int getMinutesBetweenExecutions();
-	int getInitialDelayInMilliSeconds();	
+	boolean isRequested();
 }

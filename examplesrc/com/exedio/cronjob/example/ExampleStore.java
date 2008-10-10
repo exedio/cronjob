@@ -43,6 +43,7 @@ public class ExampleStore implements CronjobStore
 				new NormalJob(4),
 				new SlowJob(1, 0),
 				new SlowJob(2, 5000),
+				new InterruptableJob(),
 				new NullNameJob());
 	}
 

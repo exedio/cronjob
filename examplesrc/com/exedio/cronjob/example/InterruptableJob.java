@@ -19,41 +19,35 @@
 package com.exedio.cronjob.example;
 
 import com.exedio.cronjob.Interrupter;
-import com.exedio.cronjob.Job;
 
-public class AbstractJob implements Job
+public class InterruptableJob extends AbstractJob
 {
-	protected final String name;
-	protected final int minutesBetweenExecutions;
-	protected final int initialDelay;
-	
-	AbstractJob(final String name, final int minutesBetweenExecutions, final int initialDelay)
+	InterruptableJob()
 	{
-		this.name = name;
-		this.minutesBetweenExecutions = minutesBetweenExecutions;
-		this.initialDelay = initialDelay;
+		super("InterruptableJob", 1000, 0);
 	}
 	
-	public String getName()
+	@Override
+	public void execute(final Interrupter interrupter)
 	{
-		System.out.println(name + ".getName");
-		return name;
-	}
-
-	public void execute(Interrupter interrupter) throws Exception
-	{
-		System.out.println(name + ".execute");
-	}
-
-	public int getMinutesBetweenExecutions()
-	{
-		System.out.println(name + ".getMinutesBetweenExecutions");
-		return minutesBetweenExecutions;
-	}
-	
-	public int getInitialDelayInMilliSeconds()
-	{
-		System.out.println(name + ".getInitialDelayInMilliSeconds"+initialDelay);
-		return initialDelay;
+		System.out.println(name + ".execute start");
+		try
+		{
+			for(int i = 0; i<10; i++)
+			{
+				Thread.sleep(1000);
+				System.out.println(name + ".execute slept " + i);
+				if(interrupter.isRequested())
+				{
+					System.out.println(name + ".execute interrupted");
+					return;
+				}
+			}
+		}
+		catch(InterruptedException e)
+		{
+			throw new RuntimeException(e);
+		}
+		System.out.println(name + ".execute ready");
 	}
 }

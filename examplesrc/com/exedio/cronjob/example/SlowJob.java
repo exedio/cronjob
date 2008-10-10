@@ -18,6 +18,8 @@
 
 package com.exedio.cronjob.example;
 
+import com.exedio.cronjob.Interrupter;
+
 public class SlowJob extends AbstractJob
 {
 	SlowJob(final int number, final int initialDelay)
@@ -26,7 +28,7 @@ public class SlowJob extends AbstractJob
 	}
 	
 	@Override
-	public void execute()
+	public void execute(final Interrupter interrupter)
 	{
 		System.out.println(name + ".execute start");
 		try

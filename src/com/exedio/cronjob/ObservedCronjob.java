@@ -26,7 +26,7 @@ import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-final class ObservedCronjob
+final class ObservedCronjob implements Interrupter
 {
 	private final int DURATION_BETWEEN_CHECKS=2705;
 	private final DateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy - HH:mm:ss");
@@ -97,6 +97,11 @@ final class ObservedCronjob
 		return (jobName!=null ? (jobName + " <small>(" + job.getClass().getName() + ")</small>") : job.getClass().getName());
 	}
 	
+	public boolean isRequested()
+	{
+		return !activated;
+	}
+	
 	private void tryToExecute()
 	{
 		if (canExecuteJob())
@@ -107,7 +112,7 @@ final class ObservedCronjob
 			//System.out.println("\nStarting Cronjob: "+getDisplayedName()+" at "+DATE_FORMAT.format(lastTimeStarted));
 			try
 			{
-				job.execute();
+				job.execute(this);
 				Date finished =new Date();
 				lastExecutionSuccessful=true;
 				//System.out.println("Finished Cronjob: "+getDisplayedName()+" at "+DATE_FORMAT.format(finished)+"\n");
