@@ -142,8 +142,10 @@ public class CronjobManager extends HttpServlet
 		System.out.println("CronjobManager is terminating ... (" + System.identityHashCode(this) + ')');
 		for (final ObservedCronjob job :observedCronjobs)
 		{
-			 // TODO make two loops to prevent a cronjob starting while waiting for another
 			job.setActivated(false);
+		}
+		for (final ObservedCronjob job :observedCronjobs)
+		{
 			job.stopThread();
 		}
 		System.out.println("CronjobManager is terminated. (" + System.identityHashCode(this) + ')');

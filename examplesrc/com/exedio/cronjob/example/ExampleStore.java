@@ -41,6 +41,8 @@ public class ExampleStore implements CronjobStore
 				new NormalJob(2),
 				new NormalJob(3),
 				new NormalJob(4),
+				new SlowJob(1, 0),
+				new SlowJob(2, 5000),
 				new NullNameJob());
 	}
 

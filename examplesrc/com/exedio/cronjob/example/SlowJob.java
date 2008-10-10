@@ -18,37 +18,42 @@
 
 package com.exedio.cronjob.example;
 
-import com.exedio.cronjob.Job;
-
-public class AbstractJob implements Job
+public class SlowJob extends AbstractJob
 {
-	protected final String name;
+	final int initialDelay;
 	
-	AbstractJob(final String name)
+	SlowJob(final int number, final int initialDelay)
 	{
-		this.name = name;
+		super("SlowJob" + number);
+		this.initialDelay = initialDelay;
 	}
 	
-	public String getName()
+	@Override
+	public void execute()
 	{
-		System.out.println(name + ".getName");
-		return name;
+		System.out.println(name + ".execute start");
+		try
+		{
+			Thread.sleep(10000);
+		}
+		catch(InterruptedException e)
+		{
+			throw new RuntimeException(e);
+		}
+		System.out.println(name + ".execute ready");
 	}
-
-	public void execute() throws Exception
-	{
-		System.out.println(name + ".execute");
-	}
-
+	
+	@Override
 	public int getMinutesBetweenExecutions()
 	{
-		System.out.println(name + ".getMinutesBetweenExecutions");
-		return 1;
+		super.getMinutesBetweenExecutions();
+		return 1000;
 	}
 	
+	@Override
 	public int getInitialDelayInMilliSeconds()
 	{
-		System.out.println(name + ".getInitialDelayInMilliSeconds");
-		return 1000;
+		super.getInitialDelayInMilliSeconds();
+		return initialDelay;
 	}
 }
