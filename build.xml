@@ -7,7 +7,15 @@
 	<property name="classes.dir" value="${build.dir}/classes"/>
 	<property name="cruise.dir" value="cruise"/>
 
-	<target name="compile" >
+	<taskdef name="jspm" classname="com.exedio.jspm.AntTask" classpath="lib/exedio-jspm.jar" />
+	
+	<target name="jspm">
+		<jspm method="print">
+			<fileset dir="src" includes="**/*.jspm" />
+		</jspm>
+	</target>
+	
+	<target name="compile" depends="jspm">
 		<mkdir dir="${classes.dir}" />
 		<javac srcdir= "src"
 				destdir="${classes.dir}"
@@ -100,6 +108,11 @@
 	</target>
 	
 	<target name="clean">
+		<delete>
+			<fileset dir="src">
+				<include name="**/*_Jspm.java" />
+			</fileset>
+		</delete>
 		<delete dir="${build.dir}" />
 		<delete dir="tomcat" />
 	</target>
