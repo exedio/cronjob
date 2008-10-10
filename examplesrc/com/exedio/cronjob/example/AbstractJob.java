@@ -18,10 +18,37 @@
 
 package com.exedio.cronjob.example;
 
-public class NormalJob extends AbstractJob
+import com.exedio.cronjob.Job;
+
+public class AbstractJob implements Job
 {
-	NormalJob(final int number)
+	private final String name;
+	
+	AbstractJob(final String name)
 	{
-		super("NormalJob" + number);
+		this.name = name;
+	}
+	
+	public String getName()
+	{
+		System.out.println(name + ".getName");
+		return name;
+	}
+
+	public void execute() throws Exception
+	{
+		System.out.println(name + ".execute");
+	}
+
+	public int getMinutesBetweenExecutions()
+	{
+		System.out.println(name + ".getMinutesBetweenExecutions");
+		return 1;
+	}
+	
+	public int getInitialDelayInMilliSeconds()
+	{
+		System.out.println(name + ".getInitialDelayInMilliSeconds");
+		return 1000;
 	}
 }
