@@ -97,10 +97,11 @@ public class CronjobManager extends HttpServlet
 			active=store.isActive();
 			if (store.isActive())
 			{
+				final int storeInitialDelay = store.getInitialDelayInMilliSeconds();
 				int idCounter = 1;
 				for (final Job job: store.getJobs())
 				{
-					ObservedCronjob observedCronjob = new ObservedCronjob(job, idCounter++, store.getInitialDelayInMilliSeconds());
+					ObservedCronjob observedCronjob = new ObservedCronjob(job, idCounter++, storeInitialDelay);
 					observedCronjobs.add(observedCronjob);
 					observedCronjob.startThread();
 				}
