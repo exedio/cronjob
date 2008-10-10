@@ -36,7 +36,12 @@ public class ExampleStore implements CronjobStore
 	public List<? extends Job> getJobs()
 	{
 		System.out.println("ExampleStore.getJobs");
-		return Arrays.asList(new NormalJob(1), new NormalJob(2), new NormalJob(3), new NormalJob(4), new NullNameJob());
+		return Arrays.asList(
+				new NormalJob(1),
+				new NormalJob(2),
+				new NormalJob(3),
+				new NormalJob(4),
+				new NullNameJob());
 	}
 
 	public int getInitialDelayInMilliSeconds()
