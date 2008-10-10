@@ -49,8 +49,59 @@
 		</zip>
 	</target>
 	
+	<target name="example.compile" depends="compile">
+		<mkdir dir="build/exampleclasses" />
+		<javac srcdir="examplesrc"
+				destdir="build/exampleclasses"
+				includeAntRuntime="false"
+				deprecation="on"
+				debug="on"
+				optimize="off">
+			<classpath>
+				<pathelement location="${classes.dir}" />
+				<pathelement location="lib/servlet-api.jar" />
+			</classpath>
+			<compilerarg value="-Xlint:all" />
+		</javac>
+	</target>
+
+	<target name="web" depends="compile, example.compile">
+		<copy todir="build/web/WEB-INF/classes">
+			<fileset dir="${classes.dir}" />
+			<fileset dir="build/exampleclasses" />
+		</copy>
+		<copy todir="build/web/WEB-INF" file="conf/web.xml" />
+	</target>
+		
+	<target name="catalina">
+		<property name="catalina.root" value="apache-tomcat-6.0.16" />
+		<untar src="lib/apache-tomcat.tar.gz"
+				 compression="gzip"
+				 dest="${basedir}">
+			<patternset>
+				<exclude name="${catalina.root}/conf/server.xml" />
+				<exclude name="${catalina.root}/conf/tomcat-users.xml" />
+				<exclude name="${catalina.root}/webapps/ROOT/**" />
+				<exclude name="${catalina.root}/webapps/docs/**" />
+				<exclude name="${catalina.root}/webapps/examples/**" />
+			</patternset>
+			<mapper type="glob" from="${catalina.root}/*" to="tomcat/*" />
+		</untar>
+		<chmod dir="tomcat/bin" perm="ugo+x" includes="*.sh" />
+		<copy todir="tomcat/conf">
+			<fileset dir="conf">
+				<include name="server.xml" />
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="tomcat" depends="web, catalina">
+		<copy file="conf/context.xml" tofile="tomcat/conf/Catalina/localhost/ROOT.xml" />
+	</target>
+	
 	<target name="clean">
 		<delete dir="${build.dir}" />
+		<delete dir="tomcat" />
 	</target>
 
 	<target name="build" depends="compile, jar" />

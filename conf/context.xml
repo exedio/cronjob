@@ -1,0 +1,6 @@
+
+<Context docBase="../../build/web"
+			debug="0"
+			privileged="true"
+			cookies="false">
+</Context>
