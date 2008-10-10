@@ -38,6 +38,9 @@ final class ObservedCronjob implements Interrupter
 	private boolean running;
 	private Date lastTimeStarted;
 	private long lastInterruptRequest;
+	private long interruptMaximum = 0;
+	private long interruptTotal = 0;
+	private int interruptCount = 0;
 	private Exception lastException;
 	private boolean lastExecutionSuccessful;
 	private boolean activated;
@@ -98,10 +101,33 @@ final class ObservedCronjob implements Interrupter
 		return lastInterruptRequest;
 	}
 	
+	long getInterruptMaximum()
+	{
+		return interruptMaximum;
+	}
+	
+	long getInterruptAverage()
+	{
+		return (interruptCount>0) ? (interruptTotal / interruptCount) : 0;
+	}
+	
 	public boolean isRequested()
 	{
-		lastInterruptRequest = System.currentTimeMillis();
+		final long now = System.currentTimeMillis();
+		registerInterruptRequest(now);
+		lastInterruptRequest = now;
 		return !activated;
+	}
+	
+	private void registerInterruptRequest(final long now)
+	{
+		final long last = (lastInterruptRequest!=0) ? lastInterruptRequest : lastTimeStarted.getTime();
+		final long elapsed = (int)(now - last);
+		
+		if(interruptMaximum<elapsed)
+			interruptMaximum = elapsed;
+		interruptTotal += elapsed;
+		interruptCount++;
 	}
 	
 	private void tryToExecute()
@@ -122,6 +148,7 @@ final class ObservedCronjob implements Interrupter
 				long msa=finished.getTime();
 				timeNeeded=msa-msb;
 				updateAverageTimeNeeded(timeNeeded);
+				registerInterruptRequest(finished.getTime());
 			}
 			catch (Exception e)
 			{
@@ -134,6 +161,7 @@ final class ObservedCronjob implements Interrupter
 				e.printStackTrace();
 				System.out.println("******************** CronjobException - END **********************");
 				lastExecutionSuccessful=false;
+				registerInterruptRequest(failedAt.getTime());
 			}
 			finally
 			{

@@ -80,11 +80,14 @@ final class Page_Jspm
 									<th rowspan=2>Successful Executions</th>
 									<th rowspan=2>Fails</th>
 									<th rowspan=2>Average Duration</th>
+									<th colspan=2>Interrupt</th>
 								</tr>
 								<tr>
 									<th>Status</th>
 									<th>Start</th>
 									<th>Duration</th>
+									<th>Avg</th>
+									<th>Max</th>
 								</tr><%
 								
 								for(final ObservedCronjob job : observedCronjobs)
@@ -125,6 +128,8 @@ final class Page_Jspm
 									<td align="center"><nobr><%=job.getSuccessfulRuns()%></nobr></td>
 									<td align="center"><nobr><%=job.getNumberOfFails()%></nobr></td>
 									<td align="center"><nobr><%=job.getAverageTimeNeeded()%></nobr></td>
+									<td align="right"><%=job.getInterruptAverage()%></td>
+									<td align="right"><%=job.getInterruptMaximum()%></td>
 								</tr><%
 								}
 							%>
