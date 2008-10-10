@@ -71,7 +71,7 @@ final class Page_Jspm
 							<table border="1" width="1%" cellpadding="0" cellspacing="0">
 								<tr>
 									<th rowspan=2>&nbsp;</th>
-									<th rowspan=2>&nbsp;</th>
+									<th rowspan=2>Active</th>
 									<th rowspan=2>Name</th>
 									<th rowspan=2><nobr>Intervall (m)</nobr></th>
 									<th rowspan=2>Running</th>

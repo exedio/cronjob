@@ -154,8 +154,8 @@ public class CronjobManager extends HttpServlet
 		doRequest(request, response);
 	}
 	
-	static final String ACTIVATE="activate";
-	static final String DEACTIVATE="deactivate";
+	static final String ACTIVATE="on";
+	static final String DEACTIVATE="off";
 	static final String TRUE = "true";
 	static final String FALSE = "false";
 	static final String AUTO_REFRESH = "autoRefresh";
