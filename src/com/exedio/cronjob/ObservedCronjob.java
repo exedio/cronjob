@@ -33,8 +33,8 @@ final class ObservedCronjob implements Interrupter
 	private final DateFormat DATE_FORMAT_SIMPLE = new SimpleDateFormat("HH:mm:ss");
 	
 	private final String id;
-	private final Job job;
-	private final String jobName;
+	final Job job;
+	final String jobName;
 	private boolean running;
 	private Date lastTimeStarted;
 	private Exception lastException;
@@ -90,11 +90,6 @@ final class ObservedCronjob implements Interrupter
 				return false;
 			}
 		}
-	}
-	
-	String getDisplayedName()
-	{
-		return (jobName!=null ? (jobName + " <small>(" + job.getClass().getName() + ")</small>") : job.getClass().getName());
 	}
 	
 	public boolean isRequested()

@@ -89,6 +89,8 @@ final class Page_Jspm
 								for(final ObservedCronjob job : observedCronjobs)
 								{
 									final String id = job.getId();
+									final String name = job.jobName;
+									final String className = job.job.getClass().getName();
 									final boolean isActivated = job.isActivated();
 									final boolean wasLastExecutionSuccessful = job.wasLastExecutionSuccessful();
 
@@ -99,7 +101,7 @@ final class Page_Jspm
 										<input type="submit" name="<%=id%>" value="<%=CronjobManager.ACTIVATE  %>"<% if( isActivated) { %> disabled readonly<% } %> />
 										<input type="submit" name="<%=id%>" value="<%=CronjobManager.DEACTIVATE%>"<% if(!isActivated) { %> disabled readonly<% } %> />
 									</nobr></td>
-									<td align="center"><%=job.getDisplayedName()%></td>
+									<td align="center" title="<%=className%>"><%=name%></td>
 									<td align="center"><%=job.getMinutesBetweenExecutions()%></td>
 									<td align="center"><% if(job.isRunning()) { %>since <%=(new Date().getTime()-job.getLastTimeStarted().getTime())%> ms<% } else { %>no<% } %></td>
 									<td align="center" style="font-weight:bold; color:<% if(wasLastExecutionSuccessful){ %>green<% } else { %>red<% } %>"><% if(wasLastExecutionSuccessful){ %>OK<% } else { %>FAILED<% } %></td>
@@ -124,7 +126,7 @@ final class Page_Jspm
 											<tr>
 												<td>
 													<h3>
-														Stacktrace of last exception occured on Cronjob: <%=job.getDisplayedName()%>&nbsp;&nbsp;
+														Stacktrace of last exception occured on Cronjob: <%=job.jobName%>&nbsp;&nbsp;
 														<input type=submit name="<%=job.getId()%>" value="<%=CronjobManager.DELETE_LAST_EXCEPTION%>"/>
 													</h3>
 												</td>
