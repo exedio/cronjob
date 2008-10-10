@@ -107,6 +107,11 @@ final class Page_Jspm
 										if(job.isRunning())
 										{
 											%><%=(new Date().getTime()-job.getLastTimeStarted().getTime())%> ms<%
+											final long lastInterruptRequest = job.getLastInterruptRequest();
+											if(lastInterruptRequest!=0)
+											{
+												%>,<br>LIR <%=(new Date().getTime()-job.getLastInterruptRequest())%> ms<%
+											}
 										}
 										else
 										{

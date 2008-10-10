@@ -37,6 +37,7 @@ final class ObservedCronjob implements Interrupter
 	final String jobName;
 	private boolean running;
 	private Date lastTimeStarted;
+	private long lastInterruptRequest;
 	private Exception lastException;
 	private boolean lastExecutionSuccessful;
 	private boolean activated;
@@ -92,8 +93,14 @@ final class ObservedCronjob implements Interrupter
 		}
 	}
 	
+	long getLastInterruptRequest()
+	{
+		return lastInterruptRequest;
+	}
+	
 	public boolean isRequested()
 	{
+		lastInterruptRequest = System.currentTimeMillis();
 		return !activated;
 	}
 	
@@ -103,6 +110,7 @@ final class ObservedCronjob implements Interrupter
 		{
 			running=true;
 			lastTimeStarted=new Date();
+			lastInterruptRequest = 0;
 			long msb=lastTimeStarted.getTime();
 			//System.out.println("\nStarting Cronjob: "+getDisplayedName()+" at "+DATE_FORMAT.format(lastTimeStarted));
 			try
