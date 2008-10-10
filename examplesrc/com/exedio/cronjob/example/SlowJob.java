@@ -24,7 +24,7 @@ final class SlowJob extends AbstractJob
 {
 	SlowJob(final int number, final int initialDelay)
 	{
-		super("SlowJob" + number, 1000, initialDelay);
+		super("Slow" + number, 1000, initialDelay);
 	}
 	
 	@Override

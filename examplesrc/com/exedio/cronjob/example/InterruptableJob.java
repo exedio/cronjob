@@ -24,7 +24,7 @@ final class InterruptableJob extends AbstractJob
 {
 	InterruptableJob()
 	{
-		super("InterruptableJob", 1000, 0);
+		super("Interruptable", 1000, 0);
 	}
 	
 	@Override

@@ -22,7 +22,7 @@ final class NullNameJob extends AbstractJob
 {
 	NullNameJob()
 	{
-		super("NullNameJob", 1, 1000);
+		super("NullName", 1, 1000);
 	}
 
 	@Override

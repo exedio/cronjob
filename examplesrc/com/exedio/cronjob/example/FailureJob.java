@@ -24,7 +24,7 @@ final class FailureJob extends AbstractJob
 {
 	FailureJob(final int number)
 	{
-		super("FailureJob" + number, 1, 1000);
+		super("Failure" + number, 1, 1000);
 	}
 	
 	public void execute(Interrupter interrupter)

@@ -22,6 +22,6 @@ final class NormalJob extends AbstractJob
 {
 	NormalJob(final int number)
 	{
-		super("NormalJob" + number, 1, 1000);
+		super("Normal" + number, 1, 1000);
 	}
 }
