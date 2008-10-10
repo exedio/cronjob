@@ -111,7 +111,7 @@ final class Page_Jspm
 											final long lastInterruptRequest = job.getLastInterruptRequest();
 											if(lastInterruptRequest!=0)
 											{
-												%>,<br>LIR <%=(now-job.getLastInterruptRequest())%> ms<%
+												%>,<br>LIR <%=(now-lastInterruptRequest)%> ms<%
 											}
 										}
 										else
