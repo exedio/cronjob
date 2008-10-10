@@ -32,8 +32,8 @@ final class ObservedCronjob
 	private final DateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy - HH:mm:ss");
 	private final DateFormat DATE_FORMAT_SIMPLE = new SimpleDateFormat("HH:mm:ss");
 	
-	private String id=null;
-	private Job job;
+	private final String id;
+	private final Job job;
 	private final String jobName;
 	private boolean running;
 	private Date lastTimeStarted;
