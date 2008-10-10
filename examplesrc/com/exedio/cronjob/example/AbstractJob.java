@@ -36,7 +36,7 @@ public class AbstractJob implements Job
 	
 	public String getName()
 	{
-		System.out.println(name + ".getName");
+		//System.out.println(name + ".getName");
 		return name;
 	}
 
@@ -47,13 +47,13 @@ public class AbstractJob implements Job
 
 	public int getMinutesBetweenExecutions()
 	{
-		System.out.println(name + ".getMinutesBetweenExecutions");
+		//System.out.println(name + ".getMinutesBetweenExecutions");
 		return minutesBetweenExecutions;
 	}
 	
 	public int getInitialDelayInMilliSeconds()
 	{
-		System.out.println(name + ".getInitialDelayInMilliSeconds"+initialDelay);
+		//System.out.println(name + ".getInitialDelayInMilliSeconds"+initialDelay);
 		return initialDelay;
 	}
 }
