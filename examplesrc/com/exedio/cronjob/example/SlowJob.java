@@ -20,12 +20,9 @@ package com.exedio.cronjob.example;
 
 public class SlowJob extends AbstractJob
 {
-	final int initialDelay;
-	
 	SlowJob(final int number, final int initialDelay)
 	{
-		super("SlowJob" + number);
-		this.initialDelay = initialDelay;
+		super("SlowJob" + number, 1000, initialDelay);
 	}
 	
 	@Override
@@ -41,19 +38,5 @@ public class SlowJob extends AbstractJob
 			throw new RuntimeException(e);
 		}
 		System.out.println(name + ".execute ready");
-	}
-	
-	@Override
-	public int getMinutesBetweenExecutions()
-	{
-		super.getMinutesBetweenExecutions();
-		return 1000;
-	}
-	
-	@Override
-	public int getInitialDelayInMilliSeconds()
-	{
-		super.getInitialDelayInMilliSeconds();
-		return initialDelay;
 	}
 }

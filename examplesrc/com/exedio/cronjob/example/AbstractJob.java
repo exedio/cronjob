@@ -23,10 +23,14 @@ import com.exedio.cronjob.Job;
 public class AbstractJob implements Job
 {
 	protected final String name;
+	protected final int minutesBetweenExecutions;
+	protected final int initialDelay;
 	
-	AbstractJob(final String name)
+	AbstractJob(final String name, final int minutesBetweenExecutions, final int initialDelay)
 	{
 		this.name = name;
+		this.minutesBetweenExecutions = minutesBetweenExecutions;
+		this.initialDelay = initialDelay;
 	}
 	
 	public String getName()
@@ -43,12 +47,12 @@ public class AbstractJob implements Job
 	public int getMinutesBetweenExecutions()
 	{
 		System.out.println(name + ".getMinutesBetweenExecutions");
-		return 1;
+		return minutesBetweenExecutions;
 	}
 	
 	public int getInitialDelayInMilliSeconds()
 	{
-		System.out.println(name + ".getInitialDelayInMilliSeconds");
-		return 1000;
+		System.out.println(name + ".getInitialDelayInMilliSeconds"+initialDelay);
+		return initialDelay;
 	}
 }

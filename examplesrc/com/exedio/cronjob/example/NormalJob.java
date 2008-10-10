@@ -22,6 +22,6 @@ public class NormalJob extends AbstractJob
 {
 	NormalJob(final int number)
 	{
-		super("NormalJob" + number);
+		super("NormalJob" + number, 1, 1000);
 	}
 }
