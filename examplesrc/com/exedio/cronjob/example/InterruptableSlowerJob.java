@@ -24,7 +24,7 @@ final class InterruptableSlowerJob extends AbstractJob
 {
 	InterruptableSlowerJob()
 	{
-		super("InterruptableSlower", 1000, 0);
+		super("InterruptableSlower", 1000, 1000000);
 	}
 	
 	@Override
