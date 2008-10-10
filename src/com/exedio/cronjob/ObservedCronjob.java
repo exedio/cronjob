@@ -94,7 +94,7 @@ final class ObservedCronjob
 	
 	String getDisplayedName()
 	{
-		return job.getClass().getName()+((jobName!=null) ? " ("+jobName+")" : " (name not specified)");
+		return (jobName!=null ? (jobName + " <small>(" + job.getClass().getName() + ")</small>") : job.getClass().getName());
 	}
 	
 	private void tryToExecute()
