@@ -126,7 +126,7 @@ final class ObservedCronjob implements Interrupter
 				fails++;
 				Date failedAt= new Date();
 				timeNeeded=failedAt.getTime()-msb;
-				System.out.println("Execution of Cronjob: "+getDisplayedName()+" FAILED at "+DATE_FORMAT.format(failedAt)+" !!!");
+				System.out.println("Execution of Cronjob: " + jobName + " FAILED at "+DATE_FORMAT.format(failedAt)+" !!!");
 				System.out.println("******************** CronjobException - START ********************");
 				e.printStackTrace();
 				System.out.println("******************** CronjobException - END **********************");
@@ -217,7 +217,7 @@ final class ObservedCronjob implements Interrupter
 	void setActivated(boolean activated)
 	{
 		this.activated = activated;
-		System.out.println("Cronjob: "+getDisplayedName()+" was deactivated at "+DATE_FORMAT.format(new Date()));
+		System.out.println("Cronjob: " + jobName + " was deactivated at "+DATE_FORMAT.format(new Date()));
 	}
 	
 	void runNow()
