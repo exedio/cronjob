@@ -34,6 +34,7 @@ final class ObservedCronjob
 	
 	private String id=null;
 	private Job job;
+	private final String jobName;
 	private boolean running;
 	private Date lastTimeStarted;
 	private Exception lastException;
@@ -55,6 +56,7 @@ final class ObservedCronjob
 	{
 		this.id=id;
 		this.job=job;
+		this.jobName = job.getName();
 		running=false;
 		lastTimeStarted=null;
 		lastException=null;
@@ -92,7 +94,7 @@ final class ObservedCronjob
 	
 	String getDisplayedName()
 	{
-		return job.getClass().getName()+((job.getName()!=null) ? " ("+job.getName()+")" : " (name not specified)");
+		return job.getClass().getName()+((jobName!=null) ? " ("+jobName+")" : " (name not specified)");
 	}
 	
 	private void tryToExecute()
@@ -252,14 +254,14 @@ final class ObservedCronjob
 		{
 			try
 			{
-				System.out.println("waiting for job:"+job.getName()+" to terminate");
+				System.out.println("waiting for job:"+jobName+" to terminate");
 				runningThread.stopRunning();
 				if (runningThread.isAlive())
 				{
 					runningThread.notifyWaiter();
 				}
 				runningThread.join();
-				System.out.println("job:"+job.getName()+" terminated");
+				System.out.println("job:"+jobName+" terminated");
 			}
 			catch (InterruptedException ex)
 			{
