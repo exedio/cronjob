@@ -169,30 +169,34 @@ public class CronjobManager extends HttpServlet
 		String uri=request.getRequestURI();
 		// Start/Activate/Deactivate/removeLastException for selected Cronjob
 		
-		for (final ObservedCronjob job : observedCronjobs)
+		if("POST".equals(request.getMethod()))
 		{
-			String[] params=request.getParameterValues(job.getId());
-			if (params!=null)
+			for (final ObservedCronjob job : observedCronjobs)
 			{
-				List<String> paramsAsList = Arrays.asList(params);
-				if (paramsAsList.contains(START_CRONJOB))
+				String[] params=request.getParameterValues(job.getId());
+				if (params!=null)
 				{
-					job.runNow();
+					List<String> paramsAsList = Arrays.asList(params);
+					if (paramsAsList.contains(START_CRONJOB))
+					{
+						job.runNow();
+					}
+					else if (paramsAsList.contains(DELETE_LAST_EXCEPTION))
+					{
+						job.removeLastException();
+					}
+					else if (paramsAsList.contains(ACTIVATE))
+					{
+						job.setActivated(true);
+					}
+					else if (paramsAsList.contains(DEACTIVATE))
+					{
+						job.setActivated(false);
+					}
+					else{/* NOTHING */}
 				}
-				else if (paramsAsList.contains(DELETE_LAST_EXCEPTION))
-				{
-					job.removeLastException();
-				}
-				else if (paramsAsList.contains(ACTIVATE))
-				{
-					job.setActivated(true);
-				}
-				else if (paramsAsList.contains(DEACTIVATE))
-				{
-					job.setActivated(false);
-				}
-				else{/* NOTHING */}
 			}
+			response.sendRedirect(uri);
 		}
 		
 		// AutoRefresh Page 
