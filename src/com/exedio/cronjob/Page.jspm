@@ -55,165 +55,165 @@ final class Page_Jspm
 	</head>
 	<body>
 		<form action="<%=uri%>" method="POST">
-						<h1>exedio cronjob</h1><%
-						
-						if(!handlers.isEmpty())
-						{
-							%>
-							<div>
-										Auto Refresh:
-										<%if(!autoRefreshPage){%><b><%}%><a href="<%=uriNoAutoRefresh%>">disable</a><%if(!autoRefreshPage){%></b><%}%>
-										<%if( autoRefreshPage){%><b><%}%><a href="<%=uriAutoRefresh  %>"> enable</a><%if( autoRefreshPage){%></b><%}%>
-							</div>
-							<table border="1" width="1%" cellpadding="0" cellspacing="0">
-								<tr>
-									<th rowspan=2>&nbsp;</th>
-									<th rowspan=2>Active</th>
-									<th rowspan=2>Name</th>
-									<th rowspan=2>Interval<br>/min</th>
-									<th rowspan=2>Running<br>since</th>
-									<th colspan=3>Last Execution</th>
-									<th rowspan=2>Successful Executions</th>
-									<th rowspan=2>Fails</th>
-									<th rowspan=2>Average Duration</th>
-									<th colspan=2>Interrupt</th>
-								</tr>
-								<tr>
-									<th>Status</th>
-									<th>Start</th>
-									<th>Duration</th>
-									<th>Avg</th>
-									<th>Max</th>
-								</tr><%
-								
-								for(final Handler job : handlers)
-								{
-									final String id = job.id;
-									final String name = job.jobName;
-									final String className = job.job.getClass().getName();
-									final boolean isActivated = job.isActivated();
-									final boolean wasLastExecutionSuccessful = job.wasLastExecutionSuccessful();
+			<h1>exedio cronjob</h1><%
+			
+			if(!handlers.isEmpty())
+			{
+				%>
+				<div>
+					Auto Refresh:
+					<%if(!autoRefreshPage){%><b><%}%><a href="<%=uriNoAutoRefresh%>">disable</a><%if(!autoRefreshPage){%></b><%}%>
+					<%if( autoRefreshPage){%><b><%}%><a href="<%=uriAutoRefresh  %>"> enable</a><%if( autoRefreshPage){%></b><%}%>
+				</div>
+				<table border="1" width="1%" cellpadding="0" cellspacing="0">
+					<tr>
+						<th rowspan=2>&nbsp;</th>
+						<th rowspan=2>Active</th>
+						<th rowspan=2>Name</th>
+						<th rowspan=2>Interval<br>/min</th>
+						<th rowspan=2>Running<br>since</th>
+						<th colspan=3>Last Execution</th>
+						<th rowspan=2>Successful Executions</th>
+						<th rowspan=2>Fails</th>
+						<th rowspan=2>Average Duration</th>
+						<th colspan=2>Interrupt</th>
+					</tr>
+					<tr>
+						<th>Status</th>
+						<th>Start</th>
+						<th>Duration</th>
+						<th>Avg</th>
+						<th>Max</th>
+					</tr><%
+					
+					for(final Handler job : handlers)
+					{
+						final String id = job.id;
+						final String name = job.jobName;
+						final String className = job.job.getClass().getName();
+						final boolean isActivated = job.isActivated();
+						final boolean wasLastExecutionSuccessful = job.wasLastExecutionSuccessful();
 
-								%>
-								<tr>
-									<td align="center"><input type="submit" name="<%=id%>" value="<%=CronjobManager.START_CRONJOB%>"/></td>
-									<td align="center"><nobr>
-										<input type="submit" name="<%=id%>" value="<%=CronjobManager.ACTIVATE  %>"<% if( isActivated) { %> disabled readonly<% } %> />
-										<input type="submit" name="<%=id%>" value="<%=CronjobManager.DEACTIVATE%>"<% if(!isActivated) { %> disabled readonly<% } %> />
-									</nobr></td>
-									<td align="center" title="<%=className%>"><%=name%></td>
-									<td align="center"><%=job.getMinutesBetweenExecutions()%></td>
-									<td align="center"><%
-										if(job.isRunning())
-										{
-											%><%=(now-job.getLastTimeStarted().getTime())%> ms<%
-											final long lastInterruptRequest = job.getLastInterruptRequest();
-											if(lastInterruptRequest!=0)
-											{
-												%>,<br>LIR <%=(now-lastInterruptRequest)%> ms<%
-											}
-										}
-										else
-										{
-											%>no<%
-										}
-									%></td>
-									<td align="center" style="font-weight:bold; color:<% if(wasLastExecutionSuccessful){ %>green<% } else { %>red<% } %>"><% if(wasLastExecutionSuccessful){ %>OK<% } else { %>FAILED<% } %></td>
-									<td align="center"><nobr><%=job.getLastTimeStartedAsString()%></nobr></td>
-									<td align="center"><nobr><%=job.getTimeNeeded()%></nobr></td>
-									<td align="center"><nobr><%=job.getSuccessfulRuns()%></nobr></td>
-									<td align="center"><nobr><%=job.getNumberOfFails()%></nobr></td>
-									<td align="center"><nobr><%=job.getAverageTimeNeeded()%></nobr></td>
-									<td align="right"><%=job.getInterruptAverage()%></td>
-									<td align="right"><%=job.getInterruptMaximum()%></td>
-								</tr><%
-								}
-							%>
-								<tr>
-									<th>All</th>
-									<td>
-										<input type="submit" name="<%=CronjobManager.ALL%>" value="<%=CronjobManager.ACTIVATE  %>" />
-										<input type="submit" name="<%=CronjobManager.ALL%>" value="<%=CronjobManager.DEACTIVATE%>" />
-									</td>
-									<td colspan="11"></td>
-								</tr>
-							</table>
-							<br><%
-								
-								for(final Handler job : handlers)
-								{
-									if(job.getLastException()!=null)
-									{
-										%>
-										<br>
-										<table width="100%" cellpadding="0" cellspacing="0">
-											<tr>
-												<td>
-													<h3>
-														Stacktrace of last exception occured on Cronjob: <%=job.jobName%>&nbsp;&nbsp;
-														<input type=submit name="<%=job.id%>" value="<%=CronjobManager.DELETE_LAST_EXCEPTION%>"/>
-													</h3>
-												</td>
-											</tr>
-											<tr>
-												<td><%=job.getLastException().getMessage()%></td>
-											</tr><%
-											
-										for(final StackTraceElement el : job.getLastException().getStackTrace())
-										{
-											%>
-											<tr>
-												<td align="left"><%=el.toString()%></td>
-											</tr><%
-										}
-										%>
-										</table><%
-									}
-								}
-						}
-						else
-						{
-							%>
-							<table width="100%"><%
-							if(active)
+					%>
+					<tr>
+						<td align="center"><input type="submit" name="<%=id%>" value="<%=CronjobManager.START_CRONJOB%>"/></td>
+						<td align="center"><nobr>
+							<input type="submit" name="<%=id%>" value="<%=CronjobManager.ACTIVATE  %>"<% if( isActivated) { %> disabled readonly<% } %> />
+							<input type="submit" name="<%=id%>" value="<%=CronjobManager.DEACTIVATE%>"<% if(!isActivated) { %> disabled readonly<% } %> />
+						</nobr></td>
+						<td align="center" title="<%=className%>"><%=name%></td>
+						<td align="center"><%=job.getMinutesBetweenExecutions()%></td>
+						<td align="center"><%
+							if(job.isRunning())
 							{
-								%>
-								<tr>
-									<td align="center"><b>There are currently no cronjobs installed.</b></td>
-								</tr>"+
-								<tr><td>&nbsp;</td></tr>
-								<tr>
-									<td align="left">
-										To install a new cronjob, just follow the instuctions below:<br><br>
-										&nbsp;&nbsp;&nbsp;1. The cronjob-class has to implement the Cronjob-interface<br>
-										&nbsp;&nbsp;&nbsp;2. An instance of the cronjob-class must be added to the method getJobs() in the class:
-										<b> "+storeName +"</b>
-									</td>
-								</tr><%
+								%><%=(now-job.getLastTimeStarted().getTime())%> ms<%
+								final long lastInterruptRequest = job.getLastInterruptRequest();
+								if(lastInterruptRequest!=0)
+								{
+									%>,<br>LIR <%=(now-lastInterruptRequest)%> ms<%
+								}
 							}
 							else
 							{
+								%>no<%
+							}
+						%></td>
+						<td align="center" style="font-weight:bold; color:<% if(wasLastExecutionSuccessful){ %>green<% } else { %>red<% } %>"><% if(wasLastExecutionSuccessful){ %>OK<% } else { %>FAILED<% } %></td>
+						<td align="center"><nobr><%=job.getLastTimeStartedAsString()%></nobr></td>
+						<td align="center"><nobr><%=job.getTimeNeeded()%></nobr></td>
+						<td align="center"><nobr><%=job.getSuccessfulRuns()%></nobr></td>
+						<td align="center"><nobr><%=job.getNumberOfFails()%></nobr></td>
+						<td align="center"><nobr><%=job.getAverageTimeNeeded()%></nobr></td>
+						<td align="right"><%=job.getInterruptAverage()%></td>
+						<td align="right"><%=job.getInterruptMaximum()%></td>
+					</tr><%
+					}
+				%>
+					<tr>
+						<th>All</th>
+						<td>
+							<input type="submit" name="<%=CronjobManager.ALL%>" value="<%=CronjobManager.ACTIVATE  %>" />
+							<input type="submit" name="<%=CronjobManager.ALL%>" value="<%=CronjobManager.DEACTIVATE%>" />
+						</td>
+						<td colspan="11"></td>
+					</tr>
+				</table>
+				<br><%
+					
+					for(final Handler job : handlers)
+					{
+						if(job.getLastException()!=null)
+						{
+							%>
+							<br>
+							<table width="100%" cellpadding="0" cellspacing="0">
+								<tr>
+									<td>
+										<h3>
+											Stacktrace of last exception occured on Cronjob: <%=job.jobName%>&nbsp;&nbsp;
+											<input type=submit name="<%=job.id%>" value="<%=CronjobManager.DELETE_LAST_EXCEPTION%>"/>
+										</h3>
+									</td>
+								</tr>
+								<tr>
+									<td><%=job.getLastException().getMessage()%></td>
+								</tr><%
+								
+							for(final StackTraceElement el : job.getLastException().getStackTrace())
+							{
 								%>
-								<tr><td align="center"><b>The cronjobs are not activated.</b></td></tr>"+
-								<tr><td>&nbsp;</td></tr>
-								<tr><td align="left">To activate the cronjobs, the class:<b> "+storeName +"</b> has to return true in its isActive() method</td></tr><%
+								<tr>
+									<td align="left"><%=el.toString()%></td>
+								</tr><%
 							}
 							%>
 							</table><%
 						}
-						%>
-						<br>
-						<table width="100%">
-							<tr>
-								<td align="right" style="font-size:12">
-									<hr width="100%">
-									exedio cronjob - <%=implementationVersion%> - &copy;
-									<a href="http://www.exedio.com/">exedio</a>
-									Gesellschaft f&uuml;r Softwareentwicklung mbH
-									(<%=identityHashCode%>)
-								</td>
-							</tr>
-						</table>
+					}
+			}
+			else
+			{
+				%>
+				<table width="100%"><%
+				if(active)
+				{
+					%>
+					<tr>
+						<td align="center"><b>There are currently no cronjobs installed.</b></td>
+					</tr>"+
+					<tr><td>&nbsp;</td></tr>
+					<tr>
+						<td align="left">
+							To install a new cronjob, just follow the instuctions below:<br><br>
+							&nbsp;&nbsp;&nbsp;1. The cronjob-class has to implement the Cronjob-interface<br>
+							&nbsp;&nbsp;&nbsp;2. An instance of the cronjob-class must be added to the method getJobs() in the class:
+							<b> "+storeName +"</b>
+						</td>
+					</tr><%
+				}
+				else
+				{
+					%>
+					<tr><td align="center"><b>The cronjobs are not activated.</b></td></tr>"+
+					<tr><td>&nbsp;</td></tr>
+					<tr><td align="left">To activate the cronjobs, the class:<b> "+storeName +"</b> has to return true in its isActive() method</td></tr><%
+				}
+				%>
+				</table><%
+			}
+			%>
+			<br>
+			<table width="100%">
+				<tr>
+					<td align="right" style="font-size:12">
+						<hr width="100%">
+						exedio cronjob - <%=implementationVersion%> - &copy;
+						<a href="http://www.exedio.com/">exedio</a>
+						Gesellschaft f&uuml;r Softwareentwicklung mbH
+						(<%=identityHashCode%>)
+					</td>
+				</tr>
+			</table>
 		</form>
 	</body>
 </html>
