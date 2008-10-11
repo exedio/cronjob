@@ -218,7 +218,7 @@ final class Page_Jspm
 									exedio cronjob - <%=implementationVersion%> - &copy;
 									<a href="http://www.exedio.com/">exedio</a>
 									Gesellschaft f&uuml;r Softwareentwicklung mbH
-									(<%=identityHashCode%>
+									(<%=identityHashCode%>)
 								</td>
 							</tr>
 						</table>
