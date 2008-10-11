@@ -268,10 +268,11 @@ final class Page_Jspm
 			%>
 			<hr>
 			<div class="footer">
-				exedio cronjob - <%=implementationVersion%> - &copy;
-				<a href="http://www.exedio.com/">exedio</a>
-				Gesellschaft f&uuml;r Softwareentwicklung mbH
-				(<%=identityHashCode%>)
+				exedio cronjob <%=implementationVersion%> (<%=identityHashCode%>)
+				<br>
+				Copyright &copy; 2006-2008
+				<a href="http://www.exedio.com/" target="_blank">exedio</a>
+				Gesellschaft f&uuml;r Softwareentwicklung mbH.
 			</div>
 		</form>
 	</body>
