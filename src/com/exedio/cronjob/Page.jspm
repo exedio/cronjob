@@ -63,8 +63,8 @@ final class Page_Jspm
 				%>
 				<div>
 					Auto Refresh:
-					<%if(!autoRefreshPage){%><b><%}%><a href="<%=uriNoAutoRefresh%>">disable</a><%if(!autoRefreshPage){%></b><%}%>
-					<%if( autoRefreshPage){%><b><%}%><a href="<%=uriAutoRefresh  %>"> enable</a><%if( autoRefreshPage){%></b><%}%>
+					<%if(!autoRefreshPage){%><b><%}%><a href="<%=uriNoAutoRefresh%>">off</a><%if(!autoRefreshPage){%></b><%}%>
+					<%if( autoRefreshPage){%><b><%}%><a href="<%=uriAutoRefresh  %>">on </a><%if( autoRefreshPage){%></b><%}%>
 				</div>
 				<table border="1" width="1%" cellpadding="0" cellspacing="0">
 					<tr>
