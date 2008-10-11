@@ -274,6 +274,7 @@ final class Handler implements Interrupter
 	int getNumberOfFails(){return fails;}
 	Exception getLastException(){return lastException;}
 	boolean isRunning() {return running;}
+	int getInitialDelayInMilliSeconds() {return job.getInitialDelayInMilliSeconds();}
 	int getMinutesBetweenExecutions() {return job.getMinutesBetweenExecutions();}
 	Date getLastTimeStarted() {return lastTimeStarted;}
 	
