@@ -48,6 +48,43 @@ final class Page_Jspm
 		}
 		%>
 		<style type="text/css">
+		
+			h1
+			{
+				font-family:sans-serif;
+				font-size:180%;
+			}
+			
+			hr
+			{
+				height:0px;
+				margin:1em 0px;
+				border-width:0px;
+				border-top:1px solid #999;
+			}
+			
+			table th
+			{
+				text-align:left;
+				vertical-align:top;
+				background:#ccc;
+				border:solid 1px #ccc;
+				padding:1px 3px;
+				font-weight:normal;
+			}
+			
+			table td
+			{
+				text-align:right;
+				vertical-align:top;
+				border:solid 1px #ccc;
+				padding:1px 3px;
+			}
+			
+			table td.text
+			{
+				text-align:left;
+			}
 			
 			img
 			{
@@ -59,11 +96,6 @@ final class Page_Jspm
 				float:right;
 				width:198px;
 				height:60px;
-			}
-			
-			th, td
-			{
-				padding: 0 5 0 5
 			}
 		</style>
 	</head>
@@ -80,7 +112,7 @@ final class Page_Jspm
 					<%if(!autoRefreshPage){%><b><%}%><a href="<%=uriNoAutoRefresh%>">off</a><%if(!autoRefreshPage){%></b><%}%>
 					<%if( autoRefreshPage){%><b><%}%><a href="<%=uriAutoRefresh  %>">on </a><%if( autoRefreshPage){%></b><%}%>
 				</div>
-				<table border="1" width="1%" cellpadding="0" cellspacing="0">
+				<table>
 					<tr>
 						<th rowspan=2>&nbsp;</th>
 						<th rowspan=2>Active</th>
@@ -112,15 +144,15 @@ final class Page_Jspm
 
 					%>
 					<tr>
-						<td align="center"><input type="submit" name="<%=id%>" value="<%=CronjobManager.START_CRONJOB%>"/></td>
-						<td align="center"><nobr>
+						<td><input type="submit" name="<%=id%>" value="<%=CronjobManager.START_CRONJOB%>"/></td>
+						<td><nobr>
 							<input type="submit" name="<%=id%>" value="<%=CronjobManager.ACTIVATE  %>"<% if( isActivated) { %> disabled readonly<% } %> />
 							<input type="submit" name="<%=id%>" value="<%=CronjobManager.DEACTIVATE%>"<% if(!isActivated) { %> disabled readonly<% } %> />
 						</nobr></td>
-						<td align="center" title="<%=className%>"><%=name%></td>
-						<td align="center"><%=job.getInitialDelayInMilliSeconds()%></td>
-						<td align="center"><%=job.getMinutesBetweenExecutions()%></td>
-						<td align="center"><%
+						<td class="text" title="<%=className%>"><%=name%></td>
+						<td><%=job.getInitialDelayInMilliSeconds()%></td>
+						<td><%=job.getMinutesBetweenExecutions()%></td>
+						<td class="text"><%
 							if(job.isRunning())
 							{
 								%><%=(now-job.getLastTimeStarted().getTime())%> ms<%
@@ -135,14 +167,14 @@ final class Page_Jspm
 								%>no<%
 							}
 						%></td>
-						<td align="center" style="font-weight:bold; color:<% if(wasLastExecutionSuccessful){ %>green<% } else { %>red<% } %>"><% if(wasLastExecutionSuccessful){ %>OK<% } else { %>FAILED<% } %></td>
-						<td align="center"><nobr><%=job.getLastTimeStartedAsString()%></nobr></td>
-						<td align="center"><nobr><%=job.getTimeNeeded()%></nobr></td>
-						<td align="center"><nobr><%=job.getSuccessfulRuns()%></nobr></td>
-						<td align="center"><nobr><%=job.getNumberOfFails()%></nobr></td>
-						<td align="center"><nobr><%=job.getAverageTimeNeeded()%></nobr></td>
-						<td align="right"><%=job.getInterruptAverage()%></td>
-						<td align="right"><%=job.getInterruptMaximum()%></td>
+						<td class="text" style="font-weight:bold; color:<% if(wasLastExecutionSuccessful){ %>green<% } else { %>red<% } %>"><% if(wasLastExecutionSuccessful){ %>OK<% } else { %>FAILED<% } %></td>
+						<td><nobr><%=job.getLastTimeStartedAsString()%></nobr></td>
+						<td><nobr><%=job.getTimeNeeded()%></nobr></td>
+						<td><nobr><%=job.getSuccessfulRuns()%></nobr></td>
+						<td><nobr><%=job.getNumberOfFails()%></nobr></td>
+						<td><nobr><%=job.getAverageTimeNeeded()%></nobr></td>
+						<td><%=job.getInterruptAverage()%></td>
+						<td><%=job.getInterruptMaximum()%></td>
 					</tr><%
 					}
 				%>
