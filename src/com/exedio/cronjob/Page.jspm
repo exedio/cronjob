@@ -27,9 +27,10 @@ final class Page_Jspm
 	static final void write(
 				final PrintWriter out,
 				final String uri,
+				final String uriNoAutoRefresh,
+				final String uriAutoRefresh,
 				final long now,
 				final boolean autoRefreshPage,
-				final String enableOrDisableAutoRefreshButton,
 				final List<ObservedCronjob> observedCronjobs,
 				final String implementationVersion,
 				final long identityHashCode,
@@ -64,7 +65,11 @@ final class Page_Jspm
 							%>
 							<table>
 								<tr>
-									<td><input type="submit" name="<%=enableOrDisableAutoRefreshButton%>" value="<%=enableOrDisableAutoRefreshButton%>"/></td>
+									<td>
+										Auto Refresh:
+										<%if(!autoRefreshPage){%><b><%}%><a href="<%=uriNoAutoRefresh%>">disable</a><%if(!autoRefreshPage){%></b><%}%>
+										<%if( autoRefreshPage){%><b><%}%><a href="<%=uriAutoRefresh  %>"> enable</a><%if( autoRefreshPage){%></b><%}%>
+									</td>
 								</tr>
 							</table>
 							<br>

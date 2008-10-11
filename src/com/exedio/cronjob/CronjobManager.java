@@ -157,18 +157,16 @@ public class CronjobManager extends HttpServlet
 	
 	static final String ACTIVATE="on";
 	static final String DEACTIVATE="off";
-	static final String TRUE = "true";
-	static final String FALSE = "false";
 	static final String AUTO_REFRESH = "autoRefresh";
 	static final String START_CRONJOB = "Start";
 	static final String DELETE_LAST_EXCEPTION = "Delete";
-	static final String ENABLE_AUTOREFRESH = "Enable Auto-Refresh";
-	static final String DISABLE_AUTOREFRESH = "Disable Auto-Refresh";
 	
 	private void doRequest(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException
 	{
-		String uri=request.getRequestURI();
-		// Start/Activate/Deactivate/removeLastException for selected Cronjob
+		final boolean autoRefreshPage = request.getParameter(AUTO_REFRESH)!=null;
+		final String uriNoAutoRefresh = request.getContextPath() + request.getServletPath();
+		final String uriAutoRefresh = uriNoAutoRefresh + '?' + AUTO_REFRESH+"=t";
+		final String uri = autoRefreshPage ? uriAutoRefresh : uriNoAutoRefresh;
 		
 		if("POST".equals(request.getMethod()))
 		{
@@ -201,26 +199,14 @@ public class CronjobManager extends HttpServlet
 		}
 		
 		// AutoRefresh Page 
-		String refreshStatus = (request.getParameter(AUTO_REFRESH)==null) ? FALSE : request.getParameter(AUTO_REFRESH);
-		boolean autoRefreshPage = refreshStatus.equals(TRUE) ? true : false;
-		String enableOrDisableAutoRefreshButton = autoRefreshPage ? DISABLE_AUTOREFRESH : ENABLE_AUTOREFRESH;
-		if (request.getParameter(ENABLE_AUTOREFRESH)!=null)
-		{
-			autoRefreshPage=true;
-			enableOrDisableAutoRefreshButton=DISABLE_AUTOREFRESH;
-		}
-		if (request.getParameter(DISABLE_AUTOREFRESH)!=null)
-		{
-			autoRefreshPage=false;
-			enableOrDisableAutoRefreshButton=ENABLE_AUTOREFRESH;
-		}
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = response.getWriter();
 		Page_Jspm.write(out,
-				uri+"?"+AUTO_REFRESH+"="+(autoRefreshPage ? TRUE : FALSE),
+				uri,
+				uriNoAutoRefresh,
+				uriAutoRefresh,
 				System.currentTimeMillis(),
 				autoRefreshPage,
-				enableOrDisableAutoRefreshButton,
 				observedCronjobs,
 				getImplementationVersion(),
 				System.identityHashCode(this),
