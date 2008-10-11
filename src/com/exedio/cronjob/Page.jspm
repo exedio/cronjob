@@ -91,6 +91,11 @@ final class Page_Jspm
 				text-align:left;
 			}
 			
+			table input
+			{
+				font-size:70%;
+			}
+			
 			img
 			{
 				border:0;
