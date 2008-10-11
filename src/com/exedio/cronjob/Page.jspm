@@ -55,24 +55,16 @@ final class Page_Jspm
 	</head>
 	<body>
 		<form action="<%=uri%>" method="POST">
-			<table width=100%>
-				<tr>
-					<td align="center">
 						<h1>exedio cronjob</h1><%
 						
 						if(!handlers.isEmpty())
 						{
 							%>
-							<table>
-								<tr>
-									<td>
+							<div>
 										Auto Refresh:
 										<%if(!autoRefreshPage){%><b><%}%><a href="<%=uriNoAutoRefresh%>">disable</a><%if(!autoRefreshPage){%></b><%}%>
 										<%if( autoRefreshPage){%><b><%}%><a href="<%=uriAutoRefresh  %>"> enable</a><%if( autoRefreshPage){%></b><%}%>
-									</td>
-								</tr>
-							</table>
-							<br>
+							</div>
 							<table border="1" width="1%" cellpadding="0" cellspacing="0">
 								<tr>
 									<th rowspan=2>&nbsp;</th>
@@ -222,9 +214,6 @@ final class Page_Jspm
 								</td>
 							</tr>
 						</table>
-					</td>
-				</tr>
-			</table>
 		</form>
 	</body>
 </html>
