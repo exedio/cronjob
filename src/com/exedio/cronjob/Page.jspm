@@ -48,7 +48,12 @@ final class Page_Jspm
 		}
 		%>
 		<style type="text/css">
-		
+			
+			a.active
+			{
+				font-weight:bold;
+			}
+			
 			h1
 			{
 				font-family:sans-serif;
@@ -109,8 +114,8 @@ final class Page_Jspm
 				%>
 				<div>
 					Auto Refresh:
-					<%if(!autoRefreshPage){%><b><%}%><a href="<%=uriNoAutoRefresh%>">off</a><%if(!autoRefreshPage){%></b><%}%>
-					<%if( autoRefreshPage){%><b><%}%><a href="<%=uriAutoRefresh  %>">on </a><%if( autoRefreshPage){%></b><%}%>
+					<a href="<%=uriNoAutoRefresh%>"<%if(!autoRefreshPage){%> class="active"<%}%>>off</a>
+					<a href="<%=uriAutoRefresh  %>"<%if( autoRefreshPage){%> class="active"<%}%>>on </a>
 				</div>
 				<table>
 					<tr>
