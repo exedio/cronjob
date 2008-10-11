@@ -32,7 +32,7 @@ final class ObservedCronjob implements Interrupter
 	private final DateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy - HH:mm:ss");
 	private final DateFormat DATE_FORMAT_SIMPLE = new SimpleDateFormat("HH:mm:ss");
 	
-	private final String id;
+	final String id;
 	final Job job;
 	final String jobName;
 	private boolean running;
@@ -265,7 +265,6 @@ final class ObservedCronjob implements Interrupter
 		}
 	}
 	
-	String getId() {return id;	}
 	boolean wasLastExecutionSuccessful()	{return lastExecutionSuccessful;	}
 	void removeLastException(){lastException=null;}
 	boolean isActivated(){	return activated;	}

@@ -173,7 +173,7 @@ public class CronjobManager extends HttpServlet
 		{
 			for (final ObservedCronjob job : observedCronjobs)
 			{
-				String[] params=request.getParameterValues(job.getId());
+				final String[] params = request.getParameterValues(job.id);
 				if (params!=null)
 				{
 					List<String> paramsAsList = Arrays.asList(params);
