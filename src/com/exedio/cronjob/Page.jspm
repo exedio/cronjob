@@ -39,7 +39,7 @@ final class Page_Jspm
 %><html>
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8">
-		<title>Cronjob Manager</title><%
+		<title>Cronjob</title><%
 		
 		if (autoRefreshPage)
 		{
@@ -48,6 +48,19 @@ final class Page_Jspm
 		}
 		%>
 		<style type="text/css">
+			
+			img
+			{
+				border:0;
+			}
+			
+			img.logo
+			{
+				float:right;
+				width:198px;
+				height:60px;
+			}
+			
 			th, td
 			{
 				padding: 0 5 0 5
@@ -55,8 +68,9 @@ final class Page_Jspm
 		</style>
 	</head>
 	<body>
+		<a href="http://www.exedio.com/" target="_blank"><img src="http://cope.sourceforge.net/exedio.png" alt="Exedio Logo" class="logo"></a>
 		<form action="<%=uri%>" method="POST">
-			<h1>exedio cronjob</h1><%
+			<h1>Cronjob</h1><%
 			
 			if(!handlers.isEmpty())
 			{
