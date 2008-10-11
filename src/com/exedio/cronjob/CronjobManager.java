@@ -101,9 +101,9 @@ public class CronjobManager extends HttpServlet
 				int idCounter = 1;
 				for (final Job job: store.getJobs())
 				{
-					Handler observedCronjob = new Handler(job, idCounter++, storeInitialDelay);
-					handlers.add(observedCronjob);
-					observedCronjob.startThread();
+					final Handler handler = new Handler(job, idCounter++, storeInitialDelay);
+					handlers.add(handler);
+					handler.startThread();
 				}
 			}
 			else
