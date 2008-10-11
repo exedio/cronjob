@@ -36,7 +36,7 @@ public class CronjobManager extends HttpServlet
 {
 	private static final long serialVersionUID =100000000000001L;
 	
-	private List<ObservedCronjob> observedCronjobs;
+	private List<Handler> observedCronjobs;
 	private String storeName;
 	private boolean active;
 		
@@ -93,7 +93,7 @@ public class CronjobManager extends HttpServlet
 		if (o instanceof CronjobStore)
 		{
 			store=(CronjobStore)o;
-			observedCronjobs = new ArrayList<ObservedCronjob>();
+			observedCronjobs = new ArrayList<Handler>();
 			active=store.isActive();
 			if (store.isActive())
 			{
@@ -101,7 +101,7 @@ public class CronjobManager extends HttpServlet
 				int idCounter = 1;
 				for (final Job job: store.getJobs())
 				{
-					ObservedCronjob observedCronjob = new ObservedCronjob(job, idCounter++, storeInitialDelay);
+					Handler observedCronjob = new Handler(job, idCounter++, storeInitialDelay);
 					observedCronjobs.add(observedCronjob);
 					observedCronjob.startThread();
 				}
@@ -122,11 +122,11 @@ public class CronjobManager extends HttpServlet
 	public void destroy()
 	{
 		System.out.println("CronjobManager is terminating ... (" + System.identityHashCode(this) + ')');
-		for (final ObservedCronjob job :observedCronjobs)
+		for (final Handler job :observedCronjobs)
 		{
 			job.setActivated(false);
 		}
-		for (final ObservedCronjob job :observedCronjobs)
+		for (final Handler job :observedCronjobs)
 		{
 			job.stopThread();
 		}
@@ -171,7 +171,7 @@ public class CronjobManager extends HttpServlet
 		
 		if("POST".equals(request.getMethod()))
 		{
-			for (final ObservedCronjob job : observedCronjobs)
+			for (final Handler job : observedCronjobs)
 			{
 				final String[] params = request.getParameterValues(job.id);
 				if (params!=null)
@@ -202,12 +202,12 @@ public class CronjobManager extends HttpServlet
 				final List<String> paramsAsList = Arrays.asList(params);
 				if(paramsAsList.contains(ACTIVATE))
 				{
-					for(final ObservedCronjob job : observedCronjobs)
+					for(final Handler job : observedCronjobs)
 						job.setActivated(true);
 				}
 				else if(paramsAsList.contains(DEACTIVATE))
 				{
-					for(final ObservedCronjob job : observedCronjobs)
+					for(final Handler job : observedCronjobs)
 						job.setActivated(false);
 				}
 				else

@@ -31,7 +31,7 @@ final class Page_Jspm
 				final String uriAutoRefresh,
 				final long now,
 				final boolean autoRefreshPage,
-				final List<ObservedCronjob> observedCronjobs,
+				final List<Handler> observedCronjobs,
 				final String implementationVersion,
 				final long identityHashCode,
 				final boolean active)
@@ -94,7 +94,7 @@ final class Page_Jspm
 									<th>Max</th>
 								</tr><%
 								
-								for(final ObservedCronjob job : observedCronjobs)
+								for(final Handler job : observedCronjobs)
 								{
 									final String id = job.id;
 									final String name = job.jobName;
@@ -148,7 +148,7 @@ final class Page_Jspm
 							</table>
 							<br><%
 								
-								for(final ObservedCronjob job : observedCronjobs)
+								for(final Handler job : observedCronjobs)
 								{
 									if(job.getLastException()!=null)
 									{
