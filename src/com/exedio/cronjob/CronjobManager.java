@@ -160,6 +160,7 @@ public class CronjobManager extends HttpServlet
 	static final String AUTO_REFRESH = "autoRefresh";
 	static final String START_CRONJOB = "Start";
 	static final String DELETE_LAST_EXCEPTION = "Delete";
+	static final String ALL = "all";
 	
 	private void doRequest(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException
 	{
@@ -193,6 +194,25 @@ public class CronjobManager extends HttpServlet
 						job.setActivated(false);
 					}
 					else{/* NOTHING */}
+				}
+			}
+			final String[] params = request.getParameterValues(ALL);
+			if(params!=null)
+			{
+				final List<String> paramsAsList = Arrays.asList(params);
+				if(paramsAsList.contains(ACTIVATE))
+				{
+					for(final ObservedCronjob job : observedCronjobs)
+						job.setActivated(true);
+				}
+				else if(paramsAsList.contains(DEACTIVATE))
+				{
+					for(final ObservedCronjob job : observedCronjobs)
+						job.setActivated(false);
+				}
+				else
+				{
+					throw new RuntimeException(paramsAsList.toString());
 				}
 			}
 			response.sendRedirect(uri);

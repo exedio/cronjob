@@ -137,6 +137,14 @@ final class Page_Jspm
 								</tr><%
 								}
 							%>
+								<tr>
+									<th>All</th>
+									<td>
+										<input type="submit" name="<%=CronjobManager.ALL%>" value="<%=CronjobManager.ACTIVATE  %>" />
+										<input type="submit" name="<%=CronjobManager.ALL%>" value="<%=CronjobManager.DEACTIVATE%>" />
+									</td>
+									<td colspan="11"></td>
+								</tr>
 							</table>
 							<br><%
 								
