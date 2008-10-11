@@ -31,7 +31,7 @@ final class Page_Jspm
 				final String uriAutoRefresh,
 				final long now,
 				final boolean autoRefreshPage,
-				final List<Handler> observedCronjobs,
+				final List<Handler> handlers,
 				final String implementationVersion,
 				final long identityHashCode,
 				final boolean active)
@@ -60,7 +60,7 @@ final class Page_Jspm
 					<td align="center">
 						<h1>exedio cronjob</h1><%
 						
-						if(!observedCronjobs.isEmpty())
+						if(!handlers.isEmpty())
 						{
 							%>
 							<table>
@@ -94,7 +94,7 @@ final class Page_Jspm
 									<th>Max</th>
 								</tr><%
 								
-								for(final Handler job : observedCronjobs)
+								for(final Handler job : handlers)
 								{
 									final String id = job.id;
 									final String name = job.jobName;
@@ -148,7 +148,7 @@ final class Page_Jspm
 							</table>
 							<br><%
 								
-								for(final Handler job : observedCronjobs)
+								for(final Handler job : handlers)
 								{
 									if(job.getLastException()!=null)
 									{
