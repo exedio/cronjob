@@ -36,7 +36,7 @@ public class CronjobManager extends HttpServlet
 {
 	private static final long serialVersionUID =100000000000001L;
 	
-	private List<Handler> observedCronjobs;
+	private List<Handler> handlers;
 	private String storeName;
 	private boolean active;
 		
@@ -93,7 +93,7 @@ public class CronjobManager extends HttpServlet
 		if (o instanceof CronjobStore)
 		{
 			store=(CronjobStore)o;
-			observedCronjobs = new ArrayList<Handler>();
+			handlers = new ArrayList<Handler>();
 			active=store.isActive();
 			if (store.isActive())
 			{
@@ -102,7 +102,7 @@ public class CronjobManager extends HttpServlet
 				for (final Job job: store.getJobs())
 				{
 					Handler observedCronjob = new Handler(job, idCounter++, storeInitialDelay);
-					observedCronjobs.add(observedCronjob);
+					handlers.add(observedCronjob);
 					observedCronjob.startThread();
 				}
 			}
@@ -122,11 +122,11 @@ public class CronjobManager extends HttpServlet
 	public void destroy()
 	{
 		System.out.println("CronjobManager is terminating ... (" + System.identityHashCode(this) + ')');
-		for (final Handler job :observedCronjobs)
+		for(final Handler job : handlers)
 		{
 			job.setActivated(false);
 		}
-		for (final Handler job :observedCronjobs)
+		for(final Handler job : handlers)
 		{
 			job.stopThread();
 		}
@@ -171,7 +171,7 @@ public class CronjobManager extends HttpServlet
 		
 		if("POST".equals(request.getMethod()))
 		{
-			for (final Handler job : observedCronjobs)
+			for(final Handler job : handlers)
 			{
 				final String[] params = request.getParameterValues(job.id);
 				if (params!=null)
@@ -202,12 +202,12 @@ public class CronjobManager extends HttpServlet
 				final List<String> paramsAsList = Arrays.asList(params);
 				if(paramsAsList.contains(ACTIVATE))
 				{
-					for(final Handler job : observedCronjobs)
+					for(final Handler job : handlers)
 						job.setActivated(true);
 				}
 				else if(paramsAsList.contains(DEACTIVATE))
 				{
-					for(final Handler job : observedCronjobs)
+					for(final Handler job : handlers)
 						job.setActivated(false);
 				}
 				else
@@ -227,7 +227,7 @@ public class CronjobManager extends HttpServlet
 				uriAutoRefresh,
 				System.currentTimeMillis(),
 				autoRefreshPage,
-				observedCronjobs,
+				handlers,
 				getImplementationVersion(),
 				System.identityHashCode(this),
 				active);
