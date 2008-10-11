@@ -4,5 +4,4 @@
 * careful evaluation, that no threads are lost
 * careful evaluation, that after destroy has been called, no
 	new cronjob can start
-* use jspm for the frontend
 * send email on failure
