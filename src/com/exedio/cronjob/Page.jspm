@@ -96,6 +96,11 @@ final class Page_Jspm
 				font-size:70%;
 			}
 			
+			div.footer
+			{
+				font-size:70%;
+			}
+			
 			img
 			{
 				border:0;
@@ -261,18 +266,13 @@ final class Page_Jspm
 				</table><%
 			}
 			%>
-			<br>
-			<table width="100%">
-				<tr>
-					<td align="right" style="font-size:12">
-						<hr width="100%">
+			<hr>
+			<div class="footer">
 						exedio cronjob - <%=implementationVersion%> - &copy;
 						<a href="http://www.exedio.com/">exedio</a>
 						Gesellschaft f&uuml;r Softwareentwicklung mbH
 						(<%=identityHashCode%>)
-					</td>
-				</tr>
-			</table>
+			</div>
 		</form>
 	</body>
 </html>
