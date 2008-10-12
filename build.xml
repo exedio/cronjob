@@ -2,7 +2,6 @@
 
 <project name="exedio-cronjob" default="build" basedir=".">
 
-	<property name="src.dir"     value="src"/>
 	<property name="build.dir"   value="build"/>
 	<property name="classes.dir" value="${build.dir}/classes"/>
 
@@ -27,11 +26,6 @@
 			</classpath>
 			<compilerarg value="-Xlint:all" />
 		</javac>
-		<copy todir="${classes.dir}">
-			<fileset dir="${src.dir}">
-				<exclude name="**/*.java" />
-			</fileset>
-		</copy>
 	</target>
 
 	<target name="jar" depends="compile">
