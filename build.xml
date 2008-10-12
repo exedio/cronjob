@@ -5,7 +5,6 @@
 	<property name="src.dir"     value="src"/>
 	<property name="build.dir"   value="build"/>
 	<property name="classes.dir" value="${build.dir}/classes"/>
-	<property name="cruise.dir" value="cruise"/>
 
 	<taskdef name="jspm" classname="com.exedio.jspm.AntTask" classpath="lib/exedio-jspm.jar" />
 	
@@ -121,38 +120,9 @@
 
 	<target name="all" depends="build, jar.src" />
 
-	<taskdef name="LoadFile" classname="org.apache.tools.ant.taskdefs.LoadFile" />
-
-	<target name="cruise.full" depends="cruise.svn, cruise" description="is called from cruisecontrol" />
-
-	<target name="cruise.svn" depends="cruise.dir" description="updates all svn repositories">
-		<echo message="starting subversion update" />
-		<exec dir="${basedir}" executable="svn" failonerror="true" output="${cruise.dir}/svn-update.log">
-			<arg value="update" />
-		</exec>
-		<echo message="finished subversion update" />
-		<echo message="starting subversion version" />
-		<exec dir="${basedir}" executable="svnversion" failonerror="true"
-				output="${cruise.dir}/svn-version.log">
-			<arg value="--no-newline" />
-			<arg value="." />
-		</exec>
-		<echo message="finished subversion version" />
-		<LoadFile srcFile="${cruise.dir}/svn-version.log" property="svn.revision" />
-		<property name="build.tag" value="svn.${svn.revision} ${label} ${cctimestamp}" />
-		<echo message="${build.tag}" file="${cruise.dir}/build-tag.log" />
-	</target>
-
-	<target name="cruise.dir" description="creates and cleans the cruise artifacts directory">
-		<delete dir="${cruise.dir}" />
-		<mkdir dir="${cruise.dir}" />
-	</target>
-
-	<target name="cruise" depends="cruise.dir" description="builds everything">
-		<antcall target="clean" />
-		<antcall target="all" />
-		<copy file="${build.dir}/exedio-cronjob.jar" todir="${cruise.dir}" />
-		<copy file="${build.dir}/exedio-cronjob.jar-src.zip" todir="${cruise.dir}" />
+	<target name="cruise" depends="clean, all, tomcat">
+		<copy file="${build.dir}/exedio-cronjob.jar" todir="${basedir}/cruise" />
+		<copy file="${build.dir}/exedio-cronjob.jar-src.zip" todir="${basedir}/cruise" />
 	</target>
 
 </project>
