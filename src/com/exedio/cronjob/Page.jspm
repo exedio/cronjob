@@ -136,9 +136,9 @@ final class Page_Jspm
 						<th rowspan=2>Interval<br>/min</th>
 						<th rowspan=2>Running<br>since</th>
 						<th colspan=3>Last Execution</th>
-						<th rowspan=2>Successful Executions</th>
+						<th rowspan=2>Successful<br>Executions</th>
 						<th rowspan=2>Fails</th>
-						<th rowspan=2>Average Duration</th>
+						<th rowspan=2>Average<br>Duration</th>
 						<th colspan=2>Interrupt</th>
 					</tr>
 					<tr>
