@@ -110,6 +110,8 @@
 		<delete dir="tomcat" />
 	</target>
 
+	<target name="src" depends="jspm" description="creates all sources, so the IDE does not complain" />
+
 	<target name="build" depends="compile, jar" />
 
 	<target name="all" depends="build, jar.src" />
