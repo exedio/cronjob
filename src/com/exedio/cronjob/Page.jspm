@@ -91,6 +91,12 @@ final class Page_Jspm
 				text-align:left;
 			}
 			
+			table td.error
+			{
+				border-color:#faa;
+				background-color:#faa;
+			}
+			
 			table input
 			{
 				font-size:70%;
@@ -156,6 +162,7 @@ final class Page_Jspm
 						final String className = job.job.getClass().getName();
 						final boolean isActivated = job.isActivated();
 						final boolean wasLastExecutionSuccessful = job.wasLastExecutionSuccessful();
+						final int numberOfFails = job.getNumberOfFails();
 
 					%>
 					<tr>
@@ -186,7 +193,7 @@ final class Page_Jspm
 						<td><nobr><%=job.getLastTimeStartedAsString()%></nobr></td>
 						<td><nobr><%=job.getTimeNeeded()%></nobr></td>
 						<td><nobr><%=job.getSuccessfulRuns()%></nobr></td>
-						<td><nobr><%=job.getNumberOfFails()%></nobr></td>
+						<td<% if(numberOfFails>0){ %> class="error"<% } %>><nobr><%=numberOfFails%></nobr></td>
 						<td><nobr><%=job.getAverageTimeNeeded()%></nobr></td>
 						<td><%=job.getInterruptAverage()%></td>
 						<td><%=job.getInterruptMaximum()%></td>
