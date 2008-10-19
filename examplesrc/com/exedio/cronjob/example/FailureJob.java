@@ -27,7 +27,7 @@ final class FailureJob extends AbstractJob
 		super("Failure" + number, 1, 1000);
 	}
 	
-	public void execute(Interrupter interrupter)
+	public int execute(Interrupter interrupter)
 	{
 		throw new RuntimeException("example exception from " + name);
 	}

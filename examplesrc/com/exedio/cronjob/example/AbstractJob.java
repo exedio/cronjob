@@ -26,6 +26,7 @@ class AbstractJob implements Job
 	protected final String name;
 	protected final int minutesBetweenExecutions;
 	protected final int initialDelay;
+	protected int result = 0;
 	
 	AbstractJob(final String name, final int minutesBetweenExecutions, final int initialDelay)
 	{
@@ -40,9 +41,10 @@ class AbstractJob implements Job
 		return name;
 	}
 
-	public void execute(Interrupter interrupter) throws Exception
+	public int execute(Interrupter interrupter) throws Exception
 	{
 		System.out.println(name + ".execute");
+		return result++;
 	}
 
 	public int getMinutesBetweenExecutions()

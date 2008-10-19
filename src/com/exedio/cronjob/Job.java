@@ -21,7 +21,7 @@ package com.exedio.cronjob;
 public interface Job
 {
 	String getName();
-	void execute(Interrupter interrupter) throws Exception;
+	int execute(Interrupter interrupter) throws Exception;
 	int getMinutesBetweenExecutions();
 	int getInitialDelayInMilliSeconds();	
 }

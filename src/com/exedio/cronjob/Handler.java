@@ -42,6 +42,7 @@ final class Handler implements Interrupter
 	private long interruptTotal = 0;
 	private int interruptCount = 0;
 	private Exception lastException;
+	private int lastExecutionResult = 0;
 	private boolean lastExecutionSuccessful;
 	private boolean activated;
 	private int successfulRuns;
@@ -141,7 +142,7 @@ final class Handler implements Interrupter
 			//System.out.println("\nStarting Cronjob: "+getDisplayedName()+" at "+DATE_FORMAT.format(lastTimeStarted));
 			try
 			{
-				job.execute(this);
+				lastExecutionResult = job.execute(this);
 				Date finished =new Date();
 				lastExecutionSuccessful=true;
 				//System.out.println("Finished Cronjob: "+getDisplayedName()+" at "+DATE_FORMAT.format(finished)+"\n");
@@ -266,6 +267,7 @@ final class Handler implements Interrupter
 	}
 	
 	boolean wasLastExecutionSuccessful()	{return lastExecutionSuccessful;	}
+	int getLastExecutionResult() { return lastExecutionResult; }
 	void removeLastException(){lastException=null;}
 	boolean isActivated(){	return activated;	}
 	long getAverageTimeNeeded(){ return averageTimeNeeded;}

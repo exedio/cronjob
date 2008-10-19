@@ -28,7 +28,7 @@ final class InterruptableSlowerJob extends AbstractJob
 	}
 	
 	@Override
-	public void execute(final Interrupter interrupter)
+	public int execute(final Interrupter interrupter)
 	{
 		System.out.println(name + ".execute start");
 		try
@@ -38,28 +38,28 @@ final class InterruptableSlowerJob extends AbstractJob
 			if(interrupter.isRequested())
 			{
 				System.out.println(name + ".execute interrupted");
-				return;
+				return result++;
 			}
 			Thread.sleep(3000);
 			System.out.println(name + ".execute slept 2");
 			if(interrupter.isRequested())
 			{
 				System.out.println(name + ".execute interrupted");
-				return;
+				return result++;
 			}
 			Thread.sleep(5000);
 			System.out.println(name + ".execute slept 3");
 			if(interrupter.isRequested())
 			{
 				System.out.println(name + ".execute interrupted");
-				return;
+				return result++;
 			}
 			Thread.sleep(8000);
 			System.out.println(name + ".execute slept 8");
 			if(interrupter.isRequested())
 			{
 				System.out.println(name + ".execute interrupted");
-				return;
+				return result++;
 			}
 			Thread.sleep(10000);
 			System.out.println(name + ".execute slept 10");
@@ -69,5 +69,6 @@ final class InterruptableSlowerJob extends AbstractJob
 			throw new RuntimeException(e);
 		}
 		System.out.println(name + ".execute ready");
+		return result++;
 	}
 }

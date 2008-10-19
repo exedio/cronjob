@@ -28,7 +28,7 @@ final class SlowJob extends AbstractJob
 	}
 	
 	@Override
-	public void execute(final Interrupter interrupter)
+	public int execute(final Interrupter interrupter)
 	{
 		System.out.println(name + ".execute start");
 		try
@@ -40,5 +40,6 @@ final class SlowJob extends AbstractJob
 			throw new RuntimeException(e);
 		}
 		System.out.println(name + ".execute ready");
+		return result++;
 	}
 }

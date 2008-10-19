@@ -141,7 +141,7 @@ final class Page_Jspm
 						<th rowspan="2">Initial<br>Delay</th>
 						<th rowspan="2">Interval<br>/min</th>
 						<th rowspan="2">Running<br>since</th>
-						<th colspan="3">Last Execution</th>
+						<th colspan="4">Last Execution</th>
 						<th colspan="2">Total</th>
 						<th rowspan="2">Average<br>Duration</th>
 						<th colspan="2">Interrupt</th>
@@ -150,6 +150,7 @@ final class Page_Jspm
 						<th>Status</th>
 						<th>Start</th>
 						<th>Duration</th>
+						<th>Result</th>
 						<th>Success</th>
 						<th>Failure</th>
 						<th>Avg</th>
@@ -193,6 +194,7 @@ final class Page_Jspm
 						<td class="text<% if(!wasLastExecutionSuccessful){ %> error<% } %>"><% if(wasLastExecutionSuccessful){ %>ok<% } else { %>FAILED<% } %></td>
 						<td><nobr><%=job.getLastTimeStartedAsString()%></nobr></td>
 						<td><nobr><%=job.getTimeNeeded()%></nobr></td>
+						<td><%=job.getLastExecutionResult()%></td>
 						<td><nobr><%=job.getSuccessfulRuns()%></nobr></td>
 						<td<% if(numberOfFails>0){ %> class="error"<% } %>><nobr><%=numberOfFails%></nobr></td>
 						<td><nobr><%=job.getAverageTimeNeeded()%></nobr></td>

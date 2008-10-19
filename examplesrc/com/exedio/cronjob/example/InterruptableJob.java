@@ -28,7 +28,7 @@ final class InterruptableJob extends AbstractJob
 	}
 	
 	@Override
-	public void execute(final Interrupter interrupter)
+	public int execute(final Interrupter interrupter)
 	{
 		System.out.println(name + ".execute start");
 		try
@@ -40,7 +40,7 @@ final class InterruptableJob extends AbstractJob
 				if(interrupter.isRequested())
 				{
 					System.out.println(name + ".execute interrupted");
-					return;
+					return result++;
 				}
 			}
 		}
@@ -49,5 +49,6 @@ final class InterruptableJob extends AbstractJob
 			throw new RuntimeException(e);
 		}
 		System.out.println(name + ".execute ready");
+		return result++;
 	}
 }
