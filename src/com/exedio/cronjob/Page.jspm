@@ -189,7 +189,7 @@ final class Page_Jspm
 								%>no<%
 							}
 						%></td>
-						<td class="text<% if(!wasLastExecutionSuccessful){ %> error<% } %>" style="font-weight:bold;"><% if(wasLastExecutionSuccessful){ %>OK<% } else { %>FAILED<% } %></td>
+						<td class="text<% if(!wasLastExecutionSuccessful){ %> error<% } %>"><% if(wasLastExecutionSuccessful){ %>ok<% } else { %>FAILED<% } %></td>
 						<td><nobr><%=job.getLastTimeStartedAsString()%></nobr></td>
 						<td><nobr><%=job.getTimeNeeded()%></nobr></td>
 						<td><nobr><%=job.getSuccessfulRuns()%></nobr></td>
