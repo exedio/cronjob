@@ -28,47 +28,47 @@ final class InterruptableSlowerJob extends AbstractJob
 	}
 	
 	@Override
-	public int execute(final Interrupter interrupter)
+	public int run(final Interrupter interrupter)
 	{
-		System.out.println(name + ".execute start");
+		System.out.println(name + ".run start");
 		try
 		{
 			Thread.sleep(1000);
-			System.out.println(name + ".execute slept 1");
+			System.out.println(name + ".run slept 1");
 			if(interrupter.isRequested())
 			{
-				System.out.println(name + ".execute interrupted");
+				System.out.println(name + ".run interrupted");
 				return result++;
 			}
 			Thread.sleep(3000);
-			System.out.println(name + ".execute slept 2");
+			System.out.println(name + ".run slept 2");
 			if(interrupter.isRequested())
 			{
-				System.out.println(name + ".execute interrupted");
+				System.out.println(name + ".run interrupted");
 				return result++;
 			}
 			Thread.sleep(5000);
-			System.out.println(name + ".execute slept 3");
+			System.out.println(name + ".run slept 3");
 			if(interrupter.isRequested())
 			{
-				System.out.println(name + ".execute interrupted");
+				System.out.println(name + ".run interrupted");
 				return result++;
 			}
 			Thread.sleep(8000);
-			System.out.println(name + ".execute slept 8");
+			System.out.println(name + ".run slept 8");
 			if(interrupter.isRequested())
 			{
-				System.out.println(name + ".execute interrupted");
+				System.out.println(name + ".run interrupted");
 				return result++;
 			}
 			Thread.sleep(10000);
-			System.out.println(name + ".execute slept 10");
+			System.out.println(name + ".run slept 10");
 		}
 		catch(InterruptedException e)
 		{
 			throw new RuntimeException(e);
 		}
-		System.out.println(name + ".execute ready");
+		System.out.println(name + ".run ready");
 		return result++;
 	}
 }

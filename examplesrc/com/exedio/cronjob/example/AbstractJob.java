@@ -41,9 +41,9 @@ class AbstractJob implements Job
 		return name;
 	}
 
-	public int execute(Interrupter interrupter) throws Exception
+	public int run(Interrupter interrupter) throws Exception
 	{
-		System.out.println(name + ".execute");
+		System.out.println(name + ".run");
 		return result++;
 	}
 
