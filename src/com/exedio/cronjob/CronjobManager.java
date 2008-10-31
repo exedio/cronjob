@@ -22,6 +22,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -220,6 +223,17 @@ public class CronjobManager extends HttpServlet
 			response.sendRedirect(uri);
 		}
 		
+		final Principal principal = request.getUserPrincipal();
+		final String authentication = principal!=null ? principal.getName() : null;
+		String hostname = null;
+		try
+		{
+			hostname = InetAddress.getLocalHost().getHostName();
+		}
+		catch(UnknownHostException e)
+		{
+			// leave hostname==null
+		}
 		final long now = System.currentTimeMillis();
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = response.getWriter();
@@ -227,6 +241,8 @@ public class CronjobManager extends HttpServlet
 				uri,
 				uriNoAutoRefresh,
 				uriAutoRefresh,
+				authentication,
+				hostname,
 				now,
 				new SimpleDateFormat("yyyy/MM/dd'&nbsp;'HH:mm:ss.SSS Z (z)").format(new Date(now)),
 				autoRefreshPage,

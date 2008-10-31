@@ -29,6 +29,8 @@ final class Page_Jspm
 				final String uri,
 				final String uriNoAutoRefresh,
 				final String uriAutoRefresh,
+				final String authentication,
+				final String hostname,
 				final long now,
 				final String nowString,
 				final boolean autoRefreshPage,
@@ -119,6 +121,11 @@ final class Page_Jspm
 				width:198px;
 				height:60px;
 			}
+			
+			span.notauthenticated
+			{
+				color:#e00;
+			}
 		</style>
 	</head>
 	<body>
@@ -135,6 +142,21 @@ final class Page_Jspm
 					<a href="<%=uriAutoRefresh  %>"<%if( autoRefreshPage){%> class="active"<%}%>>on </a>
 					<br>
 					<%=nowString%>
+					<br>
+					<span class="<% if(authentication==null){%>not<%} %>authenticated"><%
+					if(authentication!=null)
+					{
+						%>authenticated as <%=authentication%><%
+					}
+					else
+					{
+						%>not authenticated<%
+					}
+					if(hostname!=null)
+					{
+						%> on <%=hostname%><%
+					}
+					%></span>
 				</div>
 				<table>
 					<tr>
