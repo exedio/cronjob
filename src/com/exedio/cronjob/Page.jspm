@@ -30,6 +30,7 @@ final class Page_Jspm
 				final String uriNoAutoRefresh,
 				final String uriAutoRefresh,
 				final long now,
+				final String nowString,
 				final boolean autoRefreshPage,
 				final List<Handler> handlers,
 				final String implementationVersion,
@@ -128,10 +129,12 @@ final class Page_Jspm
 			if(!handlers.isEmpty())
 			{
 				%>
-				<div>
+				<div class="footer">
 					Auto Refresh:
 					<a href="<%=uriNoAutoRefresh%>"<%if(!autoRefreshPage){%> class="active"<%}%>>off</a>
 					<a href="<%=uriAutoRefresh  %>"<%if( autoRefreshPage){%> class="active"<%}%>>on </a>
+					<br>
+					<%=nowString%>
 				</div>
 				<table>
 					<tr>

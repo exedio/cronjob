@@ -22,8 +22,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletConfig;
@@ -218,14 +220,15 @@ public class CronjobManager extends HttpServlet
 			response.sendRedirect(uri);
 		}
 		
-		// AutoRefresh Page 
+		final long now = System.currentTimeMillis();
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = response.getWriter();
 		Page_Jspm.write(out,
 				uri,
 				uriNoAutoRefresh,
 				uriAutoRefresh,
-				System.currentTimeMillis(),
+				now,
+				new SimpleDateFormat("yyyy/MM/dd'&nbsp;'HH:mm:ss.SSS Z (z)").format(new Date(now)),
 				autoRefreshPage,
 				handlers,
 				getImplementationVersion(),
