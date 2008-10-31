@@ -42,8 +42,8 @@ final class Handler implements Interrupter
 	private long interruptTotal = 0;
 	private int interruptCount = 0;
 	private Exception lastException;
-	private int lastExecutionResult = 0;
-	private boolean lastExecutionSuccessful;
+	private int lastRunResult = 0;
+	private boolean lastRunSuccessful;
 	private boolean activated;
 	private int successfulRuns;
 	private long averageTimeNeeded;
@@ -65,7 +65,7 @@ final class Handler implements Interrupter
 		running=false;
 		lastTimeStarted=null;
 		lastException=null;
-		lastExecutionSuccessful=true;
+		lastRunSuccessful=true;
 		activated=true;
 		successfulRuns=0;
 		averageTimeNeeded=0;
@@ -142,9 +142,9 @@ final class Handler implements Interrupter
 			//System.out.println("\nStarting Cronjob: "+getDisplayedName()+" at "+DATE_FORMAT.format(lastTimeStarted));
 			try
 			{
-				lastExecutionResult = job.run(this);
+				lastRunResult = job.run(this);
 				Date finished =new Date();
-				lastExecutionSuccessful=true;
+				lastRunSuccessful=true;
 				//System.out.println("Finished Cronjob: "+getDisplayedName()+" at "+DATE_FORMAT.format(finished)+"\n");
 				long msa=finished.getTime();
 				timeNeeded=msa-msb;
@@ -161,7 +161,7 @@ final class Handler implements Interrupter
 				System.out.println("******************** CronjobException - START ********************");
 				e.printStackTrace();
 				System.out.println("******************** CronjobException - END **********************");
-				lastExecutionSuccessful=false;
+				lastRunSuccessful=false;
 				registerInterruptRequest(failedAt.getTime());
 			}
 			finally
@@ -266,8 +266,8 @@ final class Handler implements Interrupter
 		}
 	}
 	
-	boolean wasLastExecutionSuccessful()	{return lastExecutionSuccessful;	}
-	int getLastExecutionResult() { return lastExecutionResult; }
+	boolean wasLastRunSuccessful() { return lastRunSuccessful;	}
+	int getLastRunResult() { return lastRunResult; }
 	void removeLastException(){lastException=null;}
 	boolean isActivated(){	return activated;	}
 	long getAverageTimeNeeded(){ return averageTimeNeeded;}

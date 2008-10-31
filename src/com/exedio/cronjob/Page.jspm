@@ -141,7 +141,7 @@ final class Page_Jspm
 						<th rowspan="2">Initial<br>Delay</th>
 						<th rowspan="2">Interval<br>/min</th>
 						<th rowspan="2">Running<br>since</th>
-						<th colspan="4">Last Execution</th>
+						<th colspan="4">Last Run</th>
 						<th colspan="2">Total</th>
 						<th rowspan="2">Average<br>Duration</th>
 						<th colspan="2">Interrupt</th>
@@ -163,7 +163,7 @@ final class Page_Jspm
 						final String name = job.jobName;
 						final String className = job.job.getClass().getName();
 						final boolean isActivated = job.isActivated();
-						final boolean wasLastExecutionSuccessful = job.wasLastExecutionSuccessful();
+						final boolean wasLastRunSuccessful = job.wasLastRunSuccessful();
 						final int numberOfFails = job.getNumberOfFails();
 
 					%>
@@ -191,10 +191,10 @@ final class Page_Jspm
 								%>no<%
 							}
 						%></td>
-						<td class="text<% if(!wasLastExecutionSuccessful){ %> error<% } %>"><% if(wasLastExecutionSuccessful){ %>ok<% } else { %>FAILED<% } %></td>
+						<td class="text<% if(!wasLastRunSuccessful){ %> error<% } %>"><% if(wasLastRunSuccessful){ %>ok<% } else { %>FAILED<% } %></td>
 						<td><nobr><%=job.getLastTimeStartedAsString()%></nobr></td>
 						<td><nobr><%=job.getTimeNeeded()%></nobr></td>
-						<td><%=job.getLastExecutionResult()%></td>
+						<td><%=job.getLastRunResult()%></td>
 						<td><nobr><%=job.getSuccessfulRuns()%></nobr></td>
 						<td<% if(numberOfFails>0){ %> class="error"<% } %>><nobr><%=numberOfFails%></nobr></td>
 						<td><nobr><%=job.getAverageTimeNeeded()%></nobr></td>
