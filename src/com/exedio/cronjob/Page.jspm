@@ -165,6 +165,7 @@ final class Page_Jspm
 						<th rowspan="2">Name</th>
 						<th rowspan="2">Initial<br>Delay</th>
 						<th rowspan="2">Interval<br>/min</th>
+						<th rowspan="2">Stop<br>Timeout</th>
 						<th rowspan="2">Running<br>since</th>
 						<th colspan="4">Last Run</th>
 						<th colspan="2">Total</th>
@@ -201,6 +202,7 @@ final class Page_Jspm
 						<td class="text" title="<%=className%>"><%=name%></td>
 						<td><%=job.getInitialDelayInMilliSeconds()%></td>
 						<td><%=job.getMinutesBetweenExecutions()%></td>
+						<td><%=job.getStopTimeout()%></td>
 						<td class="text"><%
 							if(job.isRunning())
 							{

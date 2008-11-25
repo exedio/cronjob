@@ -53,6 +53,7 @@ final class Handler implements Interrupter
 	private RunningThread runningThread;
 	private Date createdAt;
 	private int initialDelayinMS;
+	private final int stopTimeout;
 	
 	/**
 	 * After construction use #startThread() to start running of the job.
@@ -74,6 +75,7 @@ final class Handler implements Interrupter
 		runNow=false;
 		createdAt=new Date();
 		this.initialDelayinMS=initialDelayInMS+job.getInitialDelayInMilliSeconds();
+		this.stopTimeout = job.getStopTimeout();
 	}
 	
 	private boolean timeForExcecution()
@@ -279,6 +281,7 @@ final class Handler implements Interrupter
 	int getInitialDelayInMilliSeconds() {return job.getInitialDelayInMilliSeconds();}
 	int getMinutesBetweenExecutions() {return job.getMinutesBetweenExecutions();}
 	Date getLastTimeStarted() {return lastTimeStarted;}
+	int getStopTimeout() {return stopTimeout;}
 	
 	void startThread()
 	{
@@ -298,7 +301,13 @@ final class Handler implements Interrupter
 				{
 					runningThread.notifyWaiter();
 				}
-				runningThread.join();
+				runningThread.join(stopTimeout);
+				System.out.println("job:"+jobName+" joined");
+				if(runningThread.isAlive())
+				{
+					System.out.println("job:"+jobName+" stopping forcefully");
+					stop(runningThread);
+				}
 				System.out.println("job:"+jobName+" terminated");
 			}
 			catch (InterruptedException ex)
@@ -306,6 +315,12 @@ final class Handler implements Interrupter
 				Logger.getLogger(Handler.class.getName()).log(Level.SEVERE, null, ex);
 			}
 		}
+	}
+	
+	@SuppressWarnings("deprecation") // OK: last resort
+	private static final void stop(final Thread t)
+	{
+		t.stop();
 	}
 	
 	class RunningThread extends Thread

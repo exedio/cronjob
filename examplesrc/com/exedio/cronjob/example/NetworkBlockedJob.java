@@ -16,13 +16,29 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cronjob;
+package com.exedio.cronjob.example;
 
-public interface Job
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import com.exedio.cronjob.Interrupter;
+
+final class NetworkBlockedJob extends AbstractJob
 {
-	String getName();
-	int run(Interrupter interrupter) throws Exception;
-	int getMinutesBetweenExecutions();
-	int getInitialDelayInMilliSeconds();	
-	int getStopTimeout();
+	NetworkBlockedJob()
+	{
+		super("NetworkBlocked", 60, 24*60*60*1000);
+	}
+	
+	@Override
+	public int run(final Interrupter interrupter) throws IOException
+	{
+		System.out.println(name + ".run start");
+		final URL url = new URL("http://www.exedio.com:1234/");
+		final HttpURLConnection con = (HttpURLConnection)url.openConnection();
+		final int responseCode = con.getResponseCode();
+		System.out.println(name + ".run ready (" + responseCode +')');
+		return result++;
+	}
 }

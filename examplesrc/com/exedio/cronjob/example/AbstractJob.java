@@ -58,4 +58,9 @@ class AbstractJob implements Job
 		//System.out.println(name + ".getInitialDelayInMilliSeconds"+initialDelay);
 		return initialDelay;
 	}
+	
+	public int getStopTimeout()
+	{
+		return 5000;
+	}
 }
