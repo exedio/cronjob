@@ -23,6 +23,6 @@ public interface Job
 	String getName();
 	int run(Interrupter interrupter) throws Exception;
 	int getMinutesBetweenExecutions();
-	int getInitialDelayInMilliSeconds();	
+	int getInitialDelayInMilliSeconds();
 	int getStopTimeout();
 }
