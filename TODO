@@ -5,3 +5,6 @@
 * careful evaluation, that after destroy has been called, no
 	new cronjob can start
 * send email on failure
+* refactoring: use TimerTask
+* log last failure / last success
+* log trigger cause (auto/manual) and authentication used
