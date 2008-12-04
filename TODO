@@ -1,3 +1,6 @@
+
+TODO for cronjob
+
 * a public method for deactivate/activating all jobs
 	The deactivation method must wait until the all cronjobs are finished.
 	So this must be the same functionality as destroy()
