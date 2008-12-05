@@ -25,6 +25,8 @@
 				<pathelement location="lib/servlet-api.jar" />
 			</classpath>
 			<compilerarg value="-Xlint:all" />
+			<compilerarg value="-encoding" />
+			<compilerarg value="ascii" />
 		</javac>
 	</target>
 
@@ -63,6 +65,8 @@
 				<pathelement location="lib/servlet-api.jar" />
 			</classpath>
 			<compilerarg value="-Xlint:all" />
+			<compilerarg value="-encoding" />
+			<compilerarg value="ascii" />
 		</javac>
 	</target>
 
