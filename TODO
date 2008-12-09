@@ -11,3 +11,5 @@ TODO for cronjob
 * refactoring: use TimerTask
 * log last failure / last success
 * log trigger cause (auto/manual) and authentication used
+* allow specification of time of day (2am-4am)
+* add lots of junit tests
