@@ -121,8 +121,11 @@
 	<target name="all" depends="build, jar.src" />
 
 	<target name="cruise" depends="clean, all, tomcat">
-		<copy file="${build.dir}/exedio-cronjob.jar" todir="${basedir}/cruise" />
-		<copy file="${build.dir}/exedio-cronjob.jar-src.zip" todir="${basedir}/cruise" />
+		<copy todir="${basedir}/cruise">
+			<fileset file="${build.dir}/exedio-cronjob.jar"/>
+			<fileset file="${build.dir}/exedio-cronjob.jar-src.zip"/>
+			<fileset file="getlib.properties"/>
+		</copy>
 		<copy file="CHANGELOG" tofile="${basedir}/cruise/exedio-cronjob.jar-CHANGELOG" />
 	</target>
 
