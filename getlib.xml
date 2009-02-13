@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<project name="cronjob getlib" default="getlib" basedir=".">
+
+	<import file="getlib/getlib-contrib.xml"/>
+
+	<target name="getlib" depends="exedio-cope-util" />
+
+</project>
