@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import com.exedio.cronjob.Interrupter;
+import com.exedio.cope.util.Interrupter;
 
 final class NetworkBlockedJob extends AbstractJob
 {

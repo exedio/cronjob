@@ -26,6 +26,8 @@ import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.exedio.cope.util.Interrupter;
+
 final class Handler implements Interrupter
 {
 	private final int DURATION_BETWEEN_CHECKS=2705;

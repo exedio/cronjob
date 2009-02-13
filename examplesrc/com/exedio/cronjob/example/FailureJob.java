@@ -18,7 +18,7 @@
 
 package com.exedio.cronjob.example;
 
-import com.exedio.cronjob.Interrupter;
+import com.exedio.cope.util.Interrupter;
 
 final class FailureJob extends AbstractJob
 {

@@ -18,7 +18,7 @@
 
 package com.exedio.cronjob.example;
 
-import com.exedio.cronjob.Interrupter;
+import com.exedio.cope.util.Interrupter;
 import com.exedio.cronjob.Job;
 
 class AbstractJob implements Job

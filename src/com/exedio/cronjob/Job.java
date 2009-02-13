@@ -18,6 +18,8 @@
 
 package com.exedio.cronjob;
 
+import com.exedio.cope.util.Interrupter;
+
 public interface Job
 {
 	String getName();
