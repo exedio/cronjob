@@ -240,9 +240,9 @@ final class Handler implements Interrupter
 		if (lastTimeStarted!=null)
 		{
 			if (isToday(lastTimeStarted))
-				return DATE_FORMAT_SIMPLE.format(lastTimeStarted);	
+				return DATE_FORMAT_SIMPLE.format(lastTimeStarted);
 			else
-				return DATE_FORMAT.format(lastTimeStarted);	
+				return DATE_FORMAT.format(lastTimeStarted);
 		}
 		else
 		{
@@ -263,7 +263,7 @@ final class Handler implements Interrupter
 		try
 		{
 			Thread.sleep(100); //This for updating the running Parameter
-		} 
+		}
 		catch (InterruptedException ex)
 		{
 			ex.printStackTrace();
@@ -364,7 +364,7 @@ final class Handler implements Interrupter
 				catch (InterruptedException e)
 				{
 					throw new RuntimeException(e);
-				}	
+				}
 			}
 		}
 	}

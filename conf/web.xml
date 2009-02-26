@@ -15,7 +15,7 @@
 			<param-value>com.exedio.cronjob.example.ExampleStore</param-value>
 		</init-param>
 		<load-on-startup>5</load-on-startup>
-	</servlet>	
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>cronjob</servlet-name>
 		<url-pattern>/cronjob/*</url-pattern>

@@ -93,8 +93,8 @@ public class CronjobManager extends HttpServlet
 		catch(IllegalAccessException e)
 		{
 			throw new RuntimeException("ERROR: Class "+storeClass+" or its null-constructor could not be accessed ", e);
-		}		
-		CronjobStore store = null;		
+		}
+		CronjobStore store = null;
 		if (o instanceof CronjobStore)
 		{
 			store=(CronjobStore)o;
@@ -119,7 +119,7 @@ public class CronjobManager extends HttpServlet
 		else
 		{
 			throw new RuntimeException("ERROR: Class "+storeClass+" must implement the CronjobStore-interface");
-		}		
+		}
 		System.out.println("CronjobManager is started. (" + System.identityHashCode(this) + ')');
 	}
 	
@@ -140,7 +140,7 @@ public class CronjobManager extends HttpServlet
 	
 	private String getImplementationVersion()
 	{
-		String iv=CronjobManager.class.getPackage().getImplementationVersion();		
+		String iv=CronjobManager.class.getPackage().getImplementationVersion();
 		return iv==null ? "" : iv;
 	}
 	
