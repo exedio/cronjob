@@ -32,7 +32,7 @@
 	</target>
 
 	<target name="jar" depends="compile">
-		<jar destfile="${build.dir}/exedio-cronjob.jar" basedir="${classes.dir}">
+		<jar destfile="${build.dir}/exedio-cronjob.jar" basedir="${classes.dir}" filesonly="true" duplicate="fail" level="9">
 			<manifest>
 				<attribute name="Specification-Title" value="exedio cronjob" />
 				<attribute name="Specification-Version" value="${build.tag}" />
