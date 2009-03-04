@@ -49,6 +49,7 @@
 		<zip destfile="${build.dir}/exedio-cronjob.jar-src.zip" filesonly="true" whenempty="fail" duplicate="fail" level="9">
 			<zipfileset dir="${basedir}/src">
 				<include name="**/*.java" />
+				<exclude name="**/*_Jspm.java" />
 			</zipfileset>
 		</zip>
 	</target>
