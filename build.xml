@@ -46,7 +46,7 @@
 
 	<target name="jar.src">
 		<mkdir dir="${build.dir}" />
-		<zip destfile="${build.dir}/exedio-cronjob.jar-src.zip">
+		<zip destfile="${build.dir}/exedio-cronjob.jar-src.zip" filesonly="true" whenempty="fail" duplicate="fail" level="9">
 			<zipfileset dir="${basedir}/src">
 				<include name="**/*.java" />
 			</zipfileset>
