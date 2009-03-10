@@ -99,6 +99,9 @@ public class CronjobManager extends HttpServlet
 		{
 			store=(CronjobStore)o;
 			handlers = new ArrayList<Handler>();
+			final String EXECUTE = "execute";
+			final String doExecuteStr = getServletConfig().getInitParameter(EXECUTE);			
+			final boolean doExecute = "false".equalsIgnoreCase(doExecuteStr) ? false : true;
 			active=store.isActive();
 			if (store.isActive())
 			{
@@ -106,7 +109,7 @@ public class CronjobManager extends HttpServlet
 				int idCounter = 1;
 				for (final Job job: store.getJobs())
 				{
-					final Handler handler = new Handler(job, idCounter++, storeInitialDelay);
+					final Handler handler = new Handler(job, idCounter++, storeInitialDelay, doExecute);
 					handlers.add(handler);
 					handler.startThread();
 				}
