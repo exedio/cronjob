@@ -43,7 +43,6 @@ public class CronjobManager extends HttpServlet
 	
 	private List<Handler> handlers;
 	private String storeName;
-	private boolean active;
 		
 	@Override
 	public void init() throws ServletException
@@ -102,21 +101,13 @@ public class CronjobManager extends HttpServlet
 			final String EXECUTE = "execute";
 			final String doExecuteStr = getServletConfig().getInitParameter(EXECUTE);			
 			final boolean doExecute = "false".equalsIgnoreCase(doExecuteStr) ? false : true;
-			active=store.isActive();
-			if (store.isActive())
+			final int storeInitialDelay = store.getInitialDelayInMilliSeconds();
+			int idCounter = 1;
+			for (final Job job: store.getJobs())
 			{
-				final int storeInitialDelay = store.getInitialDelayInMilliSeconds();
-				int idCounter = 1;
-				for (final Job job: store.getJobs())
-				{
-					final Handler handler = new Handler(job, idCounter++, storeInitialDelay, doExecute);
-					handlers.add(handler);
-					handler.startThread();
-				}
-			}
-			else
-			{
-				System.out.println("INFO: No cronjobs will be executed, "+storeName+".isActive() returned false");
+				final Handler handler = new Handler(job, idCounter++, storeInitialDelay, doExecute);
+				handlers.add(handler);
+				handler.startThread();
 			}
 		}
 		else
@@ -251,8 +242,7 @@ public class CronjobManager extends HttpServlet
 				autoRefreshPage,
 				handlers,
 				getImplementationVersion(),
-				System.identityHashCode(this),
-				active);
+				System.identityHashCode(this));
 		out.close();
 	}
 }

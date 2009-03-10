@@ -24,5 +24,4 @@ public interface CronjobStore
 {
 	List<? extends Job> getJobs();
 	int getInitialDelayInMilliSeconds();
-	boolean isActive();
 }

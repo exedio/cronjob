@@ -36,8 +36,7 @@ final class Page_Jspm
 				final boolean autoRefreshPage,
 				final List<Handler> handlers,
 				final String implementationVersion,
-				final long identityHashCode,
-				final boolean active)
+				final long identityHashCode)
 	{
 %><html>
 	<head>
@@ -275,10 +274,7 @@ final class Page_Jspm
 			else
 			{
 				%>
-				<table width="100%"><%
-				if(active)
-				{
-					%>
+				<table width="100%">
 					<tr>
 						<td align="center"><b>There are currently no cronjobs installed.</b></td>
 					</tr>"+
@@ -290,16 +286,7 @@ final class Page_Jspm
 							&nbsp;&nbsp;&nbsp;2. An instance of the cronjob-class must be added to the method getJobs() in the class:
 							<b> "+storeName +"</b>
 						</td>
-					</tr><%
-				}
-				else
-				{
-					%>
-					<tr><td align="center"><b>The cronjobs are not activated.</b></td></tr>"+
-					<tr><td>&nbsp;</td></tr>
-					<tr><td align="left">To activate the cronjobs, the class:<b> "+storeName +"</b> has to return true in its isActive() method</td></tr><%
-				}
-				%>
+					</tr>
 				</table><%
 			}
 			%>
