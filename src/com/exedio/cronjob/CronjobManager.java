@@ -98,8 +98,8 @@ public class CronjobManager extends HttpServlet
 		{
 			store=(CronjobStore)o;
 			handlers = new ArrayList<Handler>();
-			final String EXECUTE = "execute";
-			final String doExecuteStr = getServletConfig().getInitParameter(EXECUTE);			
+			final String EXECUTE = "com.exedio.cronjob.execute";
+			final String doExecuteStr = getServletConfig().getServletContext().getInitParameter(EXECUTE);			
 			final boolean doExecute = "false".equalsIgnoreCase(doExecuteStr) ? false : true;
 			final int storeInitialDelay = store.getInitialDelayInMilliSeconds();
 			int idCounter = 1;

@@ -3,4 +3,8 @@
 			debug="0"
 			privileged="true"
 			cookies="false">
+
+<!--use to disable all cronjobs on this webserver-->
+<!--Parameter override="false" name="com.exedio.cronjob.execute" value="false" /-->
+
 </Context>
