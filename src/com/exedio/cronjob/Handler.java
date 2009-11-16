@@ -288,6 +288,7 @@ final class Handler implements Interrupter
 	void startThread()
 	{
 		runningThread = new RunningThread();
+		runningThread.setName("exedio cronjob: " + jobName);
 		runningThread.start();
 	}
 	
