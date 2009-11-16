@@ -161,7 +161,7 @@ public class CronjobManager extends HttpServlet
 	static final String DELETE_LAST_EXCEPTION = "Delete";
 	static final String ALL = "all";
 	
-	private void doRequest(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException
+	private void doRequest(final HttpServletRequest request, final HttpServletResponse response) throws IOException
 	{
 		final boolean autoRefreshPage = request.getParameter(AUTO_REFRESH)!=null;
 		final String uriNoAutoRefresh = request.getContextPath() + request.getServletPath();

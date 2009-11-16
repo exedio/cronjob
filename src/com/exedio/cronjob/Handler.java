@@ -88,8 +88,8 @@ final class Handler implements Interrupter
 		}
 		else
 		{
-			Long last = lastTimeStarted.getTime();
-			Long now = new Date().getTime();
+			long last = lastTimeStarted.getTime();
+			long now = new Date().getTime();
 			if ((now-last)>=(job.getMinutesBetweenExecutions()*1000*60))
 			{
 				return true;
@@ -135,7 +135,7 @@ final class Handler implements Interrupter
 		interruptCount++;
 	}
 	
-	private void tryToExecute()
+	void tryToExecute()
 	{
 		if (canExecuteJob())
 		{
