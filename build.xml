@@ -102,6 +102,7 @@
 		<copy todir="tomcat/conf">
 			<fileset dir="conf">
 				<include name="server.xml" />
+				<include name="tomcat-users.xml" />
 			</fileset>
 		</copy>
 	</target>

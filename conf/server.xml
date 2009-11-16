@@ -3,6 +3,15 @@
 	cronjob servlet.
 -->
 <Server port="8005" shutdown="SHUTDOWN">
+	<GlobalNamingResources>
+		<Resource
+				name="UserDatabase"
+				auth="Container"
+				type="org.apache.catalina.UserDatabase"
+				description="Read-only user database in tomcat-users.xml"
+				factory="org.apache.catalina.users.MemoryUserDatabaseFactory"
+				readonly="true" />
+	</GlobalNamingResources>
 	<Service name="Catalina">
 		<Connector
 				port="8080" maxHttpHeaderSize="8192"
@@ -10,6 +19,9 @@
 				enableLookups="false" redirectPort="8443" acceptCount="100"
 				connectionTimeout="20000" disableUploadTimeout="true" />
 		<Engine name="Catalina" defaultHost="localhost">
+			<Realm
+					className="org.apache.catalina.realm.UserDatabaseRealm"
+					resourceName="UserDatabase" />
 			<Host name="localhost" appBase="webapps"
 					unpackWARs="true" autoDeploy="true"
 					xmlValidation="false" xmlNamespaceAware="false" />
