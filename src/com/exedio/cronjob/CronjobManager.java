@@ -42,7 +42,6 @@ public class CronjobManager extends HttpServlet
 	private static final long serialVersionUID =100000000000001L;
 	
 	private List<Handler> handlers;
-	private String storeName;
 		
 	@Override
 	public void init() throws ServletException
@@ -50,57 +49,70 @@ public class CronjobManager extends HttpServlet
 		super.init();
 		System.out.println("CronjobManager is starting ... (" + System.identityHashCode(this) + ')');
 		final String STORE = "store";
-		storeName=getServletConfig().getInitParameter(STORE);
-		if (storeName==null)
+		String storeNames=getServletConfig().getInitParameter(STORE);
+		if (storeNames==null)
 		{
 			throw new RuntimeException("ERROR: Servlet-Init-Parameter: >> "+STORE+" << was expected but not found");
 		}
 
-		final Class<?> storeClass;
-		try
+		List<CronjobStore> stores = new ArrayList<CronjobStore>();
+		for ( String storeName: storeNames.split(",") )
 		{
-			storeClass = Class.forName(storeName);
-		}
-		catch (ClassNotFoundException e)
-		{
-			throw new RuntimeException("ERROR: A class with name: "+storeName+" was not found", e);
+			final Class<?> storeClass;
+			try
+			{
+				storeClass = Class.forName(storeName);
+			}
+			catch (ClassNotFoundException e)
+			{
+				throw new RuntimeException("ERROR: A class with name: "+storeName+" was not found", e);
+			}
+
+			final Constructor<?> storeConstructor;
+			try
+			{
+				storeConstructor = storeClass.getConstructor(ServletConfig.class);
+			}
+			catch(NoSuchMethodException e)
+			{
+				throw new RuntimeException("ERROR: Class "+storeClass+" has no suitable constructor", e);
+			}
+
+			final Object o;
+			try
+			{
+				o = storeConstructor.newInstance(getServletConfig());
+			}
+			catch(InvocationTargetException e)
+			{
+				throw new RuntimeException("ERROR: Class "+storeClass+" constructor throw exception", e);
+			}
+			catch(InstantiationException e)
+			{
+				throw new RuntimeException("ERROR: Class "+storeClass+" could not be instantiated (must not be abstract or an interface)", e);
+			}
+			catch(IllegalAccessException e)
+			{
+				throw new RuntimeException("ERROR: Class "+storeClass+" or its null-constructor could not be accessed ", e);
+			}
+			
+			if (o instanceof CronjobStore)
+			{
+				stores.add( (CronjobStore)o );
+			}
+			else
+			{
+				throw new RuntimeException("ERROR: Class "+storeClass+" must implement the CronjobStore-interface");
+			}
 		}
 
-		final Constructor<?> storeConstructor;
-		try
+		final String EXECUTE = "com.exedio.cronjob.execute";
+		final String doExecuteStr = getServletConfig().getServletContext().getInitParameter(EXECUTE);
+		final boolean doExecute = "false".equalsIgnoreCase(doExecuteStr) ? false : true;
+
+		handlers = new ArrayList<Handler>();
+		for ( CronjobStore store: stores )
 		{
-			storeConstructor = storeClass.getConstructor(ServletConfig.class);
-		}
-		catch(NoSuchMethodException e)
-		{
-			throw new RuntimeException("ERROR: Class "+storeClass+" has no suitable constructor", e);
-		}
-		
-		final Object o;
-		try
-		{
-			o = storeConstructor.newInstance(getServletConfig());
-		}
-		catch(InvocationTargetException e)
-		{
-			throw new RuntimeException("ERROR: Class "+storeClass+" constructor throw exception", e);
-		}
-		catch(InstantiationException e)
-		{
-			throw new RuntimeException("ERROR: Class "+storeClass+" could not be instantiated (must not be abstract or an interface)", e);
-		}
-		catch(IllegalAccessException e)
-		{
-			throw new RuntimeException("ERROR: Class "+storeClass+" or its null-constructor could not be accessed ", e);
-		}
-		CronjobStore store = null;
-		if (o instanceof CronjobStore)
-		{
-			store=(CronjobStore)o;
-			handlers = new ArrayList<Handler>();
-			final String EXECUTE = "com.exedio.cronjob.execute";
-			final String doExecuteStr = getServletConfig().getServletContext().getInitParameter(EXECUTE);			
-			final boolean doExecute = "false".equalsIgnoreCase(doExecuteStr) ? false : true;
 			final int storeInitialDelay = store.getInitialDelayInMilliSeconds();
 			int idCounter = 1;
 			for (final Job job: store.getJobs())
@@ -109,10 +121,6 @@ public class CronjobManager extends HttpServlet
 				handlers.add(handler);
 				handler.startThread();
 			}
-		}
-		else
-		{
-			throw new RuntimeException("ERROR: Class "+storeClass+" must implement the CronjobStore-interface");
 		}
 		System.out.println("CronjobManager is started. (" + System.identityHashCode(this) + ')');
 	}

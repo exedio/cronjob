@@ -7,5 +7,6 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* The parameter 'store' of the CronjobManager servlet now supports a comma-separated list of CronjobStore class names.
 * set thread name to "exedio cronjob: " + jobName
 * Interrupter from exedio-cope-util.jar is used

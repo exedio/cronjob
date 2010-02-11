@@ -19,7 +19,12 @@
 package com.exedio.cronjob;
 
 import java.util.List;
+import javax.servlet.ServletConfig;
 
+/**
+ * Implementations must provide a public constructor with a single parameter of
+ * type {@link ServletConfig}.
+ */
 public interface CronjobStore
 {
 	List<? extends Job> getJobs();

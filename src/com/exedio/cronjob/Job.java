@@ -23,8 +23,19 @@ import com.exedio.cope.util.Interrupter;
 public interface Job
 {
 	String getName();
+
+	/**
+	 * @return the number of processed items
+	 */
 	int run(Interrupter interrupter) throws Exception;
+
 	int getMinutesBetweenExecutions();
+	
 	int getInitialDelayInMilliSeconds();
+
+	/**
+	 * @return the time (in milliseconds) the job will be given to finish before it
+	 *			will be stopped forcefully
+	 */
 	int getStopTimeout();
 }
