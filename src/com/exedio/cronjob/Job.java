@@ -25,7 +25,11 @@ public interface Job
 	String getName();
 
 	/**
-	 * @return the number of processed items
+	 * @return
+	 *    An arbitrary number, that is displayed by the cronjob maintanence servlet.
+	 *    Typically you may want to return something like the number items processed by the job.
+	 *    The cronjob library does never use this number for any program logic,
+	 *    it just displayes the number (and it's average / maximum).
 	 */
 	int run(Interrupter interrupter) throws Exception;
 
