@@ -111,10 +111,10 @@ public class CronjobManager extends HttpServlet
 		final boolean doExecute = "false".equalsIgnoreCase(doExecuteStr) ? false : true;
 
 		handlers = new ArrayList<Handler>();
+		int idCounter = 1;
 		for ( CronjobStore store: stores )
 		{
 			final int storeInitialDelay = store.getInitialDelayInMilliSeconds();
-			int idCounter = 1;
 			for (final Job job: store.getJobs())
 			{
 				final Handler handler = new Handler(job, idCounter++, storeInitialDelay, doExecute);
