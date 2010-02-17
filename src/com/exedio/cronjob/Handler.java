@@ -252,8 +252,8 @@ final class Handler implements Interrupter
 	
 	void setActivated(boolean activated)
 	{
-		this.activated = activated;
-		System.out.println("Cronjob: " + jobName + " was deactivated at "+DATE_FORMAT.format(new Date()));
+		this.activated = activated;		
+		System.out.println("Cronjob: " + jobName + " was "+(activated ? "" : "de")+"activated at "+DATE_FORMAT.format(new Date()));
 	}
 	
 	void runNow()
