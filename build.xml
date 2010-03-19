@@ -136,4 +136,11 @@
 		<copy file="CHANGELOG" tofile="${basedir}/cruise/exedio-cronjob.jar-CHANGELOG" />
 	</target>
 
+	<target name="hudson" depends="all, tomcat">
+		<copy todir="${basedir}/build/success">
+			<fileset file="${build.dir}/exedio-cronjob.jar"/>
+			<fileset file="${build.dir}/exedio-cronjob.jar-src.zip"/>
+		</copy>
+	</target>
+
 </project>
