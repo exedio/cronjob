@@ -35,11 +35,11 @@ public interface Job
 
 	int getMinutesBetweenExecutions();
 	
-	int getInitialDelayInMilliSeconds();
+	long getInitialDelayInMilliSeconds();
 
 	/**
 	 * @return the time (in milliseconds) the job will be given to finish before it
 	 *			will be stopped forcefully
 	 */
-	int getStopTimeout();
+	long getStopTimeout();
 }

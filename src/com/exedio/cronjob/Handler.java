@@ -54,8 +54,8 @@ final class Handler implements Interrupter
 	private int fails;
 	private RunningThread runningThread;
 	private Date createdAt;
-	private int initialDelayinMS;
-	private final int stopTimeout;
+	private long initialDelayinMS;
+	private final long stopTimeout;
 	
 	/**
 	 * After construction use #startThread() to start running of the job.
@@ -280,10 +280,10 @@ final class Handler implements Interrupter
 	int getNumberOfFails(){return fails;}
 	Exception getLastException(){return lastException;}
 	boolean isRunning() {return running;}
-	int getInitialDelayInMilliSeconds() {return job.getInitialDelayInMilliSeconds();}
+	long getInitialDelayInMilliSeconds() {return job.getInitialDelayInMilliSeconds();}
 	int getMinutesBetweenExecutions() {return job.getMinutesBetweenExecutions();}
 	Date getLastTimeStarted() {return lastTimeStarted;}
-	int getStopTimeout() {return stopTimeout;}
+	long getStopTimeout() {return stopTimeout;}
 	
 	void startThread()
 	{

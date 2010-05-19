@@ -25,10 +25,10 @@ class AbstractJob implements Job
 {
 	protected final String name;
 	protected final int minutesBetweenExecutions;
-	protected final int initialDelay;
+	protected final long initialDelay;
 	protected int result = 0;
 	
-	AbstractJob(final String name, final int minutesBetweenExecutions, final int initialDelay)
+	AbstractJob(final String name, final int minutesBetweenExecutions, final long initialDelay)
 	{
 		this.name = name;
 		this.minutesBetweenExecutions = minutesBetweenExecutions;
@@ -53,13 +53,13 @@ class AbstractJob implements Job
 		return minutesBetweenExecutions;
 	}
 	
-	public int getInitialDelayInMilliSeconds()
+	public long getInitialDelayInMilliSeconds()
 	{
 		//System.out.println(name + ".getInitialDelayInMilliSeconds"+initialDelay);
 		return initialDelay;
 	}
 	
-	public int getStopTimeout()
+	public long getStopTimeout()
 	{
 		return 5000;
 	}
