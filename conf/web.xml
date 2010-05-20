@@ -12,13 +12,27 @@
 		<servlet-class>com.exedio.cronjob.CronjobManager</servlet-class>
 		<init-param>
 			<param-name>store</param-name>
-			<param-value>com.exedio.cronjob.example.ExampleStore</param-value>
+			<param-value>com.exedio.cronjob.example.ExampleStore,com.exedio.cronjob.example.ExampleStore2</param-value>
 		</init-param>
 		<load-on-startup>5</load-on-startup>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>cronjob</servlet-name>
 		<url-pattern>/cronjob/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>cronjob2</servlet-name>
+		<servlet-class>com.exedio.cronjob.CronjobManager</servlet-class>
+		<init-param>
+			<param-name>store</param-name>
+			<param-value>com.exedio.cronjob.example.ExampleStore2</param-value>
+		</init-param>
+		<load-on-startup>5</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>cronjob2</servlet-name>
+		<url-pattern>/cronjob2/*</url-pattern>
 	</servlet-mapping>
 	
 </web-app>
