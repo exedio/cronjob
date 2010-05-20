@@ -50,7 +50,7 @@ public final class ExampleStore implements CronjobStore
 				new NullNameJob());
 	}
 
-	public int getInitialDelayInMilliSeconds()
+	public long getInitialDelayInMilliSeconds()
 	{
 		System.out.println("ExampleStore.getInitialDelayInMilliSeconds");
 		return 1000;

@@ -114,7 +114,7 @@ public class CronjobManager extends HttpServlet
 		int idCounter = 1;
 		for ( CronjobStore store: stores )
 		{
-			final int storeInitialDelay = store.getInitialDelayInMilliSeconds();
+			final long storeInitialDelay = store.getInitialDelayInMilliSeconds();
 			for (final Job job: store.getJobs())
 			{
 				final Handler handler = new Handler(job, idCounter++, storeInitialDelay, doExecute);

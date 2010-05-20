@@ -60,7 +60,7 @@ final class Handler implements Interrupter
 	/**
 	 * After construction use #startThread() to start running of the job.
 	 */
-	Handler(final Job job, final int id, final int initialDelayInMS, final boolean active)
+	Handler(final Job job, final int id, final long initialDelayInMS, final boolean active)
 	{
 		this.id = "cronjob_"+String.valueOf(id);
 		this.job=job;

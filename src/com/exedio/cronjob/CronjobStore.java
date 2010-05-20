@@ -28,5 +28,5 @@ import javax.servlet.ServletConfig;
 public interface CronjobStore
 {
 	List<? extends Job> getJobs();
-	int getInitialDelayInMilliSeconds();
+	long getInitialDelayInMilliSeconds();
 }
