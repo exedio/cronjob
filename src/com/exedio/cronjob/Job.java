@@ -26,10 +26,10 @@ public interface Job
 
 	/**
 	 * @return
-	 *    An arbitrary number, that is displayed by the cronjob maintanence servlet.
+	 *    An arbitrary number, that is displayed by the cronjob maintenance servlet.
 	 *    Typically you may want to return something like the number items processed by the job.
 	 *    The cronjob library does never use this number for any program logic,
-	 *    it just displayes the number (and it's average / maximum).
+	 *    it just displays the number (and it's average / maximum).
 	 */
 	int run(Interrupter interrupter) throws Exception;
 
