@@ -23,6 +23,7 @@ import com.exedio.cronjob.Job;
 
 class AbstractJob implements Job
 {
+	protected boolean activeInitially = true;
 	protected final String name;
 	protected final int minutesBetweenExecutions;
 	protected final long initialDelay;
@@ -47,6 +48,11 @@ class AbstractJob implements Job
 		return result++;
 	}
 
+	public boolean isActiveInitially()
+	{
+		return activeInitially;
+	}
+	
 	public int getMinutesBetweenExecutions()
 	{
 		//System.out.println(name + ".getMinutesBetweenExecutions");

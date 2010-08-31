@@ -99,6 +99,12 @@ final class Page_Jspm
 				background-color:#faa;
 			}
 			
+			table td.inactive
+			{
+				border-color:#ccf;
+				background-color:#ccf;
+			}
+			
 			table input
 			{
 				font-size:70%;
@@ -194,12 +200,12 @@ final class Page_Jspm
 					%>
 					<tr>
 						<td><input type="submit" name="<%=id%>" value="<%=CronjobManager.START_CRONJOB%>"/></td>
-						<td><nobr>
+						<td<% if(!isActivated){%> class="inactive"<%} %>><nobr>
 							<input type="submit" name="<%=id%>" value="<%=CronjobManager.ACTIVATE  %>"<% if( isActivated) { %> disabled readonly<% } %> />
 							<input type="submit" name="<%=id%>" value="<%=CronjobManager.DEACTIVATE%>"<% if(!isActivated) { %> disabled readonly<% } %> />
 						</nobr></td>
 						<td class="text" title="<%=className%>"><%=name%></td>
-						<td><%=job.getInitialDelayInMilliSeconds()%></td>
+						<td<% if(!job.activeInitially){%> class="inactive"<%} %>><%=job.getInitialDelayInMilliSeconds()%></td>
 						<td><%=job.getMinutesBetweenExecutions()%></td>
 						<td><%=job.getStopTimeout()%></td>
 						<td class="text"><%

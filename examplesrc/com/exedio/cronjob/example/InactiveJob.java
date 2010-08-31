@@ -16,32 +16,13 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cronjob;
+package com.exedio.cronjob.example;
 
-import com.exedio.cope.util.Interrupter;
-
-public interface Job
+final class InactiveJob extends AbstractJob
 {
-	String getName();
-
-	/**
-	 * @return
-	 *    An arbitrary number, that is displayed by the cronjob maintenance servlet.
-	 *    Typically you may want to return something like the number items processed by the job.
-	 *    The cronjob library does never use this number for any program logic,
-	 *    it just displays the number (and it's average / maximum).
-	 */
-	int run(Interrupter interrupter) throws Exception;
-	
-	boolean isActiveInitially();
-
-	int getMinutesBetweenExecutions();
-	
-	long getInitialDelayInMilliSeconds();
-
-	/**
-	 * @return the time (in milliseconds) the job will be given to finish before it
-	 *			will be stopped forcefully
-	 */
-	long getStopTimeout();
+	InactiveJob(final int number)
+	{
+		super("Inactive" + number, 1, 1000);
+		activeInitially = false;
+	}
 }
