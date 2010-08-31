@@ -30,24 +30,24 @@ public final class ExampleStore2 implements CronjobStore
 {
 	public ExampleStore2(final ServletConfig config)
 	{
-		System.out.println("ExampleStore constructor");
+		System.out.println("ExampleStore2 constructor");
 	}
 	
 	public List<? extends Job> getJobs()
 	{
-		System.out.println("ExampleStore.getJobs");
+		System.out.println("ExampleStore2.getJobs");
 		return Arrays.asList(new NormalJob(10));
 	}
 
 	public long getInitialDelayInMilliSeconds()
 	{
-		System.out.println("ExampleStore.getInitialDelayInMilliSeconds");
+		System.out.println("ExampleStore2.getInitialDelayInMilliSeconds");
 		return 1000;
 	}
 
 	public boolean isActive()
 	{
-		System.out.println("ExampleStore.isActive");
+		System.out.println("ExampleStore2.isActive");
 		return true;
 	}
 }
