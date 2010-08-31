@@ -55,10 +55,4 @@ public final class ExampleStore implements CronjobStore
 		System.out.println("ExampleStore.getInitialDelayInMilliSeconds");
 		return 1000;
 	}
-
-	public boolean isActive()
-	{
-		System.out.println("ExampleStore.isActive");
-		return true;
-	}
 }
