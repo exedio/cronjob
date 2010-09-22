@@ -132,6 +132,15 @@
 			<fileset file="${build.dir}/exedio-cronjob.jar"/>
 			<fileset file="${build.dir}/exedio-cronjob.jar-src.zip"/>
 		</copy>
+		<copy file="ivy.xml" tofile="build/success/ivy.xml" overwrite="true">
+			<filterset>
+				<filter token="BUILD_REVISION" value="${build.revision}" />
+			</filterset>
+		</copy>
+		<copy tofile="${basedir}/build/success/exedio-cronjob-src.zip"
+				file="${basedir}/build/exedio-cronjob.jar-src.zip" />
+		<copy tofile="${basedir}/build/success/exedio-cronjob-log.txt"
+				file="CHANGELOG" />
 	</target>
 
 </project>
