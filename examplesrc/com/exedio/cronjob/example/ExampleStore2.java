@@ -28,6 +28,9 @@ import com.exedio.cronjob.Job;
 
 public final class ExampleStore2 implements CronjobStore
 {
+	/**
+	 * @param config is used by other subclasses for initialization 
+	 */
 	public ExampleStore2(final ServletConfig config)
 	{
 		System.out.println("ExampleStore2 constructor");
