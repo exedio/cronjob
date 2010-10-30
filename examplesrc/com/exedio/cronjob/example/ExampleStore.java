@@ -33,7 +33,7 @@ public final class ExampleStore implements CronjobStore
 	 */
 	public ExampleStore(final ServletConfig config)
 	{
-		System.out.println("ExampleStore constructor");
+		System.out.println("ExampleStore constructor >" + config.getServletName() + '<');
 	}
 	
 	public List<? extends Job> getJobs()
