@@ -186,6 +186,14 @@ final class Page_Jspm
 						<th>Failure</th>
 						<th>Avg</th>
 						<th>Max</th>
+					</tr>
+					<tr>
+						<th>All</th>
+						<td>
+							<input type="submit" name="<%=CronjobManager.ALL%>" value="<%=CronjobManager.ACTIVATE  %>" />
+							<input type="submit" name="<%=CronjobManager.ALL%>" value="<%=CronjobManager.DEACTIVATE%>" />
+						</td>
+						<td colspan="12"></td>
 					</tr><%
 					
 					for(final Handler job : handlers)
@@ -235,14 +243,6 @@ final class Page_Jspm
 					</tr><%
 					}
 				%>
-					<tr>
-						<th>All</th>
-						<td>
-							<input type="submit" name="<%=CronjobManager.ALL%>" value="<%=CronjobManager.ACTIVATE  %>" />
-							<input type="submit" name="<%=CronjobManager.ALL%>" value="<%=CronjobManager.DEACTIVATE%>" />
-						</td>
-						<td colspan="12"></td>
-					</tr>
 				</table>
 				<br><%
 					
