@@ -177,7 +177,7 @@ final class Handler implements Interrupter
 		}
 	}
 	
-	private void updateAverageTimeNeeded(final long timeNeeded)
+	private void updateAverageTimeNeeded(@SuppressWarnings("hiding") final long timeNeeded) // TODO why this parameter is needed here?
 	{
 		if (successfulRuns==0)
 		{
