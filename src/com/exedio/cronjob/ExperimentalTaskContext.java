@@ -20,7 +20,7 @@ package com.exedio.cronjob;
 
 public interface ExperimentalTaskContext
 {
-	boolean requestsStop();
-	void notifyProgress();
-	void notifyProgress(int delta);
+	boolean requestedToStop();
+	void incrementProgress();
+	void incrementProgress(int delta);
 }

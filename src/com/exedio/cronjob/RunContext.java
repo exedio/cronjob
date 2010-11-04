@@ -28,17 +28,17 @@ final class RunContext implements ExperimentalTaskContext
 		this.handler = handler;
 	}
 	
-	public boolean requestsStop()
+	public boolean requestedToStop()
 	{
 		return handler.requestsStop();
 	}
 	
-	public void notifyProgress()
+	public void incrementProgress()
 	{
 		progress++;
 	}
 	
-	public void notifyProgress(final int delta)
+	public void incrementProgress(final int delta)
 	{
 		progress += delta;
 	}

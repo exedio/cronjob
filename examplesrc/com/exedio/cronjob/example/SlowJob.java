@@ -40,6 +40,6 @@ final class SlowJob extends AbstractJob
 			throw new RuntimeException(e);
 		}
 		System.out.println(name + ".run ready");
-		ctx.notifyProgress(result++);
+		ctx.incrementProgress(result++);
 	}
 }

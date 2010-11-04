@@ -39,6 +39,6 @@ final class NetworkBlockedJob extends AbstractJob
 		final HttpURLConnection con = (HttpURLConnection)url.openConnection();
 		final int responseCode = con.getResponseCode();
 		System.out.println(name + ".run ready (" + responseCode +')');
-		ctx.notifyProgress(result++);
+		ctx.incrementProgress(result++);
 	}
 }

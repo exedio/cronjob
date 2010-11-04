@@ -45,7 +45,7 @@ class AbstractJob implements Job
 	public void run(ExperimentalTaskContext ctx) throws Exception
 	{
 		System.out.println(name + ".run");
-		ctx.notifyProgress(result++);
+		ctx.incrementProgress(result++);
 	}
 
 	public boolean isActiveInitially()
