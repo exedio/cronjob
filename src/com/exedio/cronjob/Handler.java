@@ -36,7 +36,7 @@ final class Handler
 	final Job job;
 	final String jobName;
 	final boolean activeInitially;
-	private boolean running;
+	private RunContext runContext = null;
 	private Date lastTimeStarted;
 	private long lastInterruptRequest;
 	private long interruptMaximum = 0;
@@ -65,7 +65,6 @@ final class Handler
 		this.job=job;
 		this.jobName = job.getName();
 		this.activeInitially = job.isActiveInitially();
-		running=false;
 		lastTimeStarted=null;
 		lastException=null;
 		lastRunSuccessful=true;
@@ -139,16 +138,16 @@ final class Handler
 	{
 		if (canExecuteJob())
 		{
-			running=true;
+			runContext = new RunContext(this);
 			lastTimeStarted=new Date();
 			lastInterruptRequest = 0;
 			long msb=lastTimeStarted.getTime();
 			//System.out.println("\nStarting Cronjob: "+getDisplayedName()+" at "+DATE_FORMAT.format(lastTimeStarted));
 			try
 			{
-				final RunContext ctx = new RunContext(this);
-				job.run(ctx);
-				lastRunResult = ctx.getProgress();
+				
+				job.run(runContext);
+				lastRunResult = runContext.getProgress();
 				Date finished =new Date();
 				lastRunSuccessful=true;
 				//System.out.println("Finished Cronjob: "+getDisplayedName()+" at "+DATE_FORMAT.format(finished)+"\n");
@@ -172,7 +171,7 @@ final class Handler
 			}
 			finally
 			{
-				running=false;
+				runContext = null;
 			}
 		}
 	}
@@ -192,7 +191,7 @@ final class Handler
 	
 	private boolean canExecuteJob()
 	{
-		if (runNow && !running)
+		if(runNow && runContext==null)
 		{
 			runNow=false;
 			return true;
@@ -202,9 +201,9 @@ final class Handler
 		{
 			result=false;
 		}
-		if (running)
+		if(runContext!=null)
 		{
-			result=false;
+			runContext = null;
 		}
 		if (!timeForExcecution())
 		{
@@ -281,7 +280,7 @@ final class Handler
 	int getSuccessfulRuns(){return successfulRuns;}
 	int getNumberOfFails(){return fails;}
 	Exception getLastException(){return lastException;}
-	boolean isRunning() {return running;}
+	RunContext getRunContext() {return runContext;}
 	long getInitialDelayInMilliSeconds() {return job.getInitialDelayInMilliSeconds();}
 	int getMinutesBetweenExecutions() {return job.getMinutesBetweenExecutions();}
 	Date getLastTimeStarted() {return lastTimeStarted;}
