@@ -18,7 +18,7 @@
 
 package com.exedio.cronjob.example;
 
-import com.exedio.cope.util.Interrupter;
+import com.exedio.cronjob.ExperimentalTaskContext;
 
 final class InterruptableJob extends AbstractJob
 {
@@ -28,7 +28,7 @@ final class InterruptableJob extends AbstractJob
 	}
 	
 	@Override
-	public int run(final Interrupter interrupter)
+	public void run(final ExperimentalTaskContext ctx)
 	{
 		System.out.println(name + ".run start");
 		try
@@ -37,10 +37,11 @@ final class InterruptableJob extends AbstractJob
 			{
 				Thread.sleep(1000);
 				System.out.println(name + ".run slept " + i);
-				if(interrupter.isRequested())
+				if(ctx.requestsStop())
 				{
 					System.out.println(name + ".run interrupted");
-					return result++;
+					ctx.notifyProgress(result++);
+					return;
 				}
 			}
 		}
@@ -49,6 +50,6 @@ final class InterruptableJob extends AbstractJob
 			throw new RuntimeException(e);
 		}
 		System.out.println(name + ".run ready");
-		return result++;
+		ctx.notifyProgress(result++);
 	}
 }

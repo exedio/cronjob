@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import com.exedio.cope.util.Interrupter;
+import com.exedio.cronjob.ExperimentalTaskContext;
 
 final class NetworkBlockedJob extends AbstractJob
 {
@@ -32,13 +32,13 @@ final class NetworkBlockedJob extends AbstractJob
 	}
 	
 	@Override
-	public int run(final Interrupter interrupter) throws IOException
+	public void run(final ExperimentalTaskContext ctx) throws IOException
 	{
 		System.out.println(name + ".run start");
 		final URL url = new URL("http://www.exedio.com:1234/");
 		final HttpURLConnection con = (HttpURLConnection)url.openConnection();
 		final int responseCode = con.getResponseCode();
 		System.out.println(name + ".run ready (" + responseCode +')');
-		return result++;
+		ctx.notifyProgress(result++);
 	}
 }

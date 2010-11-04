@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006-2008  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,21 +18,9 @@
 
 package com.exedio.cronjob;
 
-public interface Job
+public interface ExperimentalTaskContext
 {
-	String getName();
-
-	void run(ExperimentalTaskContext ctx) throws Exception;
-	
-	boolean isActiveInitially();
-
-	int getMinutesBetweenExecutions();
-	
-	long getInitialDelayInMilliSeconds();
-
-	/**
-	 * @return the time (in milliseconds) the job will be given to finish before it
-	 *			will be stopped forcefully
-	 */
-	long getStopTimeout();
+	boolean requestsStop();
+	void notifyProgress();
+	void notifyProgress(int delta);
 }
