@@ -35,34 +35,34 @@ final class InterruptableSlowerJob extends AbstractJob
 		{
 			Thread.sleep(1000);
 			System.out.println(name + ".run slept 1");
+			ctx.notifyProgress(result++);
 			if(ctx.requestsStop())
 			{
 				System.out.println(name + ".run interrupted");
-				ctx.notifyProgress(result++);
 				return;
 			}
 			Thread.sleep(3000);
 			System.out.println(name + ".run slept 2");
+			ctx.notifyProgress(result++);
 			if(ctx.requestsStop())
 			{
 				System.out.println(name + ".run interrupted");
-				ctx.notifyProgress(result++);
 				return;
 			}
 			Thread.sleep(5000);
 			System.out.println(name + ".run slept 3");
+			ctx.notifyProgress(result++);
 			if(ctx.requestsStop())
 			{
 				System.out.println(name + ".run interrupted");
-				ctx.notifyProgress(result++);
 				return;
 			}
 			Thread.sleep(8000);
 			System.out.println(name + ".run slept 8");
+			ctx.notifyProgress(result++);
 			if(ctx.requestsStop())
 			{
 				System.out.println(name + ".run interrupted");
-				ctx.notifyProgress(result++);
 				return;
 			}
 			Thread.sleep(10000);

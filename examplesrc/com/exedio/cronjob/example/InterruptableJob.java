@@ -37,10 +37,10 @@ final class InterruptableJob extends AbstractJob
 			{
 				Thread.sleep(1000);
 				System.out.println(name + ".run slept " + i);
+				ctx.notifyProgress(result++);
 				if(ctx.requestsStop())
 				{
 					System.out.println(name + ".run interrupted");
-					ctx.notifyProgress(result++);
 					return;
 				}
 			}
