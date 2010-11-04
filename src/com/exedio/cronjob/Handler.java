@@ -31,7 +31,7 @@ final class Handler
 	private final int DURATION_BETWEEN_CHECKS=2705;
 	private final DateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy - HH:mm:ss");
 	private final DateFormat DATE_FORMAT_SIMPLE = new SimpleDateFormat("HH:mm:ss");
-	
+
 	final String id;
 	final Job job;
 	final String jobName;
@@ -55,7 +55,7 @@ final class Handler
 	private Date createdAt;
 	private long initialDelayinMS;
 	private final long stopTimeout;
-	
+
 	/**
 	 * After construction use #startThread() to start running of the job.
 	 */
@@ -78,7 +78,7 @@ final class Handler
 		this.initialDelayinMS=initialDelayInMS+job.getInitialDelayInMilliSeconds();
 		this.stopTimeout = job.getStopTimeout();
 	}
-	
+
 	private boolean timeForExcecution()
 	{
 		if (lastTimeStarted == null)
@@ -99,22 +99,22 @@ final class Handler
 			}
 		}
 	}
-	
+
 	long getLastInterruptRequest()
 	{
 		return lastInterruptRequest;
 	}
-	
+
 	long getInterruptMaximum()
 	{
 		return interruptMaximum;
 	}
-	
+
 	long getInterruptAverage()
 	{
 		return (interruptCount>0) ? (interruptTotal / interruptCount) : 0;
 	}
-	
+
 	boolean requestsStop()
 	{
 		final long now = System.currentTimeMillis();
@@ -122,18 +122,18 @@ final class Handler
 		lastInterruptRequest = now;
 		return !activated;
 	}
-	
+
 	private void registerInterruptRequest(final long now)
 	{
 		final long last = (lastInterruptRequest!=0) ? lastInterruptRequest : lastTimeStarted.getTime();
 		final long elapsed = (int)(now - last);
-		
+
 		if(interruptMaximum<elapsed)
 			interruptMaximum = elapsed;
 		interruptTotal += elapsed;
 		interruptCount++;
 	}
-	
+
 	void tryToExecute()
 	{
 		if (canExecuteJob())
@@ -174,7 +174,7 @@ final class Handler
 			}
 		}
 	}
-	
+
 	private void updateAverageTimeNeeded(@SuppressWarnings("hiding") final long timeNeeded) // TODO why this parameter is needed here?
 	{
 		if (successfulRuns==0)
@@ -187,7 +187,7 @@ final class Handler
 		}
 		successfulRuns++;
 	}
-	
+
 	private boolean canExecuteJob()
 	{
 		if(runNow && runContext==null)
@@ -214,7 +214,7 @@ final class Handler
 		}
 		return result;
 	}
-	
+
 	private boolean isToday(final Date date)
 	{
 		Calendar c = new GregorianCalendar();
@@ -234,7 +234,7 @@ final class Handler
 			return false;
 		}
 	}
-	
+
 	String getLastTimeStartedAsString()
 	{
 		if (lastTimeStarted!=null)
@@ -249,13 +249,13 @@ final class Handler
 			return "x";
 		}
 	}
-	
+
 	void setActivated(boolean activated)
 	{
-		this.activated = activated;		
+		this.activated = activated;
 		System.out.println("Cronjob: " + jobName + " was "+(activated ? "" : "de")+"activated at "+DATE_FORMAT.format(new Date()));
 	}
-	
+
 	void runNow()
 	{
 		runNow=true;
@@ -269,7 +269,7 @@ final class Handler
 			ex.printStackTrace();
 		}
 	}
-	
+
 	boolean wasLastRunSuccessful() { return lastRunSuccessful;	}
 	int getLastRunResult() { return lastRunResult; }
 	void removeLastException(){lastException=null;}
@@ -284,14 +284,14 @@ final class Handler
 	int getMinutesBetweenExecutions() {return job.getMinutesBetweenExecutions();}
 	Date getLastTimeStarted() {return lastTimeStarted;}
 	long getStopTimeout() {return stopTimeout;}
-	
+
 	void startThread()
 	{
 		runningThread = new RunningThread();
 		runningThread.setName("exedio cronjob: " + jobName);
 		runningThread.start();
 	}
-	
+
 	void stopThread()
 	{
 		if (runningThread!=null)
@@ -319,13 +319,13 @@ final class Handler
 			}
 		}
 	}
-	
+
 	@SuppressWarnings("deprecation") // OK: last resort
 	private static final void stop(final Thread t)
 	{
 		t.stop();
 	}
-	
+
 	class RunningThread extends Thread
 	{
 		private boolean doRun = true;
@@ -333,7 +333,7 @@ final class Handler
 		{
 			tryToExecute();
 		}
-		
+
 		void notifyWaiter()
 		{
 			synchronized(WAITER)
@@ -341,14 +341,14 @@ final class Handler
 				WAITER.notify();
 			}
 		}
-		
+
 		private final Object WAITER = new Object();
-		
+
 		void stopRunning()
 		{
 			doRun = false;
 		}
-		
+
 		@Override
 		public void run()
 		{

@@ -26,7 +26,7 @@ final class SlowJob extends AbstractJob
 	{
 		super("Slow" + number, 1000, initialDelay);
 	}
-	
+
 	@Override
 	public void run(final JobContext ctx)
 	{

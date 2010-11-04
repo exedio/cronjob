@@ -40,9 +40,9 @@ import javax.servlet.http.HttpServletResponse;
 public class CronjobManager extends HttpServlet
 {
 	private static final long serialVersionUID =100000000000001L;
-	
+
 	private List<Handler> handlers;
-		
+
 	@Override
 	public void init() throws ServletException
 	{
@@ -95,7 +95,7 @@ public class CronjobManager extends HttpServlet
 			{
 				throw new RuntimeException("ERROR: Class "+storeClass+" or its null-constructor could not be accessed ", e);
 			}
-			
+
 			if (o instanceof CronjobStore)
 			{
 				stores.add( (CronjobStore)o );
@@ -120,7 +120,7 @@ public class CronjobManager extends HttpServlet
 		}
 		System.out.println("CronjobManager is started. (" + System.identityHashCode(this) + ')');
 	}
-	
+
 	@Override
 	public void destroy()
 	{
@@ -135,13 +135,13 @@ public class CronjobManager extends HttpServlet
 		}
 		System.out.println("CronjobManager is terminated. (" + System.identityHashCode(this) + ')');
 	}
-	
+
 	private String getImplementationVersion()
 	{
 		String iv=CronjobManager.class.getPackage().getImplementationVersion();
 		return iv==null ? "" : iv;
 	}
-	
+
 	@Override
 	protected final void doGet(
 		final HttpServletRequest request,
@@ -157,21 +157,21 @@ public class CronjobManager extends HttpServlet
 	{
 		doRequest(request, response);
 	}
-	
+
 	static final String ACTIVATE="on";
 	static final String DEACTIVATE="off";
 	static final String AUTO_REFRESH = "autoRefresh";
 	static final String START_CRONJOB = "Start";
 	static final String DELETE_LAST_EXCEPTION = "Delete";
 	static final String ALL = "all";
-	
+
 	private void doRequest(final HttpServletRequest request, final HttpServletResponse response) throws IOException
 	{
 		final boolean autoRefreshPage = request.getParameter(AUTO_REFRESH)!=null;
 		final String uriNoAutoRefresh = request.getContextPath() + request.getServletPath();
 		final String uriAutoRefresh = uriNoAutoRefresh + '?' + AUTO_REFRESH+"=t";
 		final String uri = autoRefreshPage ? uriAutoRefresh : uriNoAutoRefresh;
-		
+
 		if("POST".equals(request.getMethod()))
 		{
 			for(final Handler job : handlers)
@@ -220,7 +220,7 @@ public class CronjobManager extends HttpServlet
 			}
 			response.sendRedirect(uri);
 		}
-		
+
 		final Principal principal = request.getUserPrincipal();
 		final String authentication = principal!=null ? principal.getName() : null;
 		String hostname = null;

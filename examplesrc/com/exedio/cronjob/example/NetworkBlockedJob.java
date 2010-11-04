@@ -30,7 +30,7 @@ final class NetworkBlockedJob extends AbstractJob
 	{
 		super("NetworkBlocked", 60, 24*60*60*1000);
 	}
-	
+
 	@Override
 	public void run(final JobContext ctx) throws IOException
 	{

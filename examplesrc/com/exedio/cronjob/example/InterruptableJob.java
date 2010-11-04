@@ -26,7 +26,7 @@ final class InterruptableJob extends AbstractJob
 	{
 		super("Interruptable", 1000, 0);
 	}
-	
+
 	@Override
 	public void run(final JobContext ctx)
 	{

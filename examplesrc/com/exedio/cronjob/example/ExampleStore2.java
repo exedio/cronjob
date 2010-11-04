@@ -29,13 +29,13 @@ import com.exedio.cronjob.Job;
 public final class ExampleStore2 implements CronjobStore
 {
 	/**
-	 * @param config is used by other subclasses for initialization 
+	 * @param config is used by other subclasses for initialization
 	 */
 	public ExampleStore2(final ServletConfig config)
 	{
 		System.out.println("ExampleStore2 constructor >" + config.getServletName() + '<');
 	}
-	
+
 	public List<? extends Job> getJobs()
 	{
 		System.out.println("ExampleStore2.getJobs");

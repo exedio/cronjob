@@ -28,14 +28,14 @@ class AbstractJob implements Job
 	protected final int minutesBetweenExecutions;
 	protected final long initialDelay;
 	protected int result = 0;
-	
+
 	AbstractJob(final String name, final int minutesBetweenExecutions, final long initialDelay)
 	{
 		this.name = name;
 		this.minutesBetweenExecutions = minutesBetweenExecutions;
 		this.initialDelay = initialDelay;
 	}
-	
+
 	public String getName()
 	{
 		//System.out.println(name + ".getName");
@@ -52,19 +52,19 @@ class AbstractJob implements Job
 	{
 		return activeInitially;
 	}
-	
+
 	public int getMinutesBetweenExecutions()
 	{
 		//System.out.println(name + ".getMinutesBetweenExecutions");
 		return minutesBetweenExecutions;
 	}
-	
+
 	public long getInitialDelayInMilliSeconds()
 	{
 		//System.out.println(name + ".getInitialDelayInMilliSeconds"+initialDelay);
 		return initialDelay;
 	}
-	
+
 	public long getStopTimeout()
 	{
 		return 5000;

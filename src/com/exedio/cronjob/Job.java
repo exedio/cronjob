@@ -25,11 +25,11 @@ public interface Job
 	String getName();
 
 	void run(JobContext ctx) throws Exception;
-	
+
 	boolean isActiveInitially();
 
 	int getMinutesBetweenExecutions();
-	
+
 	long getInitialDelayInMilliSeconds();
 
 	/**
