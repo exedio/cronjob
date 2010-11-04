@@ -145,7 +145,6 @@ final class Handler
 			//System.out.println("\nStarting Cronjob: "+getDisplayedName()+" at "+DATE_FORMAT.format(lastTimeStarted));
 			try
 			{
-				
 				job.run(runContext);
 				lastRunResult = runContext.getProgress();
 				Date finished =new Date();
