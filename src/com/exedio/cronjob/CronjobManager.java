@@ -148,7 +148,11 @@ public class CronjobManager extends CopsServlet
 	static final String DELETE_LAST_EXCEPTION = "Delete";
 	static final String ALL = "all";
 
-	@Override protected void doRequest(final HttpServletRequest request, final HttpServletResponse response) throws IOException
+	@Override
+	protected void doRequest(
+			final HttpServletRequest request,
+			final HttpServletResponse response)
+	throws IOException
 	{
 		final HomeCop cop = HomeCop.getCop(request);
 
