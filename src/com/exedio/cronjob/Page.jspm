@@ -19,21 +19,17 @@
 
 package com.exedio.cronjob;
 
-import java.io.PrintWriter;
 import java.util.List;
 
 final class Page_Jspm
 {
 	static final void write(
-				final PrintWriter out,
-				final String uri,
-				final String uriNoAutoRefresh,
-				final String uriAutoRefresh,
+				final Out out,
+				final HomeCop cop,
 				final String authentication,
 				final String hostname,
 				final long now,
 				final String nowString,
-				final boolean autoRefreshPage,
 				final List<Handler> handlers,
 				final String implementationVersion,
 				final long identityHashCode)
@@ -43,10 +39,10 @@ final class Page_Jspm
 		<meta http-equiv="content-type" content="text/html; charset=utf-8">
 		<title>Cronjob</title><%
 		
-		if (autoRefreshPage)
+		if(cop.autoRefresh)
 		{
 		%>
-		<meta http-equiv="refresh" content="5; URL=<%=uri%>"><%
+		<meta http-equiv="refresh" content="5; URL=<%=cop%>"><%
 		}
 		%>
 		<style type="text/css">
@@ -135,7 +131,7 @@ final class Page_Jspm
 	</head>
 	<body>
 		<a href="http://www.exedio.com/" target="_blank"><img src="http://cope.sourceforge.net/exedio.png" alt="Exedio Logo" class="logo"></a>
-		<form action="<%=uri%>" method="POST">
+		<form action="<%=cop%>" method="POST">
 			<h1>Cronjob</h1><%
 			
 			if(!handlers.isEmpty())
@@ -143,8 +139,8 @@ final class Page_Jspm
 				%>
 				<div class="footer">
 					Auto Refresh:
-					<a href="<%=uriNoAutoRefresh%>"<%if(!autoRefreshPage){%> class="active"<%}%>>off</a>
-					<a href="<%=uriAutoRefresh  %>"<%if( autoRefreshPage){%> class="active"<%}%>>on </a>
+					<a href="<%=cop.toAutoRefresh(false)%>"<%if(!cop.autoRefresh){%> class="active"<%}%>>off</a>
+					<a href="<%=cop.toAutoRefresh(true )%>"<%if( cop.autoRefresh){%> class="active"<%}%>>on </a>
 					<br>
 					<%=nowString%>
 					<br>

@@ -175,7 +175,7 @@ final class Handler
 		}
 	}
 
-	private void updateAverageTimeNeeded(@SuppressWarnings("hiding") final long timeNeeded) // TODO why this parameter is needed here?
+	private void updateAverageTimeNeeded(final long timeNeeded) // TODO why this parameter is needed here?
 	{
 		if (successfulRuns==0)
 		{

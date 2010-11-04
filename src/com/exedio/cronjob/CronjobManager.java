@@ -19,7 +19,6 @@
 package com.exedio.cronjob;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.net.InetAddress;
@@ -33,11 +32,12 @@ import java.util.List;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class CronjobManager extends HttpServlet
+import com.exedio.cops.CopsServlet;
+
+public class CronjobManager extends CopsServlet
 {
 	private static final long serialVersionUID =100000000000001L;
 
@@ -142,35 +142,15 @@ public class CronjobManager extends HttpServlet
 		return iv==null ? "" : iv;
 	}
 
-	@Override
-	protected final void doGet(
-		final HttpServletRequest request,
-		final HttpServletResponse response)	throws ServletException, IOException
-	{
-		doRequest(request, response);
-	}
-
-	@Override
-	protected final void doPost(
-		final HttpServletRequest request,
-		final HttpServletResponse response) throws ServletException, IOException
-	{
-		doRequest(request, response);
-	}
-
 	static final String ACTIVATE="on";
 	static final String DEACTIVATE="off";
-	static final String AUTO_REFRESH = "autoRefresh";
 	static final String START_CRONJOB = "Start";
 	static final String DELETE_LAST_EXCEPTION = "Delete";
 	static final String ALL = "all";
 
-	private void doRequest(final HttpServletRequest request, final HttpServletResponse response) throws IOException
+	@Override protected void doRequest(final HttpServletRequest request, final HttpServletResponse response) throws IOException
 	{
-		final boolean autoRefreshPage = request.getParameter(AUTO_REFRESH)!=null;
-		final String uriNoAutoRefresh = request.getContextPath() + request.getServletPath();
-		final String uriAutoRefresh = uriNoAutoRefresh + '?' + AUTO_REFRESH+"=t";
-		final String uri = autoRefreshPage ? uriAutoRefresh : uriNoAutoRefresh;
+		final HomeCop cop = HomeCop.getCop(request);
 
 		if("POST".equals(request.getMethod()))
 		{
@@ -218,7 +198,7 @@ public class CronjobManager extends HttpServlet
 					throw new RuntimeException(paramsAsList.toString());
 				}
 			}
-			response.sendRedirect(uri);
+			response.sendRedirect(cop.getAbsoluteURL(request));
 		}
 
 		final Principal principal = request.getUserPrincipal();
@@ -234,19 +214,16 @@ public class CronjobManager extends HttpServlet
 		}
 		final long now = System.currentTimeMillis();
 		response.setContentType("text/html; charset=utf-8");
-		final PrintWriter out = response.getWriter();
+		final Out out = new Out(request, response);
 		Page_Jspm.write(out,
-				uri,
-				uriNoAutoRefresh,
-				uriAutoRefresh,
+				cop,
 				authentication,
 				hostname,
 				now,
 				new SimpleDateFormat("yyyy/MM/dd'&nbsp;'HH:mm:ss.SSS Z (z)").format(new Date(now)),
-				autoRefreshPage,
 				handlers,
 				getImplementationVersion(),
 				System.identityHashCode(this));
-		out.close();
+		out.sendBody();
 	}
 }
