@@ -35,7 +35,7 @@ final class SlowJob extends AbstractJob
 		{
 			Thread.sleep(10000);
 		}
-		catch(InterruptedException e)
+		catch(final InterruptedException e)
 		{
 			throw new RuntimeException(e);
 		}

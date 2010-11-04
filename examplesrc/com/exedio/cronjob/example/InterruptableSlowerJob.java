@@ -68,7 +68,7 @@ final class InterruptableSlowerJob extends AbstractJob
 			Thread.sleep(10000);
 			System.out.println(name + ".run slept 10");
 		}
-		catch(InterruptedException e)
+		catch(final InterruptedException e)
 		{
 			throw new RuntimeException(e);
 		}

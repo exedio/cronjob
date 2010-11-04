@@ -45,7 +45,7 @@ final class InterruptableJob extends AbstractJob
 				}
 			}
 		}
-		catch(InterruptedException e)
+		catch(final InterruptedException e)
 		{
 			throw new RuntimeException(e);
 		}

@@ -52,8 +52,8 @@ final class Handler
 	private boolean runNow;
 	private int fails;
 	private RunningThread runningThread;
-	private Date createdAt;
-	private long initialDelayinMS;
+	private final Date createdAt;
+	private final long initialDelayinMS;
 	private final long stopTimeout;
 
 	/**
@@ -87,8 +87,8 @@ final class Handler
 		}
 		else
 		{
-			long last = lastTimeStarted.getTime();
-			long now = new Date().getTime();
+			final long last = lastTimeStarted.getTime();
+			final long now = new Date().getTime();
 			if ((now-last)>=(job.getMinutesBetweenExecutions()*1000*60))
 			{
 				return true;
@@ -141,25 +141,25 @@ final class Handler
 			runContext = new RunContext(this);
 			lastTimeStarted=new Date();
 			lastInterruptRequest = 0;
-			long msb=lastTimeStarted.getTime();
+			final long msb=lastTimeStarted.getTime();
 			//System.out.println("\nStarting Cronjob: "+getDisplayedName()+" at "+DATE_FORMAT.format(lastTimeStarted));
 			try
 			{
 				job.run(runContext);
 				lastRunResult = runContext.getProgress();
-				Date finished =new Date();
+				final Date finished =new Date();
 				lastRunSuccessful=true;
 				//System.out.println("Finished Cronjob: "+getDisplayedName()+" at "+DATE_FORMAT.format(finished)+"\n");
-				long msa=finished.getTime();
+				final long msa=finished.getTime();
 				timeNeeded=msa-msb;
 				updateAverageTimeNeeded(timeNeeded);
 				registerInterruptRequest(finished.getTime());
 			}
-			catch (Exception e)
+			catch (final Exception e)
 			{
 				lastException=e;
 				fails++;
-				Date failedAt= new Date();
+				final Date failedAt= new Date();
 				timeNeeded=failedAt.getTime()-msb;
 				System.out.println("Execution of Cronjob: " + jobName + " FAILED at "+DATE_FORMAT.format(failedAt)+" !!!");
 				System.out.println("******************** CronjobException - START ********************");
@@ -217,14 +217,14 @@ final class Handler
 
 	private boolean isToday(final Date date)
 	{
-		Calendar c = new GregorianCalendar();
+		final Calendar c = new GregorianCalendar();
 		c.set(Calendar.HOUR_OF_DAY,0);
 		c.set(Calendar.MINUTE,0);
 		c.set(Calendar.SECOND,0);
 		c.set(Calendar.MILLISECOND,0);
-		Date lastMidnight=c.getTime();
+		final Date lastMidnight=c.getTime();
 		c.add(Calendar.DATE,1);
-		Date nextMidnight = c.getTime();
+		final Date nextMidnight = c.getTime();
 		if (date.after(lastMidnight) && nextMidnight.after(date))
 		{
 			return true;
@@ -250,7 +250,7 @@ final class Handler
 		}
 	}
 
-	void setActivated(boolean activated)
+	void setActivated(final boolean activated)
 	{
 		this.activated = activated;
 		System.out.println("Cronjob: " + jobName + " was "+(activated ? "" : "de")+"activated at "+DATE_FORMAT.format(new Date()));
@@ -264,7 +264,7 @@ final class Handler
 		{
 			Thread.sleep(100); //This for updating the running Parameter
 		}
-		catch (InterruptedException ex)
+		catch (final InterruptedException ex)
 		{
 			ex.printStackTrace();
 		}
@@ -313,7 +313,7 @@ final class Handler
 				}
 				System.out.println("job:"+jobName+" terminated");
 			}
-			catch (InterruptedException ex)
+			catch (final InterruptedException ex)
 			{
 				Logger.getLogger(Handler.class.getName()).log(Level.SEVERE, null, ex);
 			}
@@ -362,7 +362,7 @@ final class Handler
 						WAITER.wait(DURATION_BETWEEN_CHECKS);
 					}
 				}
-				catch (InterruptedException e)
+				catch (final InterruptedException e)
 				{
 					throw new RuntimeException(e);
 				}

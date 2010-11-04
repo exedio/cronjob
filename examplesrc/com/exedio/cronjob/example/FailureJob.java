@@ -28,7 +28,7 @@ final class FailureJob extends AbstractJob
 	}
 
 	@Override
-	public void run(JobContext ctx)
+	public void run(final JobContext ctx)
 	{
 		throw new RuntimeException("example exception from " + name);
 	}

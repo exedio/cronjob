@@ -49,21 +49,21 @@ public class CronjobManager extends HttpServlet
 		super.init();
 		System.out.println("CronjobManager is starting ... (" + System.identityHashCode(this) + ')');
 		final String STORE = "store";
-		String storeNames=getServletConfig().getInitParameter(STORE);
+		final String storeNames=getServletConfig().getInitParameter(STORE);
 		if (storeNames==null)
 		{
 			throw new RuntimeException("ERROR: Servlet-Init-Parameter: >> "+STORE+" << was expected but not found");
 		}
 
-		List<CronjobStore> stores = new ArrayList<CronjobStore>();
-		for ( String storeName: storeNames.split(",") )
+		final List<CronjobStore> stores = new ArrayList<CronjobStore>();
+		for ( final String storeName: storeNames.split(",") )
 		{
 			final Class<?> storeClass;
 			try
 			{
 				storeClass = Class.forName(storeName);
 			}
-			catch (ClassNotFoundException e)
+			catch (final ClassNotFoundException e)
 			{
 				throw new RuntimeException("ERROR: A class with name: "+storeName+" was not found", e);
 			}
@@ -73,7 +73,7 @@ public class CronjobManager extends HttpServlet
 			{
 				storeConstructor = storeClass.getConstructor(ServletConfig.class);
 			}
-			catch(NoSuchMethodException e)
+			catch(final NoSuchMethodException e)
 			{
 				throw new RuntimeException("ERROR: Class "+storeClass+" has no suitable constructor", e);
 			}
@@ -83,15 +83,15 @@ public class CronjobManager extends HttpServlet
 			{
 				o = storeConstructor.newInstance(getServletConfig());
 			}
-			catch(InvocationTargetException e)
+			catch(final InvocationTargetException e)
 			{
 				throw new RuntimeException("ERROR: Class "+storeClass+" constructor throw exception", e);
 			}
-			catch(InstantiationException e)
+			catch(final InstantiationException e)
 			{
 				throw new RuntimeException("ERROR: Class "+storeClass+" could not be instantiated (must not be abstract or an interface)", e);
 			}
-			catch(IllegalAccessException e)
+			catch(final IllegalAccessException e)
 			{
 				throw new RuntimeException("ERROR: Class "+storeClass+" or its null-constructor could not be accessed ", e);
 			}
@@ -108,7 +108,7 @@ public class CronjobManager extends HttpServlet
 
 		handlers = new ArrayList<Handler>();
 		int idCounter = 1;
-		for ( CronjobStore store: stores )
+		for ( final CronjobStore store: stores )
 		{
 			final long storeInitialDelay = store.getInitialDelayInMilliSeconds();
 			for (final Job job: store.getJobs())
@@ -138,7 +138,7 @@ public class CronjobManager extends HttpServlet
 
 	private String getImplementationVersion()
 	{
-		String iv=CronjobManager.class.getPackage().getImplementationVersion();
+		final String iv=CronjobManager.class.getPackage().getImplementationVersion();
 		return iv==null ? "" : iv;
 	}
 
@@ -179,7 +179,7 @@ public class CronjobManager extends HttpServlet
 				final String[] params = request.getParameterValues(job.id);
 				if (params!=null)
 				{
-					List<String> paramsAsList = Arrays.asList(params);
+					final List<String> paramsAsList = Arrays.asList(params);
 					if (paramsAsList.contains(START_CRONJOB))
 					{
 						job.runNow();
@@ -228,13 +228,13 @@ public class CronjobManager extends HttpServlet
 		{
 			hostname = InetAddress.getLocalHost().getHostName();
 		}
-		catch(UnknownHostException e)
+		catch(final UnknownHostException e)
 		{
 			// leave hostname==null
 		}
 		final long now = System.currentTimeMillis();
 		response.setContentType("text/html; charset=utf-8");
-		PrintWriter out = response.getWriter();
+		final PrintWriter out = response.getWriter();
 		Page_Jspm.write(out,
 				uri,
 				uriNoAutoRefresh,

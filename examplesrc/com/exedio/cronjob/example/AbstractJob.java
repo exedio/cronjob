@@ -42,7 +42,7 @@ class AbstractJob implements Job
 		return name;
 	}
 
-	public void run(JobContext ctx) throws Exception
+	public void run(final JobContext ctx) throws Exception
 	{
 		System.out.println(name + ".run" + (ctx.supportsProgress()?"":" NO PROGRESS"));
 		ctx.incrementProgress(result++);
