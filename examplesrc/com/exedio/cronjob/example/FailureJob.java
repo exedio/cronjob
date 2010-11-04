@@ -18,7 +18,7 @@
 
 package com.exedio.cronjob.example;
 
-import com.exedio.cronjob.ExperimentalTaskContext;
+import com.exedio.cope.util.JobContext;
 
 final class FailureJob extends AbstractJob
 {
@@ -28,7 +28,7 @@ final class FailureJob extends AbstractJob
 	}
 	
 	@Override
-	public void run(ExperimentalTaskContext ctx)
+	public void run(JobContext ctx)
 	{
 		throw new RuntimeException("example exception from " + name);
 	}

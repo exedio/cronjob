@@ -18,26 +18,37 @@
 
 package com.exedio.cronjob;
 
-final class RunContext implements ExperimentalTaskContext
+import com.exedio.cope.util.EmptyJobContext;
+
+final class RunContext extends EmptyJobContext
 {
 	private final Handler handler;
-	int progress = 0;
+	private int progress = 0;
 	
 	RunContext(final Handler handler)
 	{
 		this.handler = handler;
 	}
 	
+	@Override
 	public boolean requestedToStop()
 	{
 		return handler.requestsStop();
 	}
 	
+	@Override
+	public boolean supportsProgress()
+	{
+		return true;
+	}
+	
+	@Override
 	public void incrementProgress()
 	{
 		progress++;
 	}
 	
+	@Override
 	public void incrementProgress(final int delta)
 	{
 		progress += delta;

@@ -18,7 +18,7 @@
 
 package com.exedio.cronjob.example;
 
-import com.exedio.cronjob.ExperimentalTaskContext;
+import com.exedio.cope.util.JobContext;
 import com.exedio.cronjob.Job;
 
 class AbstractJob implements Job
@@ -42,9 +42,9 @@ class AbstractJob implements Job
 		return name;
 	}
 
-	public void run(ExperimentalTaskContext ctx) throws Exception
+	public void run(JobContext ctx) throws Exception
 	{
-		System.out.println(name + ".run");
+		System.out.println(name + ".run" + (ctx.supportsProgress()?"":" NO PROGRESS"));
 		ctx.incrementProgress(result++);
 	}
 

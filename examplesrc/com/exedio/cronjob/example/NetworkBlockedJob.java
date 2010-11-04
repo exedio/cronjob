@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import com.exedio.cronjob.ExperimentalTaskContext;
+import com.exedio.cope.util.JobContext;
 
 final class NetworkBlockedJob extends AbstractJob
 {
@@ -32,7 +32,7 @@ final class NetworkBlockedJob extends AbstractJob
 	}
 	
 	@Override
-	public void run(final ExperimentalTaskContext ctx) throws IOException
+	public void run(final JobContext ctx) throws IOException
 	{
 		System.out.println(name + ".run start");
 		final URL url = new URL("http://www.exedio.com:1234/");

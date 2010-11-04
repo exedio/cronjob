@@ -18,11 +18,13 @@
 
 package com.exedio.cronjob;
 
+import com.exedio.cope.util.JobContext;
+
 public interface Job
 {
 	String getName();
 
-	void run(ExperimentalTaskContext ctx) throws Exception;
+	void run(JobContext ctx) throws Exception;
 	
 	boolean isActiveInitially();
 

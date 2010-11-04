@@ -18,7 +18,7 @@
 
 package com.exedio.cronjob.example;
 
-import com.exedio.cronjob.ExperimentalTaskContext;
+import com.exedio.cope.util.JobContext;
 
 final class SlowJob extends AbstractJob
 {
@@ -28,7 +28,7 @@ final class SlowJob extends AbstractJob
 	}
 	
 	@Override
-	public void run(final ExperimentalTaskContext ctx)
+	public void run(final JobContext ctx)
 	{
 		System.out.println(name + ".run start");
 		try
