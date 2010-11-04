@@ -18,7 +18,7 @@
 
 package com.exedio.cronjob.example;
 
-import com.exedio.cope.util.Interrupter;
+import com.exedio.cope.util.JobContext;
 import com.exedio.cronjob.Job;
 
 class AbstractJob implements Job
@@ -42,10 +42,10 @@ class AbstractJob implements Job
 		return name;
 	}
 
-	public int run(Interrupter interrupter) throws Exception
+	public void run(JobContext ctx) throws Exception
 	{
-		System.out.println(name + ".run");
-		return result++;
+		System.out.println(name + ".run" + (ctx.supportsProgress()?"":" NO PROGRESS"));
+		ctx.incrementProgress(result++);
 	}
 
 	public boolean isActiveInitially()

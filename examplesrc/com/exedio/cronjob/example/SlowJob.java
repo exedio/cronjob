@@ -18,7 +18,7 @@
 
 package com.exedio.cronjob.example;
 
-import com.exedio.cope.util.Interrupter;
+import com.exedio.cope.util.JobContext;
 
 final class SlowJob extends AbstractJob
 {
@@ -28,7 +28,7 @@ final class SlowJob extends AbstractJob
 	}
 	
 	@Override
-	public int run(final Interrupter interrupter)
+	public void run(final JobContext ctx)
 	{
 		System.out.println(name + ".run start");
 		try
@@ -40,6 +40,6 @@ final class SlowJob extends AbstractJob
 			throw new RuntimeException(e);
 		}
 		System.out.println(name + ".run ready");
-		return result++;
+		ctx.incrementProgress(result++);
 	}
 }

@@ -18,7 +18,7 @@
 
 package com.exedio.cronjob.example;
 
-import com.exedio.cope.util.Interrupter;
+import com.exedio.cope.util.JobContext;
 
 final class InterruptableSlowerJob extends AbstractJob
 {
@@ -28,38 +28,42 @@ final class InterruptableSlowerJob extends AbstractJob
 	}
 	
 	@Override
-	public int run(final Interrupter interrupter)
+	public void run(final JobContext ctx)
 	{
 		System.out.println(name + ".run start");
 		try
 		{
 			Thread.sleep(1000);
 			System.out.println(name + ".run slept 1");
-			if(interrupter.isRequested())
+			ctx.incrementProgress(result++);
+			if(ctx.requestedToStop())
 			{
 				System.out.println(name + ".run interrupted");
-				return result++;
+				return;
 			}
 			Thread.sleep(3000);
 			System.out.println(name + ".run slept 2");
-			if(interrupter.isRequested())
+			ctx.incrementProgress(result++);
+			if(ctx.requestedToStop())
 			{
 				System.out.println(name + ".run interrupted");
-				return result++;
+				return;
 			}
 			Thread.sleep(5000);
 			System.out.println(name + ".run slept 3");
-			if(interrupter.isRequested())
+			ctx.incrementProgress(result++);
+			if(ctx.requestedToStop())
 			{
 				System.out.println(name + ".run interrupted");
-				return result++;
+				return;
 			}
 			Thread.sleep(8000);
 			System.out.println(name + ".run slept 8");
-			if(interrupter.isRequested())
+			ctx.incrementProgress(result++);
+			if(ctx.requestedToStop())
 			{
 				System.out.println(name + ".run interrupted");
-				return result++;
+				return;
 			}
 			Thread.sleep(10000);
 			System.out.println(name + ".run slept 10");
@@ -69,6 +73,6 @@ final class InterruptableSlowerJob extends AbstractJob
 			throw new RuntimeException(e);
 		}
 		System.out.println(name + ".run ready");
-		return result++;
+		ctx.incrementProgress(result++);
 	}
 }

@@ -26,9 +26,7 @@ import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.exedio.cope.util.Interrupter;
-
-final class Handler implements Interrupter
+final class Handler
 {
 	private final int DURATION_BETWEEN_CHECKS=2705;
 	private final DateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy - HH:mm:ss");
@@ -38,7 +36,7 @@ final class Handler implements Interrupter
 	final Job job;
 	final String jobName;
 	final boolean activeInitially;
-	private boolean running;
+	private RunContext runContext = null;
 	private Date lastTimeStarted;
 	private long lastInterruptRequest;
 	private long interruptMaximum = 0;
@@ -67,7 +65,6 @@ final class Handler implements Interrupter
 		this.job=job;
 		this.jobName = job.getName();
 		this.activeInitially = job.isActiveInitially();
-		running=false;
 		lastTimeStarted=null;
 		lastException=null;
 		lastRunSuccessful=true;
@@ -118,7 +115,7 @@ final class Handler implements Interrupter
 		return (interruptCount>0) ? (interruptTotal / interruptCount) : 0;
 	}
 	
-	public boolean isRequested()
+	boolean requestsStop()
 	{
 		final long now = System.currentTimeMillis();
 		registerInterruptRequest(now);
@@ -141,14 +138,16 @@ final class Handler implements Interrupter
 	{
 		if (canExecuteJob())
 		{
-			running=true;
+			runContext = new RunContext(this);
 			lastTimeStarted=new Date();
 			lastInterruptRequest = 0;
 			long msb=lastTimeStarted.getTime();
 			//System.out.println("\nStarting Cronjob: "+getDisplayedName()+" at "+DATE_FORMAT.format(lastTimeStarted));
 			try
 			{
-				lastRunResult = job.run(this);
+				
+				job.run(runContext);
+				lastRunResult = runContext.getProgress();
 				Date finished =new Date();
 				lastRunSuccessful=true;
 				//System.out.println("Finished Cronjob: "+getDisplayedName()+" at "+DATE_FORMAT.format(finished)+"\n");
@@ -172,7 +171,7 @@ final class Handler implements Interrupter
 			}
 			finally
 			{
-				running=false;
+				runContext = null;
 			}
 		}
 	}
@@ -192,7 +191,7 @@ final class Handler implements Interrupter
 	
 	private boolean canExecuteJob()
 	{
-		if (runNow && !running)
+		if(runNow && runContext==null)
 		{
 			runNow=false;
 			return true;
@@ -202,9 +201,9 @@ final class Handler implements Interrupter
 		{
 			result=false;
 		}
-		if (running)
+		if(runContext!=null)
 		{
-			result=false;
+			runContext = null;
 		}
 		if (!timeForExcecution())
 		{
@@ -281,7 +280,7 @@ final class Handler implements Interrupter
 	int getSuccessfulRuns(){return successfulRuns;}
 	int getNumberOfFails(){return fails;}
 	Exception getLastException(){return lastException;}
-	boolean isRunning() {return running;}
+	RunContext getRunContext() {return runContext;}
 	long getInitialDelayInMilliSeconds() {return job.getInitialDelayInMilliSeconds();}
 	int getMinutesBetweenExecutions() {return job.getMinutesBetweenExecutions();}
 	Date getLastTimeStarted() {return lastTimeStarted;}

@@ -18,20 +18,13 @@
 
 package com.exedio.cronjob;
 
-import com.exedio.cope.util.Interrupter;
+import com.exedio.cope.util.JobContext;
 
 public interface Job
 {
 	String getName();
 
-	/**
-	 * @return
-	 *    An arbitrary number, that is displayed by the cronjob maintenance servlet.
-	 *    Typically you may want to return something like the number items processed by the job.
-	 *    The cronjob library does never use this number for any program logic,
-	 *    it just displays the number (and it's average / maximum).
-	 */
-	int run(Interrupter interrupter) throws Exception;
+	void run(JobContext ctx) throws Exception;
 	
 	boolean isActiveInitially();
 

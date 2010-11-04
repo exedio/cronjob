@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006-2008  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -16,20 +16,46 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cronjob.example;
+package com.exedio.cronjob;
 
-import com.exedio.cope.util.JobContext;
+import com.exedio.cope.util.EmptyJobContext;
 
-final class FailureJob extends AbstractJob
+final class RunContext extends EmptyJobContext
 {
-	FailureJob(final int number)
+	private final Handler handler;
+	private int progress = 0;
+	
+	RunContext(final Handler handler)
 	{
-		super("Failure" + number, 1, 1000);
+		this.handler = handler;
 	}
 	
 	@Override
-	public void run(JobContext ctx)
+	public boolean requestedToStop()
 	{
-		throw new RuntimeException("example exception from " + name);
+		return handler.requestsStop();
+	}
+	
+	@Override
+	public boolean supportsProgress()
+	{
+		return true;
+	}
+	
+	@Override
+	public void incrementProgress()
+	{
+		progress++;
+	}
+	
+	@Override
+	public void incrementProgress(final int delta)
+	{
+		progress += delta;
+	}
+	
+	int getProgress()
+	{
+		return progress;
 	}
 }
