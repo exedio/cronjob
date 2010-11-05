@@ -163,15 +163,15 @@ final class Page_Jspm
 					<tr>
 						<th rowspan="2">&nbsp;</th>
 						<th rowspan="2">Active</th>
-						<th rowspan="2">Name</th>
-						<%
+						<th rowspan="2">Name</th><%
+						
 					if(cop.showConfiguration)
 					{
 						%>
 						<th rowspan="2">Initial<br>Delay</th>
 						<th rowspan="2">Interval<br>/min</th>
-						<th rowspan="2">Stop<br>Timeout</th>
-						<%
+						<th rowspan="2">Stop<br>Timeout</th><%
+						
 					}
 					else
 					{
@@ -179,13 +179,13 @@ final class Page_Jspm
 						<th rowspan="2" colspan="3"><a href="<%=cop.toShowConfiguration(true)%>">o</a></th><%
 					}
 						%>
-						<th rowspan="2">Running<br>since</th>
-						<%
+						<th rowspan="2">Running<br>since</th><%
+						
 					if(cop.showLastRun)
 					{
 						%>
-						<th colspan="4">Last Run</th>
-						<%
+						<th colspan="4">Last Run</th><%
+						
 					}
 					else
 					{
@@ -197,16 +197,16 @@ final class Page_Jspm
 						<th rowspan="2">Average<br>Duration</th>
 						<th colspan="2">Interrupt</th>
 					</tr>
-					<tr>
-					<%
+					<tr><%
+					
 					if(cop.showLastRun)
 					{
 						%>
 						<th>Status</th>
 						<th>Start</th>
 						<th>Duration</th>
-						<th>Result</th>
-						<%
+						<th>Result</th><%
+						
 					}
 						%>
 						<th>Success</th>
@@ -239,15 +239,15 @@ final class Page_Jspm
 							<input type="submit" name="<%=id%>" value="<%=CronjobManager.ACTIVATE  %>"<% if( isActivated) { %> disabled readonly<% } %> />
 							<input type="submit" name="<%=id%>" value="<%=CronjobManager.DEACTIVATE%>"<% if(!isActivated) { %> disabled readonly<% } %> />
 						</nobr></td>
-						<td class="text" title="<%=className%>"><%=name%></td>
-						<%
+						<td class="text" title="<%=className%>"><%=name%></td><%
+						
 					if(cop.showConfiguration)
 					{
 						%>
 						<td<% if(!job.activeInitially){%> class="inactive"<%} %>><%=job.getInitialDelayInMilliSeconds()%></td>
 						<td><%=job.getMinutesBetweenExecutions()%></td>
-						<td><%=job.getStopTimeout()%></td>
-						<%
+						<td><%=job.getStopTimeout()%></td><%
+						
 					}
 					else
 					{
@@ -277,16 +277,16 @@ final class Page_Jspm
 							{
 								%>no<%
 							}
-						%></td>
-						<%
+						%></td><%
+						
 					if(cop.showLastRun)
 					{
 						%>
 						<td class="text<% if(!wasLastRunSuccessful){ %> error<% } %>"><% if(wasLastRunSuccessful){ %>ok<% } else { %>FAILED<% } %></td>
 						<td><nobr><%=job.getLastTimeStartedAsString()%></nobr></td>
 						<td><nobr><%=job.getTimeNeeded()%></nobr></td>
-						<td><%=job.getLastRunResult()%></td>
-						<%
+						<td><%=job.getLastRunResult()%></td><%
+						
 					}
 					else
 					{
