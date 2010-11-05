@@ -25,7 +25,7 @@ final class Page_Jspm
 {
 	static final void write(
 				final Out out,
-				final HomeCop cop,
+				final PageCop cop,
 				final String authentication,
 				final String hostname,
 				final long now,
@@ -168,7 +168,7 @@ final class Page_Jspm
 					%></span>
 				</div>
 				<%
-				Home_Jspm.write(out, cop, now, handlers);
+				cop.write(out, now, handlers);
 			}
 			else
 			{

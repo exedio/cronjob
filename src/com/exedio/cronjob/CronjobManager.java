@@ -154,7 +154,7 @@ public class CronjobManager extends CopsServlet
 			final HttpServletResponse response)
 	throws IOException
 	{
-		final HomeCop cop = HomeCop.getCop(request);
+		final PageCop cop = PageCop.getCop(request);
 
 		if("POST".equals(request.getMethod()))
 		{
