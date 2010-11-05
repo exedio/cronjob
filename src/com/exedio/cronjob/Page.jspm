@@ -171,7 +171,6 @@ final class Page_Jspm
 						<th rowspan="2">Initial<br>Delay</th>
 						<th rowspan="2">Interval<br>/min</th>
 						<th rowspan="2">Stop<br>Timeout</th><%
-						
 					}
 					else
 					{
@@ -185,7 +184,6 @@ final class Page_Jspm
 					{
 						%>
 						<th colspan="4">Last Run</th><%
-						
 					}
 					else
 					{
@@ -206,7 +204,6 @@ final class Page_Jspm
 						<th>Start</th>
 						<th>Duration</th>
 						<th>Result</th><%
-						
 					}
 						%>
 						<th>Success</th>
@@ -247,7 +244,6 @@ final class Page_Jspm
 						<td<% if(!job.activeInitially){%> class="inactive"<%} %>><%=job.getInitialDelayInMilliSeconds()%></td>
 						<td><%=job.getMinutesBetweenExecutions()%></td>
 						<td><%=job.getStopTimeout()%></td><%
-						
 					}
 					else
 					{
@@ -286,7 +282,6 @@ final class Page_Jspm
 						<td><nobr><%=job.getLastTimeStartedAsString()%></nobr></td>
 						<td><nobr><%=job.getTimeNeeded()%></nobr></td>
 						<td><%=job.getLastRunResult()%></td><%
-						
 					}
 					else
 					{
