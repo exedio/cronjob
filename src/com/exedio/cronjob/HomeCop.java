@@ -25,25 +25,49 @@ import com.exedio.cops.Cop;
 final class HomeCop extends Cop
 {
 	private static final String AUTO_REFRESH = "autoRefresh";
+	private static final String SHOW_CONFIGURATION = "cf";
+	private static final String SHOW_LAST_RUN = "lr";
 
 	final boolean autoRefresh;
+	final boolean showConfiguration;
+	final boolean showLastRun;
 
-	HomeCop(final boolean autoRefresh)
+	HomeCop(
+			final boolean autoRefresh,
+			final boolean showConfiguration,
+			final boolean showLastRun)
 	{
 		super("");
 
 		this.autoRefresh = autoRefresh;
+		this.showConfiguration = showConfiguration;
+		this.showLastRun = showLastRun;
 
 		addParameter(AUTO_REFRESH, autoRefresh);
+		addParameter(SHOW_CONFIGURATION, showConfiguration);
+		addParameter(SHOW_LAST_RUN, showLastRun);
 	}
 
 	static HomeCop getCop(final HttpServletRequest request)
 	{
-		return new HomeCop(getBooleanParameter(request, AUTO_REFRESH));
+		return new HomeCop(
+				getBooleanParameter(request, AUTO_REFRESH),
+				getBooleanParameter(request, SHOW_CONFIGURATION),
+				getBooleanParameter(request, SHOW_LAST_RUN));
 	}
 
 	HomeCop toAutoRefresh(final boolean autoRefresh)
 	{
-		return new HomeCop(autoRefresh);
+		return new HomeCop(autoRefresh, showConfiguration, showLastRun);
+	}
+
+	HomeCop toShowConfiguration(final boolean showConfiguration)
+	{
+		return new HomeCop(autoRefresh, showConfiguration, showLastRun);
+	}
+
+	HomeCop toShowLastRun(final boolean showLastRun)
+	{
+		return new HomeCop(autoRefresh, showConfiguration, showLastRun);
 	}
 }
