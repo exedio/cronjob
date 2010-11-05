@@ -158,27 +158,27 @@ public class CronjobManager extends CopsServlet
 
 		if("POST".equals(request.getMethod()))
 		{
-			for(final Handler job : handlers)
+			for(final Handler handler : handlers)
 			{
-				final String[] params = request.getParameterValues(job.id);
+				final String[] params = request.getParameterValues(handler.id);
 				if (params!=null)
 				{
 					final List<String> paramsAsList = Arrays.asList(params);
 					if (paramsAsList.contains(START_CRONJOB))
 					{
-						job.runNow();
+						handler.runNow();
 					}
 					else if (paramsAsList.contains(DELETE_LAST_EXCEPTION))
 					{
-						job.removeLastException();
+						handler.removeLastException();
 					}
 					else if (paramsAsList.contains(ACTIVATE))
 					{
-						job.setActivated(true);
+						handler.setActivated(true);
 					}
 					else if (paramsAsList.contains(DEACTIVATE))
 					{
-						job.setActivated(false);
+						handler.setActivated(false);
 					}
 					else{/* NOTHING */}
 				}
@@ -189,13 +189,13 @@ public class CronjobManager extends CopsServlet
 				final List<String> paramsAsList = Arrays.asList(params);
 				if(paramsAsList.contains(ACTIVATE))
 				{
-					for(final Handler job : handlers)
-						job.setActivated(true);
+					for(final Handler handler : handlers)
+						handler.setActivated(true);
 				}
 				else if(paramsAsList.contains(DEACTIVATE))
 				{
-					for(final Handler job : handlers)
-						job.setActivated(false);
+					for(final Handler handler : handlers)
+						handler.setActivated(false);
 				}
 				else
 				{
