@@ -52,6 +52,14 @@ final class Page_Jspm
 				font-weight:bold;
 			}
 			
+			a.disable
+			{
+				vertical-align:top;
+				float:right;
+				text-decoration:none;
+				font-size:small;
+			}
+			
 			h1
 			{
 				font-family:sans-serif;
@@ -170,7 +178,7 @@ final class Page_Jspm
 						%>
 						<th rowspan="2">Initial<br>Delay</th>
 						<th rowspan="2">Interval<br>/min</th>
-						<th rowspan="2">Stop<br>Timeout</th><%
+						<th rowspan="2">Stop <a class="disable" href="<%=cop.toShowConfiguration(false)%>">x</a><br>Timeout</th><%
 					}
 					else
 					{
@@ -183,7 +191,7 @@ final class Page_Jspm
 					if(cop.showLastRun)
 					{
 						%>
-						<th colspan="4">Last Run</th><%
+						<th colspan="4">Last Run <a class="disable" href="<%=cop.toShowLastRun(false)%>">x</a></th><%
 					}
 					else
 					{
