@@ -1,0 +1,206 @@
+<%
+/*
+ * Copyright (C) 2006-2008  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cronjob;
+
+import java.util.List;
+
+final class Home_Jspm
+{
+	static final void write(
+				final Out out,
+				final HomeCop cop,
+				final long now,
+				final List<Handler> handlers)
+	{
+				%>
+				<table>
+					<tr>
+						<th rowspan="2">&nbsp;</th>
+						<th rowspan="2">Active</th>
+						<th rowspan="2">Name</th><%
+						
+					if(cop.showConfiguration)
+					{
+						%>
+						<th rowspan="2">Initial<br>Delay</th>
+						<th rowspan="2">Interval<br>/min</th>
+						<th rowspan="2">Stop <a class="disable" href="<%=cop.toShowConfiguration(false)%>">x</a><br>Timeout</th><%
+					}
+					else
+					{
+						%>
+						<th rowspan="2" colspan="3"><a href="<%=cop.toShowConfiguration(true)%>">o</a></th><%
+					}
+						%>
+						<th rowspan="2">Running<br>since</th><%
+						
+					if(cop.showLastRun)
+					{
+						%>
+						<th colspan="4">Last Run <a class="disable" href="<%=cop.toShowLastRun(false)%>">x</a></th><%
+					}
+					else
+					{
+						%>
+						<th rowspan="2" colspan="4"><a href="<%=cop.toShowLastRun(true)%>">o</a></th><%
+					}
+						%>
+						<th colspan="2">Total</th>
+						<th rowspan="2">Average<br>Duration</th>
+						<th colspan="2">Interrupt</th>
+					</tr>
+					<tr><%
+					
+					if(cop.showLastRun)
+					{
+						%>
+						<th>Status</th>
+						<th>Start</th>
+						<th>Duration</th>
+						<th>Result</th><%
+					}
+						%>
+						<th>Success</th>
+						<th>Failure</th>
+						<th>Avg</th>
+						<th>Max</th>
+					</tr>
+					<tr>
+						<th>All</th>
+						<td>
+							<input type="submit" name="<%=CronjobManager.ALL%>" value="<%=CronjobManager.ACTIVATE  %>" />
+							<input type="submit" name="<%=CronjobManager.ALL%>" value="<%=CronjobManager.DEACTIVATE%>" />
+						</td>
+						<td colspan="12"></td>
+					</tr><%
+					
+					for(final Handler job : handlers)
+					{
+						final String id = job.id;
+						final String name = job.jobName;
+						final String className = job.job.getClass().getName();
+						final boolean isActivated = job.isActivated();
+						final boolean wasLastRunSuccessful = job.wasLastRunSuccessful();
+						final int numberOfFails = job.getNumberOfFails();
+
+					%>
+					<tr>
+						<td><input type="submit" name="<%=id%>" value="<%=CronjobManager.START_CRONJOB%>"/></td>
+						<td<% if(!isActivated){%> class="inactive"<%} %>><nobr>
+							<input type="submit" name="<%=id%>" value="<%=CronjobManager.ACTIVATE  %>"<% if( isActivated) { %> disabled readonly<% } %> />
+							<input type="submit" name="<%=id%>" value="<%=CronjobManager.DEACTIVATE%>"<% if(!isActivated) { %> disabled readonly<% } %> />
+						</nobr></td>
+						<td class="text" title="<%=className%>"><%=name%></td><%
+						
+					if(cop.showConfiguration)
+					{
+						%>
+						<td<% if(!job.activeInitially){%> class="inactive"<%} %>><%=job.getInitialDelayInMilliSeconds()%></td>
+						<td><%=job.getMinutesBetweenExecutions()%></td>
+						<td><%=job.getStopTimeout()%></td><%
+					}
+					else
+					{
+						%>
+						<td colspan="3"></td><%
+					}
+						%>
+						<td class="text"><%
+							
+							final RunContext runContext = job.getRunContext();
+							if(runContext!=null)
+							{
+								final int progress = runContext.getProgress();
+								
+								%><%=(now-job.getLastTimeStarted().getTime())%> ms<%
+								final long lastInterruptRequest = job.getLastInterruptRequest();
+								if(lastInterruptRequest!=0)
+								{
+									%>,<br>LIR <%=(now-lastInterruptRequest)%> ms<%
+								}
+								if(progress!=0)
+								{
+									%>,<br>progress <%=progress%><%
+								}
+							}
+							else
+							{
+								%>no<%
+							}
+						%></td><%
+						
+					if(cop.showLastRun)
+					{
+						%>
+						<td class="text<% if(!wasLastRunSuccessful){ %> error<% } %>"><% if(wasLastRunSuccessful){ %>ok<% } else { %>FAILED<% } %></td>
+						<td><nobr><%=job.getLastTimeStartedAsString()%></nobr></td>
+						<td><nobr><%=job.getTimeNeeded()%></nobr></td>
+						<td><%=job.getLastRunResult()%></td><%
+					}
+					else
+					{
+						%>
+						<td colspan="4"></td><%
+					}
+						%>
+						<td><nobr><%=job.getSuccessfulRuns()%></nobr></td>
+						<td<% if(numberOfFails>0){ %> class="error"<% } %>><nobr><%=numberOfFails%></nobr></td>
+						<td><nobr><%=job.getAverageTimeNeeded()%></nobr></td>
+						<td><%=job.getInterruptAverage()%></td>
+						<td><%=job.getInterruptMaximum()%></td>
+					</tr><%
+					}
+				%>
+				</table>
+				<br><%
+					
+					for(final Handler job : handlers)
+					{
+						if(job.getLastException()!=null)
+						{
+							%>
+							<br>
+							<table width="100%" cellpadding="0" cellspacing="0">
+								<tr>
+									<td class="text">
+										<h3>
+											Stacktrace of last exception occured on Cronjob: <%=job.jobName%>&nbsp;&nbsp;
+											<input type=submit name="<%=job.id%>" value="<%=CronjobManager.DELETE_LAST_EXCEPTION%>"/>
+										</h3>
+									</td>
+								</tr>
+								<tr>
+									<td class="text"><%=job.getLastException().getMessage()%></td>
+								</tr><%
+								
+							for(final StackTraceElement el : job.getLastException().getStackTrace())
+							{
+								%>
+								<tr>
+									<td class="text"><%=el.toString()%></td>
+								</tr><%
+							}
+							%>
+							</table><%
+						}
+					}
+	}
+}
+%>
