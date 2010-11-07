@@ -66,6 +66,12 @@ final class Page_Jspm
 				font-size:180%;
 			}
 			
+			h1 a
+			{
+				text-decoration:none;
+				color:black;
+			}
+			
 			hr
 			{
 				height:0px;
@@ -140,7 +146,7 @@ final class Page_Jspm
 	<body>
 		<a href="http://www.exedio.com/" target="_blank"><img src="http://cope.sourceforge.net/exedio.png" alt="Exedio Logo" class="logo"></a>
 		<form action="<%=cop%>" method="POST">
-			<h1>Cronjob</h1><%
+			<h1><a href="<%=cop.toHome()%>">Cronjob</a></h1><%
 			
 			if(!handlers.isEmpty())
 			{

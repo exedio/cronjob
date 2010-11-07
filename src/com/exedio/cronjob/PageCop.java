@@ -51,6 +51,11 @@ abstract class PageCop extends Cop
 		return HomeCop.getCop(autoRefresh, request);
 	}
 
+	final HomeCop toHome()
+	{
+		return new HomeCop(autoRefresh, false, false);
+	}
+
 	abstract PageCop toAutoRefresh(boolean autoRefresh);
 	abstract void write(Out out, long now, List<Handler> handlers);
 }
