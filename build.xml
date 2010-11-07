@@ -33,6 +33,7 @@
 		<copy todir="${classes.dir}">
 			<fileset dir="src">
 				<include name="**/*.png" />
+				<include name="**/*.css" />
 			</fileset>
 		</copy>
 	</target>

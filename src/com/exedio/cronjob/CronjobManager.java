@@ -42,6 +42,7 @@ public class CronjobManager extends CopsServlet
 {
 	private static final long serialVersionUID =100000000000001L;
 
+	static final Resource stylesheet = new Resource("cronjob.css");
 	static final Resource logo = new Resource("logo.png");
 
 	private List<Handler> handlers;
