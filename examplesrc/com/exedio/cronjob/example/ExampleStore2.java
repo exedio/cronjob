@@ -39,7 +39,9 @@ public final class ExampleStore2 implements CronjobStore
 	public List<? extends Job> getJobs()
 	{
 		System.out.println("ExampleStore2.getJobs");
-		return Arrays.asList(new NormalJob(10));
+		final NormalJob job = new NormalJob(10);
+		job.activeInitially = false;
+		return Arrays.asList(job);
 	}
 
 	public long getInitialDelayInMilliSeconds()
