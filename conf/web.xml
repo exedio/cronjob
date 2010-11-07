@@ -37,7 +37,7 @@
 	
 	<login-config>
 		<auth-method>BASIC</auth-method>
-		<realm-name>cronjob realm</realm-name>
+		<realm-name>cronjob realm, user=admin, password=nimda</realm-name>
 	</login-config>
 	<security-role><role-name>manager</role-name></security-role>
 	<security-constraint>
