@@ -36,10 +36,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cops.CopsServlet;
+import com.exedio.cops.Resource;
 
 public class CronjobManager extends CopsServlet
 {
 	private static final long serialVersionUID =100000000000001L;
+
+	static final Resource logo = new Resource("logo.png");
 
 	private List<Handler> handlers;
 

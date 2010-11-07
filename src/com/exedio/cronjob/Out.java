@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.exedio.cops.BodySender;
 import com.exedio.cops.Cop;
 import com.exedio.cops.CopsServlet;
+import com.exedio.cops.Resource;
 
 final class Out
 {
@@ -71,6 +72,11 @@ final class Out
 	void write(final long l)
 	{
 		bf.append(l);
+	}
+
+	void write(final Resource resource)
+	{
+		bf.append(resource.getURL(request));
 	}
 
 	void write(final Cop cop)

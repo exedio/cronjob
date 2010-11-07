@@ -30,6 +30,11 @@
 			<compilerarg value="-encoding" />
 			<compilerarg value="ascii" />
 		</javac>
+		<copy todir="${classes.dir}">
+			<fileset dir="src">
+				<include name="**/*.png" />
+			</fileset>
+		</copy>
 	</target>
 
 	<target name="jar" depends="compile">
