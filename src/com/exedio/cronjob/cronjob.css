@@ -1,3 +1,7 @@
+a
+{
+	text-decoration:none;
+}
 
 a.active
 {
@@ -8,7 +12,6 @@ a.disable
 {
 	vertical-align:top;
 	float:right;
-	text-decoration:none;
 	font-size:small;
 }
 
@@ -20,7 +23,6 @@ h1
 
 h1 a
 {
-	text-decoration:none;
 	color:black;
 }
 
