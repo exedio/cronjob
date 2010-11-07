@@ -19,80 +19,39 @@
 
 package com.exedio.cronjob;
 
-import java.util.List;
-
-final class Home_Jspm
+final class Job_Jspm
 {
 	static final void write(
 				final Out out,
-				final HomeCop cop,
 				final long now,
-				final List<Handler> handlers)
+				final Handler job)
 	{
 				%>
 				<table>
 					<tr>
 						<th rowspan="2">&nbsp;</th>
 						<th rowspan="2">Active</th>
-						<th rowspan="2">Name</th><%
-						
-					if(cop.showConfiguration)
-					{
-						%>
+						<th rowspan="2">Name</th>
 						<th rowspan="2">Initial<br>Delay</th>
 						<th rowspan="2">Interval<br>/min</th>
-						<th rowspan="2">Stop <a class="disable" href="<%=cop.toShowConfiguration(false)%>">x</a><br>Timeout</th><%
-					}
-					else
-					{
-						%>
-						<th rowspan="2" colspan="3"><a href="<%=cop.toShowConfiguration(true)%>">o</a></th><%
-					}
-						%>
-						<th rowspan="2">Running<br>since</th><%
-						
-					if(cop.showLastRun)
-					{
-						%>
-						<th colspan="4">Last Run <a class="disable" href="<%=cop.toShowLastRun(false)%>">x</a></th><%
-					}
-					else
-					{
-						%>
-						<th rowspan="2" colspan="4"><a href="<%=cop.toShowLastRun(true)%>">o</a></th><%
-					}
-						%>
+						<th rowspan="2">Stop<br>Timeout</th>
+						<th rowspan="2">Running<br>since</th>
+						<th colspan="4">Last Run</th>
 						<th colspan="2">Total</th>
 						<th rowspan="2">Average<br>Duration</th>
 						<th colspan="2">Interrupt</th>
 					</tr>
-					<tr><%
-					
-					if(cop.showLastRun)
-					{
-						%>
+					<tr>
 						<th>Status</th>
 						<th>Start</th>
 						<th>Duration</th>
-						<th>Result</th><%
-					}
-						%>
+						<th>Result</th>
 						<th>Success</th>
 						<th>Failure</th>
 						<th>Avg</th>
 						<th>Max</th>
-					</tr>
-					<tr>
-						<th>All</th>
-						<td>
-							<input type="submit" name="<%=CronjobManager.ALL%>" value="<%=CronjobManager.ACTIVATE  %>" />
-							<input type="submit" name="<%=CronjobManager.ALL%>" value="<%=CronjobManager.DEACTIVATE%>" />
-						</td>
-						<td colspan="12"></td>
 					</tr><%
 					
-					for(final Handler job : handlers)
-					{
 						final String id = job.id;
 						final String name = job.jobName;
 						final String className = job.job.getClass().getName();
@@ -107,21 +66,10 @@ final class Home_Jspm
 							<input type="submit" name="<%=id%>" value="<%=CronjobManager.ACTIVATE  %>"<% if( isActivated) { %> disabled readonly<% } %> />
 							<input type="submit" name="<%=id%>" value="<%=CronjobManager.DEACTIVATE%>"<% if(!isActivated) { %> disabled readonly<% } %> />
 						</nobr></td>
-						<td class="text" title="<%=className%>"><a href="<%=cop.toJob(job)%>"><%=name%></a></td><%
-						
-					if(cop.showConfiguration)
-					{
-						%>
+						<td class="text" title="<%=className%>"><%=name%></td>
 						<td<% if(!job.activeInitially){%> class="inactive"<%} %>><%=job.getInitialDelayInMilliSeconds()%></td>
 						<td><%=job.getMinutesBetweenExecutions()%></td>
-						<td><%=job.getStopTimeout()%></td><%
-					}
-					else
-					{
-						%>
-						<td colspan="3"></td><%
-					}
-						%>
+						<td><%=job.getStopTimeout()%></td>
 						<td class="text"><%
 							
 							final RunContext runContext = job.getRunContext();
@@ -144,35 +92,20 @@ final class Home_Jspm
 							{
 								%>no<%
 							}
-						%></td><%
-						
-					if(cop.showLastRun)
-					{
-						%>
+						%></td>
 						<td class="text<% if(!wasLastRunSuccessful){ %> error<% } %>"><% if(wasLastRunSuccessful){ %>ok<% } else { %>FAILED<% } %></td>
 						<td><nobr><%=job.getLastTimeStartedAsString()%></nobr></td>
 						<td><nobr><%=job.getTimeNeeded()%></nobr></td>
-						<td><%=job.getLastRunResult()%></td><%
-					}
-					else
-					{
-						%>
-						<td colspan="4"></td><%
-					}
-						%>
+						<td><%=job.getLastRunResult()%></td>
 						<td><nobr><%=job.getSuccessfulRuns()%></nobr></td>
 						<td<% if(numberOfFails>0){ %> class="error"<% } %>><nobr><%=numberOfFails%></nobr></td>
 						<td><nobr><%=job.getAverageTimeNeeded()%></nobr></td>
 						<td><%=job.getInterruptAverage()%></td>
 						<td><%=job.getInterruptMaximum()%></td>
-					</tr><%
-					}
-				%>
+					</tr>
 				</table>
 				<br><%
 					
-					for(final Handler job : handlers)
-					{
 						if(job.getLastException()!=null)
 						{
 							%>
@@ -200,7 +133,6 @@ final class Home_Jspm
 							%>
 							</table><%
 						}
-					}
 	}
 }
 %>

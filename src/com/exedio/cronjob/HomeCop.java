@@ -68,6 +68,11 @@ final class HomeCop extends PageCop
 		return new HomeCop(autoRefresh, showConfiguration, showLastRun);
 	}
 
+	JobCop toJob(final Handler job)
+	{
+		return new JobCop(autoRefresh, job.id);
+	}
+
 	@Override
 	void write(final Out out, final long now, final List<Handler> handlers)
 	{

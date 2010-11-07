@@ -22,35 +22,49 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.exedio.cops.Cop;
-
-abstract class PageCop extends Cop
+final class JobCop extends PageCop
 {
-	private static final String AUTO_REFRESH = "autoRefresh";
+	static final String PATH_INFO = "job.html";
+	private static final String JOB = "j";
 
-	final boolean autoRefresh;
+	final String id;
 
-	PageCop(
-			final String pathInfo,
-			final boolean autoRefresh)
+	JobCop(
+			final boolean autoRefresh,
+			final String id)
 	{
-		super(pathInfo);
+		super(PATH_INFO, autoRefresh);
 
-		this.autoRefresh = autoRefresh;
+		this.id = id;
 
-		addParameter(AUTO_REFRESH, autoRefresh);
+		addParameter(JOB, id);
 	}
 
-	static PageCop getCop(final HttpServletRequest request)
+	static JobCop getCop(final boolean autoRefresh, final HttpServletRequest request)
 	{
-		final boolean autoRefresh = getBooleanParameter(request, AUTO_REFRESH);
-		final String pathInfo = request.getPathInfo();
-
-		if(('/' + JobCop.PATH_INFO).equals(pathInfo))
-			return JobCop.getCop(autoRefresh, request);
-		return HomeCop.getCop(autoRefresh, request);
+		return new JobCop(
+				autoRefresh,
+				request.getParameter(JOB));
 	}
 
-	abstract PageCop toAutoRefresh(boolean autoRefresh);
-	abstract void write(Out out, long now, List<Handler> handlers);
+	@Override
+	JobCop toAutoRefresh(final boolean autoRefresh)
+	{
+		return new JobCop(autoRefresh, id);
+	}
+
+	@Override
+	void write(final Out out, final long now, final List<Handler> handlers)
+	{
+		Job_Jspm.write(out, now, handler(handlers));
+	}
+
+	private Handler handler(final List<Handler> handlers)
+	{
+		for(final Handler handler : handlers)
+			if(id.equals(handler.id))
+				return handler;
+
+		throw new RuntimeException(id);
+	}
 }
