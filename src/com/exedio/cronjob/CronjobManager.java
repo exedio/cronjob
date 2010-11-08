@@ -26,7 +26,6 @@ import java.net.UnknownHostException;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -146,12 +145,6 @@ public class CronjobManager extends CopsServlet
 		return iv==null ? "" : iv;
 	}
 
-	static final String ACTIVATE="on";
-	static final String DEACTIVATE="off";
-	static final String START_CRONJOB = "Start";
-	static final String DELETE_LAST_EXCEPTION = "Delete";
-	static final String ALL = "all";
-
 	@Override
 	protected void doRequest(
 			final HttpServletRequest request,
@@ -162,50 +155,6 @@ public class CronjobManager extends CopsServlet
 
 		if("POST".equals(request.getMethod()))
 		{
-			for(final Handler handler : handlers)
-			{
-				final String[] params = request.getParameterValues(handler.id);
-				if (params!=null)
-				{
-					final List<String> paramsAsList = Arrays.asList(params);
-					if (paramsAsList.contains(START_CRONJOB))
-					{
-						handler.runNow();
-					}
-					else if (paramsAsList.contains(DELETE_LAST_EXCEPTION))
-					{
-						handler.removeLastException();
-					}
-					else if (paramsAsList.contains(ACTIVATE))
-					{
-						handler.setActivated(true);
-					}
-					else if (paramsAsList.contains(DEACTIVATE))
-					{
-						handler.setActivated(false);
-					}
-					else{/* NOTHING */}
-				}
-			}
-			final String[] params = request.getParameterValues(ALL);
-			if(params!=null)
-			{
-				final List<String> paramsAsList = Arrays.asList(params);
-				if(paramsAsList.contains(ACTIVATE))
-				{
-					for(final Handler handler : handlers)
-						handler.setActivated(true);
-				}
-				else if(paramsAsList.contains(DEACTIVATE))
-				{
-					for(final Handler handler : handlers)
-						handler.setActivated(false);
-				}
-				else
-				{
-					throw new RuntimeException(paramsAsList.toString());
-				}
-			}
 			cop.post(request, handlers);
 			response.sendRedirect(cop.getAbsoluteURL(request));
 		}

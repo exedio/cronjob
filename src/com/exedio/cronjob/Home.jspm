@@ -85,8 +85,8 @@ final class Home_Jspm
 					<tr>
 						<th>All</th>
 						<td>
-							<input type="submit" name="<%=CronjobManager.ALL%>" value="<%=CronjobManager.ACTIVATE  %>" />
-							<input type="submit" name="<%=CronjobManager.ALL%>" value="<%=CronjobManager.DEACTIVATE%>" />
+							<input type="submit" name="<%=PageCop.ALL%>" value="<%=PageCop.ACTIVATE  %>" />
+							<input type="submit" name="<%=PageCop.ALL%>" value="<%=PageCop.DEACTIVATE%>" />
 						</td>
 						<td colspan="12"></td>
 					</tr><%
@@ -102,10 +102,10 @@ final class Home_Jspm
 
 					%>
 					<tr>
-						<td><input type="submit" name="<%=id%>" value="<%=CronjobManager.START_CRONJOB%>"/></td>
+						<td><input type="submit" name="<%=id%>" value="<%=PageCop.START_CRONJOB%>"/></td>
 						<td<% if(!isActivated){%> class="inactive"<%} %>><nobr>
-							<input type="submit" name="<%=id%>" value="<%=CronjobManager.ACTIVATE  %>"<% if( isActivated) { %> disabled readonly<% } %> />
-							<input type="submit" name="<%=id%>" value="<%=CronjobManager.DEACTIVATE%>"<% if(!isActivated) { %> disabled readonly<% } %> />
+							<input type="submit" name="<%=id%>" value="<%=PageCop.ACTIVATE  %>"<% if( isActivated) { %> disabled readonly<% } %> />
+							<input type="submit" name="<%=id%>" value="<%=PageCop.DEACTIVATE%>"<% if(!isActivated) { %> disabled readonly<% } %> />
 						</nobr></td>
 						<td class="text" title="<%=className%>"><a href="<%=cop.toJob(job)%>"><%=name%></a></td><%
 						
@@ -182,7 +182,7 @@ final class Home_Jspm
 									<td class="text">
 										<h3>
 											Stacktrace of last exception occured on Cronjob: <%=job.jobName%>&nbsp;&nbsp;
-											<input type=submit name="<%=job.id%>" value="<%=CronjobManager.DELETE_LAST_EXCEPTION%>"/>
+											<input type=submit name="<%=job.id%>" value="<%=PageCop.DELETE_LAST_EXCEPTION%>"/>
 										</h3>
 									</td>
 								</tr>

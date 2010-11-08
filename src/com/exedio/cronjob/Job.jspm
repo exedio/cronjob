@@ -64,10 +64,10 @@ final class Job_Jspm
 
 					%>
 					<tr>
-						<td><input type="submit" name="<%=id%>" value="<%=CronjobManager.START_CRONJOB%>"/></td>
+						<td><input type="submit" name="<%=id%>" value="<%=PageCop.START_CRONJOB%>"/></td>
 						<td<% if(!isActivated){%> class="inactive"<%} %>><nobr>
-							<input type="submit" name="<%=id%>" value="<%=CronjobManager.ACTIVATE  %>"<% if( isActivated) { %> disabled readonly<% } %> />
-							<input type="submit" name="<%=id%>" value="<%=CronjobManager.DEACTIVATE%>"<% if(!isActivated) { %> disabled readonly<% } %> />
+							<input type="submit" name="<%=id%>" value="<%=PageCop.ACTIVATE  %>"<% if( isActivated) { %> disabled readonly<% } %> />
+							<input type="submit" name="<%=id%>" value="<%=PageCop.DEACTIVATE%>"<% if(!isActivated) { %> disabled readonly<% } %> />
 						</nobr></td>
 						<td class="text" title="<%=className%>"><%=name%></td>
 						<td<% if(!job.activeInitially){%> class="inactive"<%} %>><%=job.getInitialDelayInMilliSeconds()%></td>
@@ -118,7 +118,7 @@ final class Job_Jspm
 									<td class="text">
 										<h3>
 											Stacktrace of last exception occured on Cronjob: <%=job.jobName%>&nbsp;&nbsp;
-											<input type=submit name="<%=job.id%>" value="<%=CronjobManager.DELETE_LAST_EXCEPTION%>"/>
+											<input type=submit name="<%=job.id%>" value="<%=PageCop.DELETE_LAST_EXCEPTION%>"/>
 										</h3>
 									</td>
 								</tr>

@@ -18,6 +18,7 @@
 
 package com.exedio.cronjob;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +28,12 @@ import com.exedio.cops.Cop;
 abstract class PageCop extends Cop
 {
 	private static final String AUTO_REFRESH = "autoRefresh";
+
+	static final String ACTIVATE="on";
+	static final String DEACTIVATE="off";
+	static final String START_CRONJOB = "Start";
+	static final String DELETE_LAST_EXCEPTION = "Delete";
+	static final String ALL = "all";
 
 	final boolean autoRefresh;
 
@@ -56,9 +63,52 @@ abstract class PageCop extends Cop
 		return new HomeCop(autoRefresh, false, false);
 	}
 
-	void post(@SuppressWarnings("unused") final HttpServletRequest request, @SuppressWarnings("unused") final List<Handler> handlers)
+	void post(final HttpServletRequest request, final List<Handler> handlers)
 	{
-		// empty TODO
+		for(final Handler handler : handlers)
+		{
+			final String[] params = request.getParameterValues(handler.id);
+			if (params!=null)
+			{
+				final List<String> paramsAsList = Arrays.asList(params);
+				if (paramsAsList.contains(START_CRONJOB))
+				{
+					handler.runNow();
+				}
+				else if (paramsAsList.contains(DELETE_LAST_EXCEPTION))
+				{
+					handler.removeLastException();
+				}
+				else if (paramsAsList.contains(ACTIVATE))
+				{
+					handler.setActivated(true);
+				}
+				else if (paramsAsList.contains(DEACTIVATE))
+				{
+					handler.setActivated(false);
+				}
+				else{/* NOTHING */}
+			}
+		}
+		final String[] params = request.getParameterValues(ALL);
+		if(params!=null)
+		{
+			final List<String> paramsAsList = Arrays.asList(params);
+			if(paramsAsList.contains(ACTIVATE))
+			{
+				for(final Handler handler : handlers)
+					handler.setActivated(true);
+			}
+			else if(paramsAsList.contains(DEACTIVATE))
+			{
+				for(final Handler handler : handlers)
+					handler.setActivated(false);
+			}
+			else
+			{
+				throw new RuntimeException(paramsAsList.toString());
+			}
+		}
 	}
 
 	abstract PageCop toAutoRefresh(boolean autoRefresh);
