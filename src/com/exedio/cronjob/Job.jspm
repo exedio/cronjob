@@ -38,7 +38,6 @@ final class Job_Jspm
 						<th rowspan="2">Initial<br>Delay</th>
 						<th rowspan="2">Interval<br>/min</th>
 						<th rowspan="2">Stop<br>Timeout</th>
-						<th rowspan="2">Running<br>since</th>
 						<th colspan="4">Last Run</th>
 						<th colspan="2">Total</th>
 						<th rowspan="2">Average<br>Duration</th>
@@ -73,29 +72,6 @@ final class Job_Jspm
 						<td<% if(!job.activeInitially){%> class="inactive"<%} %>><%=job.getInitialDelayInMilliSeconds()%></td>
 						<td><%=job.getMinutesBetweenExecutions()%></td>
 						<td><%=job.getStopTimeout()%></td>
-						<td class="text"><%
-							
-							final RunContext runContext = job.getRunContext();
-							if(runContext!=null)
-							{
-								final int progress = runContext.getProgress();
-								
-								%><%=(now-job.getLastTimeStarted().getTime())%> ms<%
-								final long lastInterruptRequest = job.getLastInterruptRequest();
-								if(lastInterruptRequest!=0)
-								{
-									%>,<br>LIR <%=(now-lastInterruptRequest)%> ms<%
-								}
-								if(progress!=0)
-								{
-									%>,<br>progress <%=progress%><%
-								}
-							}
-							else
-							{
-								%>no<%
-							}
-						%></td>
 						<td class="text<% if(!wasLastRunSuccessful){ %> error<% } %>"><% if(wasLastRunSuccessful){ %>ok<% } else { %>FAILED<% } %></td>
 						<td><nobr><%=job.getLastTimeStartedAsString()%></nobr></td>
 						<td><nobr><%=job.getTimeNeeded()%></nobr></td>
@@ -136,7 +112,50 @@ final class Job_Jspm
 							%>
 							</table><%
 						}
-				
+			
+			final RunContext runContext = job.getRunContext();
+			if(runContext!=null)
+			{
+				final long lastInterruptRequest = job.getLastInterruptRequest();
+				final int progress = runContext.getProgress();
+				%>
+				<table>
+					<tr>
+						<th>Started<small>/ms</small></th>
+						<td><%=(now-job.getLastTimeStarted().getTime())%></td>
+					</tr>
+					<tr>
+						<th>LIR<small>/ms</small></th>
+						<td><%
+							if(lastInterruptRequest!=0)
+							{
+								%><%=(now-lastInterruptRequest)%><%
+							}
+							%></td>
+					</tr>
+					<tr>
+						<th>Progress</th>
+						<td><%=progress%></td>
+					</tr>
+				</table><%
+			}
+			else
+			{
+				%>
+				<table>
+					<tr>
+						<th>Started<small>/ms</small></th>
+						<td rowspan="3">Not Running</td>
+					</tr>
+					<tr>
+						<th>LIR<small>/ms</small></th>
+					</tr>
+					<tr>
+						<th>Progress</th>
+					</tr>
+				</table><%
+			}
+			
 				%>
 				<input type="submit" name="<%=JobCop.SAMPLE%>" value="sample" /><%
 				
