@@ -18,12 +18,19 @@
 
 package com.exedio.cronjob;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import com.exedio.cope.util.EmptyJobContext;
 
 final class RunContext extends EmptyJobContext
 {
 	private final Handler handler;
-	private int progress = 0;
+	final long nanos = System.nanoTime();
+
+	private volatile int progress = 0;
+	private final ArrayList<Sample> samples = new ArrayList<Sample>();
 
 	RunContext(final Handler handler)
 	{
@@ -57,5 +64,26 @@ final class RunContext extends EmptyJobContext
 	int getProgress()
 	{
 		return progress;
+	}
+
+	void sample()
+	{
+		final Sample sample = new Sample(this, progress);
+
+		synchronized(samples)
+		{
+			samples.add(sample);
+		}
+	}
+
+	List<Sample> getSamples()
+	{
+		synchronized(samples)
+		{
+			return
+				samples.isEmpty()
+				? Collections.<Sample>emptyList()
+				: new ArrayList<Sample>(samples);
+		}
 	}
 }

@@ -206,6 +206,7 @@ public class CronjobManager extends CopsServlet
 					throw new RuntimeException(paramsAsList.toString());
 				}
 			}
+			cop.post(request, handlers);
 			response.sendRedirect(cop.getAbsoluteURL(request));
 		}
 

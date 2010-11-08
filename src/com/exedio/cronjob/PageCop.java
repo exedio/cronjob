@@ -56,6 +56,11 @@ abstract class PageCop extends Cop
 		return new HomeCop(autoRefresh, false, false);
 	}
 
+	void post(@SuppressWarnings("unused") final HttpServletRequest request, @SuppressWarnings("unused") final List<Handler> handlers)
+	{
+		// empty TODO
+	}
+
 	abstract PageCop toAutoRefresh(boolean autoRefresh);
 	abstract void write(Out out, long now, List<Handler> handlers);
 }

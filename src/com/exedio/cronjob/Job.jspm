@@ -19,12 +19,15 @@
 
 package com.exedio.cronjob;
 
+import java.util.List;
+
 final class Job_Jspm
 {
 	static final void write(
 				final Out out,
 				final long now,
-				final Handler job)
+				final Handler job,
+				final List<Sample> samples)
 	{
 				%>
 				<table>
@@ -133,6 +136,30 @@ final class Job_Jspm
 							%>
 							</table><%
 						}
+				
+				%>
+				<input type="submit" name="<%=JobCop.SAMPLE%>" value="sample" /><%
+				
+				if(!samples.isEmpty())
+				{
+				%>
+				<table>
+					<tr>
+						<th>Time<small>/ms</small></th>
+						<th>Progress</th>
+					</tr><%
+					
+					for(final Sample sample : samples)
+					{
+					%>
+					<tr>
+						<td><%=sample.millis()%></td>
+						<td><%=sample.progress%></td>
+					</tr><%
+					}
+				%>
+				</table><%
+				}
 	}
 }
 %>

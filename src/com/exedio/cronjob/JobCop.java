@@ -18,6 +18,7 @@
 
 package com.exedio.cronjob;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,8 @@ final class JobCop extends PageCop
 {
 	static final String PATH_INFO = "job.html";
 	private static final String JOB = "j";
+
+	static final String SAMPLE = "sample";
 
 	final String id;
 
@@ -54,9 +57,25 @@ final class JobCop extends PageCop
 	}
 
 	@Override
+	void post(final HttpServletRequest request, final List<Handler> handlers)
+	{
+		if(request.getParameter(SAMPLE)!=null)
+		{
+			final Handler handler = handler(handlers);
+			final RunContext ctx = handler.getRunContext();
+			if(ctx!=null)
+				ctx.sample();
+			return;
+		}
+		super.post(request, handlers);
+	}
+
+	@Override
 	void write(final Out out, final long now, final List<Handler> handlers)
 	{
-		Job_Jspm.write(out, now, handler(handlers));
+		final Handler handler = handler(handlers);
+		final RunContext ctx = handler.getRunContext();
+		Job_Jspm.write(out, now, handler, ctx!=null ? ctx.getSamples() : Collections.<Sample>emptyList());
 	}
 
 	private Handler handler(final List<Handler> handlers)
