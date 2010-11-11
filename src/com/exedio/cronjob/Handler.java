@@ -20,9 +20,7 @@ package com.exedio.cronjob;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,7 +28,6 @@ final class Handler
 {
 	private final int DURATION_BETWEEN_CHECKS=2705;
 	private final DateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy - HH:mm:ss");
-	private final DateFormat DATE_FORMAT_SIMPLE = new SimpleDateFormat("HH:mm:ss");
 
 	final String id;
 	final Job job;
@@ -213,41 +210,6 @@ final class Handler
 			result=false;
 		}
 		return result;
-	}
-
-	private boolean isToday(final Date date)
-	{
-		final Calendar c = new GregorianCalendar();
-		c.set(Calendar.HOUR_OF_DAY,0);
-		c.set(Calendar.MINUTE,0);
-		c.set(Calendar.SECOND,0);
-		c.set(Calendar.MILLISECOND,0);
-		final Date lastMidnight=c.getTime();
-		c.add(Calendar.DATE,1);
-		final Date nextMidnight = c.getTime();
-		if (date.after(lastMidnight) && nextMidnight.after(date))
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-
-	String getLastTimeStartedAsString()
-	{
-		if (lastTimeStarted!=null)
-		{
-			if (isToday(lastTimeStarted))
-				return DATE_FORMAT_SIMPLE.format(lastTimeStarted);
-			else
-				return DATE_FORMAT.format(lastTimeStarted);
-		}
-		else
-		{
-			return "x";
-		}
 	}
 
 	void setActivated(final boolean activated)

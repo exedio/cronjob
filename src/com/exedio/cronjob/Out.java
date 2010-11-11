@@ -19,6 +19,7 @@
 package com.exedio.cronjob;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +33,11 @@ import com.exedio.cops.Resource;
 final class Out
 {
 	private final StringBuilder bf;
+	private final long now = System.currentTimeMillis();
+	private final SimpleDateFormat dateFormatFull  = new SimpleDateFormat("yyyy/MM/dd'&nbsp;'HH:mm:ss'<small>'.SSS'</small>'");
+	private final SimpleDateFormat dateFormatYear  = new SimpleDateFormat(     "MM/dd'&nbsp;'HH:mm:ss'<small>'.SSS'</small>'");
+	private final SimpleDateFormat dateFormatToday = new SimpleDateFormat(                  "HH:mm:ss'<small>'.SSS'</small>'");
+
 	private final HttpServletRequest request;
 	private final HttpServletResponse response;
 
@@ -56,8 +62,24 @@ final class Out
 
 	void write(final Date d)
 	{
-		bf.append(d);
+		if(d==null)
+			return;
+
+		final long millis = d.getTime();
+		final SimpleDateFormat df;
+		if( (now-deltaToday) < millis && millis < (now+deltaToday) )
+			df = dateFormatToday;
+		else if( (now-deltaYear) < millis && millis < (now+deltaYear) )
+			df = dateFormatYear;
+		else
+			df = dateFormatFull;
+
+		bf.append(df.format(d));
 	}
+
+	private static final long deltaYear  = 1000l * 60 * 60 * 24 * 90; // 90 days
+	private static final long deltaToday = 1000l * 60 * 60 * 6; // 6 hours
+
 
 	void write(final boolean b)
 	{

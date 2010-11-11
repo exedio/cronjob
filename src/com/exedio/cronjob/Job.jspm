@@ -73,7 +73,7 @@ final class Job_Jspm
 						<td><%=job.getMinutesBetweenExecutions()%></td>
 						<td><%=job.getStopTimeout()%></td>
 						<td class="text<% if(!wasLastRunSuccessful){ %> error<% } %>"><% if(wasLastRunSuccessful){ %>ok<% } else { %>FAILED<% } %></td>
-						<td><nobr><%=job.getLastTimeStartedAsString()%></nobr></td>
+						<td><nobr><%=job.getLastTimeStarted()%></nobr></td>
 						<td><nobr><%=job.getTimeNeeded()%></nobr></td>
 						<td><%=job.getLastRunResult()%></td>
 						<td><nobr><%=job.getSuccessfulRuns()%></nobr></td>
