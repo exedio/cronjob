@@ -72,7 +72,9 @@ final class JobCop extends PageCop
 	@Override
 	void write(final Out out, final long now, final List<Handler> handlers)
 	{
-		Job_Jspm.write(out, now, handler(handlers));
+		final Handler handler = handler(handlers);
+		Job_Jspm.write(out, handler);
+		Job_Jspm.write(out, now, handler, handler.getRunContext());
 	}
 
 	private Handler handler(final List<Handler> handlers)
