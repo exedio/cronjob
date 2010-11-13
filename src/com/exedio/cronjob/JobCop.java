@@ -18,7 +18,6 @@
 
 package com.exedio.cronjob;
 
-import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -73,9 +72,7 @@ final class JobCop extends PageCop
 	@Override
 	void write(final Out out, final long now, final List<Handler> handlers)
 	{
-		final Handler handler = handler(handlers);
-		final RunContext ctx = handler.getRunContext();
-		Job_Jspm.write(out, now, handler, ctx!=null ? ctx.getSamples() : Collections.<Sample>emptyList());
+		Job_Jspm.write(out, now, handler(handlers));
 	}
 
 	private Handler handler(final List<Handler> handlers)

@@ -26,8 +26,7 @@ final class Job_Jspm
 	static final void write(
 				final Out out,
 				final long now,
-				final Handler job,
-				final List<Sample> samples)
+				final Handler job)
 	{
 				%>
 				<table>
@@ -159,6 +158,9 @@ final class Job_Jspm
 				%>
 				<input type="submit" name="<%=JobCop.SAMPLE%>" value="sample" /><%
 				
+			if(runContext!=null)
+			{
+				final List<Sample> samples = runContext.getSamples();
 				if(!samples.isEmpty())
 				{
 				%>
@@ -179,6 +181,7 @@ final class Job_Jspm
 				%>
 				</table><%
 				}
+			}
 	}
 }
 %>
