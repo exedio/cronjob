@@ -39,7 +39,7 @@ final class Handler
 	private long interruptMaximum = 0;
 	private long interruptTotal = 0;
 	private int interruptCount = 0;
-	private Exception lastException;
+	private Throwable lastException;
 	private int lastRunResult = 0;
 	private boolean lastRunSuccessful;
 	private boolean activated;
@@ -156,6 +156,10 @@ final class Handler
 			{
 				atCatch(e, msb);
 			}
+			catch (final AssertionError e)
+			{
+				atCatch(e, msb);
+			}
 			finally
 			{
 				runContext = null;
@@ -176,7 +180,7 @@ final class Handler
 		successfulRuns++;
 	}
 
-	private void atCatch(final Exception e, final long msb)
+	private void atCatch(final Throwable e, final long msb)
 	{
 		lastException=e;
 		fails++;
@@ -245,7 +249,7 @@ final class Handler
 	long getTimeNeeded() {return timeNeeded;}
 	int getSuccessfulRuns(){return successfulRuns;}
 	int getNumberOfFails(){return fails;}
-	Exception getLastException(){return lastException;}
+	Throwable getLastException(){return lastException;}
 	RunContext getRunContext() {return runContext;}
 	long getInitialDelayInMilliSeconds() {return job.getInitialDelayInMilliSeconds();}
 	int getMinutesBetweenExecutions() {return job.getMinutesBetweenExecutions();}
