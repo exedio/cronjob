@@ -154,16 +154,7 @@ final class Handler
 			}
 			catch (final Exception e)
 			{
-				lastException=e;
-				fails++;
-				final Date failedAt= new Date();
-				timeNeeded=failedAt.getTime()-msb;
-				System.out.println("Execution of Cronjob: " + jobName + " FAILED at "+DATE_FORMAT.format(failedAt)+" !!!");
-				System.out.println("******************** CronjobException - START ********************");
-				e.printStackTrace();
-				System.out.println("******************** CronjobException - END **********************");
-				lastRunSuccessful=false;
-				registerInterruptRequest(failedAt.getTime());
+				atCatch(e, msb);
 			}
 			finally
 			{
@@ -183,6 +174,20 @@ final class Handler
 			averageTimeNeeded=(((successfulRuns*averageTimeNeeded) + timeNeeded)/(successfulRuns+1));
 		}
 		successfulRuns++;
+	}
+
+	private void atCatch(final Exception e, final long msb)
+	{
+		lastException=e;
+		fails++;
+		final Date failedAt= new Date();
+		timeNeeded=failedAt.getTime()-msb;
+		System.out.println("Execution of Cronjob: " + jobName + " FAILED at "+DATE_FORMAT.format(failedAt)+" !!!");
+		System.out.println("******************** CronjobException - START ********************");
+		e.printStackTrace();
+		System.out.println("******************** CronjobException - END **********************");
+		lastRunSuccessful=false;
+		registerInterruptRequest(failedAt.getTime());
 	}
 
 	private boolean canExecuteJob()
