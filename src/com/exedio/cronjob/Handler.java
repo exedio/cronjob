@@ -33,6 +33,7 @@ final class Handler
 	final Job job;
 	final String jobName;
 	final boolean activeInitially;
+	private boolean initialized = false;
 	private RunContext runContext = null;
 	private Date lastTimeStarted;
 	private long lastInterruptRequest;
@@ -135,6 +136,25 @@ final class Handler
 	{
 		if (canExecuteJob())
 		{
+			if(!initialized)
+			{
+				try
+				{
+					job.init();
+					initialized = true;
+				}
+				catch(final Exception e)
+				{
+					atCatch(e);
+					return;
+				}
+				catch(final AssertionError e)
+				{
+					atCatch(e);
+					return;
+				}
+			}
+
 			runContext = new RunContext(this);
 			lastTimeStarted=new Date();
 			lastInterruptRequest = 0;
@@ -178,6 +198,39 @@ final class Handler
 			averageTimeNeeded=(((successfulRuns*averageTimeNeeded) + timeNeeded)/(successfulRuns+1));
 		}
 		successfulRuns++;
+	}
+
+	void destroyIfInitialized()
+	{
+		if(initialized)
+		{
+			try
+			{
+				job.destroy();
+				initialized = false;
+			}
+			catch(final Exception e)
+			{
+				atCatch(e);
+				return;
+			}
+			catch(final AssertionError e)
+			{
+				atCatch(e);
+				return;
+			}
+		}
+	}
+
+	private void atCatch(final Throwable e)
+	{
+		lastException=e;
+		fails++;
+		final Date failedAt= new Date();
+		System.out.println("Execution of Cronjob: " + jobName + " FAILED at "+DATE_FORMAT.format(failedAt)+" !!!");
+		System.out.println("******************** CronjobException - START ********************");
+		e.printStackTrace();
+		System.out.println("******************** CronjobException - END **********************");
 	}
 
 	private void atCatch(final Throwable e, final long msb)
@@ -245,6 +298,7 @@ final class Handler
 	int getLastRunResult() { return lastRunResult; }
 	void removeLastException(){lastException=null;}
 	boolean isActivated(){	return activated;	}
+	boolean isInitialized(){	return initialized;	}
 	long getAverageTimeNeeded(){ return averageTimeNeeded;}
 	long getTimeNeeded() {return timeNeeded;}
 	int getSuccessfulRuns(){return successfulRuns;}
@@ -338,6 +392,7 @@ final class Handler
 					throw new RuntimeException(e);
 				}
 			}
+			destroyIfInitialized();
 		}
 	}
 }

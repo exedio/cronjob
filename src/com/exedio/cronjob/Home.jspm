@@ -102,7 +102,7 @@ final class Home_Jspm
 
 					%>
 					<tr>
-						<td><input type="submit" name="<%=id%>" value="<%=PageCop.START_CRONJOB%>"/></td>
+						<td<% if(!job.isInitialized()){%> class="inactive"<%} %>><input type="submit" name="<%=id%>" value="<%=PageCop.START_CRONJOB%>"/></td>
 						<td<% if(!isActivated){%> class="inactive"<%} %>><nobr>
 							<input type="submit" name="<%=id%>" value="<%=PageCop.ACTIVATE  %>"<% if( isActivated) { %> disabled readonly<% } %> />
 							<input type="submit" name="<%=id%>" value="<%=PageCop.DEACTIVATE%>"<% if(!isActivated) { %> disabled readonly<% } %> />

@@ -24,6 +24,8 @@ public interface Job
 {
 	String getName();
 
+	void init() throws Exception;
+	void destroy() throws Exception;
 	void run(JobContext ctx) throws Exception;
 
 	boolean isActiveInitially();

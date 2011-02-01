@@ -42,6 +42,16 @@ class AbstractJob implements Job
 		return name;
 	}
 
+	public void init() throws Exception
+	{
+		System.out.println(name + ".init");
+	}
+
+	public void destroy() throws Exception
+	{
+		System.out.println(name + ".destroy");
+	}
+
 	public void run(final JobContext ctx) throws Exception
 	{
 		System.out.println(name + ".run" + (ctx.supportsProgress()?"":" NO PROGRESS"));

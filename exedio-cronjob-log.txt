@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* add Job#init() and destroy()
+	this is not backwards compatible!
 * removed context parameter com.exedio.cronjob.execute
 	this is not backwards compatible!
 	replaced by Job#isActiveInitially()
