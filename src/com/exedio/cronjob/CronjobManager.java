@@ -118,9 +118,15 @@ public class CronjobManager extends CopsServlet
 			{
 				final Handler handler = new Handler(job, idCounter++, storeInitialDelay);
 				handlers.add(handler);
-				handler.startThread();
 			}
 		}
+
+		// start threads at the very end
+		// so that errors in code above do not
+		// leave running threads
+		for(final Handler handler : handlers)
+			handler.startThread();
+
 		System.out.println("CronjobManager is started. (" + System.identityHashCode(this) + ')');
 	}
 

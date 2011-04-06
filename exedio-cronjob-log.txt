@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* bugfix: do not leak threads, if methods of Job:
+	getName, isActiveInitially, getInitialDelayInMilliSeconds, and getStopTimeout
+	do fail in CronjobManager#init()
 * add Job#init() and destroy()
 	this is not backwards compatible!
 * removed context parameter com.exedio.cronjob.execute
