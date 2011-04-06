@@ -115,10 +115,7 @@ public class CronjobManager extends CopsServlet
 		{
 			final long storeInitialDelay = store.getInitialDelayInMilliSeconds();
 			for (final Job job: store.getJobs())
-			{
-				final Handler handler = new Handler(job, idCounter++, storeInitialDelay);
-				handlers.add(handler);
-			}
+				handlers.add(new Handler(job, idCounter++, storeInitialDelay));
 		}
 
 		// start threads at the very end
