@@ -34,11 +34,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.exedio.cops.CopsServlet;
 import com.exedio.cops.Resource;
 
 public class CronjobManager extends CopsServlet
 {
+	static final Logger logger = Logger.getLogger( "com.exedio.cronjob" );
+
 	private static final long serialVersionUID =100000000000001L;
 
 	static final Resource stylesheet = new Resource("cronjob.css");
@@ -50,7 +54,8 @@ public class CronjobManager extends CopsServlet
 	public void init() throws ServletException
 	{
 		super.init();
-		System.out.println("CronjobManager is starting ... (" + System.identityHashCode(this) + ')');
+		if (logger.isInfoEnabled())
+			logger.info("CronjobManager is starting ... (" + System.identityHashCode(this) + ')');
 		final String STORE = "store";
 		final String storeNames=getServletConfig().getInitParameter(STORE);
 		if (storeNames==null)
@@ -124,13 +129,15 @@ public class CronjobManager extends CopsServlet
 		for(final Handler handler : handlers)
 			handler.startThread();
 
-		System.out.println("CronjobManager is started. (" + System.identityHashCode(this) + ')');
+		if (logger.isInfoEnabled())
+			logger.info("CronjobManager is started. (" + System.identityHashCode(this) + ')');
 	}
 
 	@Override
 	public void destroy()
 	{
-		System.out.println("CronjobManager is terminating ... (" + System.identityHashCode(this) + ')');
+		if (logger.isInfoEnabled())
+			logger.info("CronjobManager is terminating ... (" + System.identityHashCode(this) + ')');
 		for(final Handler job : handlers)
 		{
 			job.setActivated(false);
@@ -139,7 +146,8 @@ public class CronjobManager extends CopsServlet
 		{
 			job.stopThread();
 		}
-		System.out.println("CronjobManager is terminated. (" + System.identityHashCode(this) + ')');
+		if (logger.isInfoEnabled())
+			logger.info("CronjobManager is terminated. (" + System.identityHashCode(this) + ')');
 	}
 
 	private String getImplementationVersion()

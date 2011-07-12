@@ -3,6 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="examplesrc"/>
 	<classpathentry kind="lib" path="lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="lib/log4j.jar" sourcepath="lib/log4j-source.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/exedio-cope-util.jar" sourcepath="lib/exedio-cope-util.jar-src.zip"/>
 	<classpathentry kind="lib" path="lib/exedio-cops.jar" sourcepath="lib/exedio-cops.jar-src.zip"/>

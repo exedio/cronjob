@@ -21,11 +21,13 @@ package com.exedio.cronjob;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
 
 final class Handler
 {
+	private static final Logger logger = CronjobManager.logger;
+
 	private final int DURATION_BETWEEN_CHECKS=2705;
 	private final DateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy - HH:mm:ss");
 
@@ -227,10 +229,10 @@ final class Handler
 		lastException=e;
 		fails++;
 		final Date failedAt= new Date();
-		System.out.println("Execution of Cronjob: " + jobName + " FAILED at "+DATE_FORMAT.format(failedAt)+" !!!");
-		System.out.println("******************** CronjobException - START ********************");
-		e.printStackTrace();
-		System.out.println("******************** CronjobException - END **********************");
+		logger.error("Execution of Cronjob: " + jobName + " FAILED at "+DATE_FORMAT.format(failedAt)+" !!!");
+		logger.error("******************** CronjobException - START ********************");
+		logger.error( "", e ); // prints stack trace
+		logger.error("******************** CronjobException - END **********************");
 	}
 
 	private void atCatch(final Throwable e, final long msb)
@@ -239,10 +241,10 @@ final class Handler
 		fails++;
 		final Date failedAt= new Date();
 		timeNeeded=failedAt.getTime()-msb;
-		System.out.println("Execution of Cronjob: " + jobName + " FAILED at "+DATE_FORMAT.format(failedAt)+" !!!");
-		System.out.println("******************** CronjobException - START ********************");
-		e.printStackTrace();
-		System.out.println("******************** CronjobException - END **********************");
+		logger.error("Execution of Cronjob: " + jobName + " FAILED at "+DATE_FORMAT.format(failedAt)+" !!!");
+		logger.error("******************** CronjobException - START ********************");
+		logger.error( "", e ); // prints stack trace
+		logger.error("******************** CronjobException - END **********************");
 		lastRunSuccessful=false;
 		registerInterruptRequest(failedAt.getTime());
 	}
@@ -277,7 +279,8 @@ final class Handler
 	void setActivated(final boolean activated)
 	{
 		this.activated = activated;
-		System.out.println("Cronjob: " + jobName + " was "+(activated ? "" : "de")+"activated at "+DATE_FORMAT.format(new Date()));
+		if (logger.isInfoEnabled())
+			logger.info("Cronjob: " + jobName + " was "+(activated ? "" : "de")+"activated at "+DATE_FORMAT.format(new Date()));
 	}
 
 	void runNow()
@@ -323,24 +326,24 @@ final class Handler
 		{
 			try
 			{
-				System.out.println("waiting for job:"+jobName+" to terminate");
+				logger.info("waiting for job:"+jobName+" to terminate");
 				runningThread.stopRunning();
 				if (runningThread.isAlive())
 				{
 					runningThread.notifyWaiter();
 				}
 				runningThread.join(stopTimeout);
-				System.out.println("job:"+jobName+" joined");
+				logger.info("job:"+jobName+" joined");
 				if(runningThread.isAlive())
 				{
-					System.out.println("job:"+jobName+" stopping forcefully");
+					logger.info("job:"+jobName+" stopping forcefully");
 					stop(runningThread);
 				}
-				System.out.println("job:"+jobName+" terminated");
+				logger.info("job:"+jobName+" terminated");
 			}
 			catch (final InterruptedException ex)
 			{
-				Logger.getLogger(Handler.class.getName()).log(Level.SEVERE, null, ex);
+				logger.error( "", ex );
 			}
 		}
 	}
