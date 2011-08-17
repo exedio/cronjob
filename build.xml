@@ -90,6 +90,7 @@
 		<copy todir="build/web/WEB-INF/lib">
 			<fileset file="lib/exedio-cops.jar" />
 			<fileset file="lib/exedio-cope-util.jar" />
+			<fileset file="lib/log4j.jar" />
 		</copy>
 		<copy todir="build/web/WEB-INF" file="conf/web.xml" />
 	</target>
