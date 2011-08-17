@@ -21,7 +21,10 @@
 	</publications>
 	<dependencies>
 		<dependency org="javax.servlet" name="servlet-api" rev="2.4" />
-		<dependency org="log4j" name="log4j" rev="1.2.16" />
+		<dependency org="log4j" name="log4j" rev="1.2.16">
+			<conf name="runtime" mapped="default" />
+			<conf name="build" mapped="sources" />
+		</dependency>
 		<dependency org="com.exedio" name="copeutil" rev="201" />
 		<dependency org="com.exedio" name="cops"     rev="200" />
 		<dependency org="com.exedio" name="jspm"     rev= "89" conf="build->runtime" />
