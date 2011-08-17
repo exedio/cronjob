@@ -20,11 +20,11 @@ package com.exedio.cronjob.example;
 
 import com.exedio.cope.util.JobContext;
 
-final class InterruptableJob extends AbstractJob
+final class InterruptableQueryJob extends AbstractJob
 {
-	InterruptableJob()
+	InterruptableQueryJob()
 	{
-		super("Interruptable", 1000, 0);
+		super("InterruptableQuery", 1000, 0);
 	}
 
 	@Override
@@ -38,9 +38,11 @@ final class InterruptableJob extends AbstractJob
 				Thread.sleep(1000);
 				System.out.println(name + ".run slept " + i);
 				ctx.incrementProgress(result++);
-				System.out.println(name + ".run interrupted?");
-				ctx.stopIfRequested();
-				System.out.println(name + ".run interrupted!");
+				if(ctx.requestedToStop())
+				{
+					System.out.println(name + ".run interrupted");
+					return;
+				}
 			}
 		}
 		catch(final InterruptedException e)

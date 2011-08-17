@@ -81,11 +81,11 @@ abstract class PageCop extends Cop
 				}
 				else if (paramsAsList.contains(ACTIVATE))
 				{
-					handler.setActivated(true);
+					handler.setActivated(true, null);
 				}
 				else if (paramsAsList.contains(DEACTIVATE))
 				{
-					handler.setActivated(false);
+					handler.setActivated(false, new JobStopInfoRequest(handler, "deactivated", request));
 				}
 				else{/* NOTHING */}
 			}
@@ -97,12 +97,12 @@ abstract class PageCop extends Cop
 			if(paramsAsList.contains(ACTIVATE))
 			{
 				for(final Handler handler : handlers)
-					handler.setActivated(true);
+					handler.setActivated(true, null);
 			}
 			else if(paramsAsList.contains(DEACTIVATE))
 			{
 				for(final Handler handler : handlers)
-					handler.setActivated(false);
+					handler.setActivated(false, new JobStopInfoRequest(handler, "deactivated (as all other jobs)", request));
 			}
 			else
 			{

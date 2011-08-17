@@ -16,38 +16,12 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cronjob.example;
+package com.exedio.cronjob;
 
-import com.exedio.cope.util.JobContext;
-
-final class InterruptableJob extends AbstractJob
+final class JobStopInfoDestroy extends JobStopInfo
 {
-	InterruptableJob()
+	JobStopInfoDestroy(final Handler handler)
 	{
-		super("Interruptable", 1000, 0);
-	}
-
-	@Override
-	public void run(final JobContext ctx)
-	{
-		System.out.println(name + ".run start");
-		try
-		{
-			for(int i = 0; i<10; i++)
-			{
-				Thread.sleep(1000);
-				System.out.println(name + ".run slept " + i);
-				ctx.incrementProgress(result++);
-				System.out.println(name + ".run interrupted?");
-				ctx.stopIfRequested();
-				System.out.println(name + ".run interrupted!");
-			}
-		}
-		catch(final InterruptedException e)
-		{
-			throw new RuntimeException(e);
-		}
-		System.out.println(name + ".run ready");
-		ctx.incrementProgress(result++);
+		super(handler, "destroyed");
 	}
 }

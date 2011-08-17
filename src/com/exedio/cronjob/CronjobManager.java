@@ -140,7 +140,7 @@ public class CronjobManager extends CopsServlet
 			logger.info("CronjobManager is terminating ... (" + System.identityHashCode(this) + ')');
 		for(final Handler job : handlers)
 		{
-			job.setActivated(false);
+			job.setActivated(false, new JobStopInfoDestroy(job));
 		}
 		for(final Handler job : handlers)
 		{

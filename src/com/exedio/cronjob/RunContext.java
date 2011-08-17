@@ -23,6 +23,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.exedio.cope.util.EmptyJobContext;
+import com.exedio.cope.util.JobStop;
 
 final class RunContext extends EmptyJobContext
 {
@@ -38,9 +39,23 @@ final class RunContext extends EmptyJobContext
 	}
 
 	@Override
+	public void stopIfRequested() throws JobStop
+	{
+		handler.stopIfRequested();
+	}
+
+	@Override
 	public boolean requestedToStop()
 	{
-		return handler.requestsStop();
+		try
+		{
+			handler.stopIfRequested();
+			return false;
+		}
+		catch(final JobStop js)
+		{
+			return true;
+		}
 	}
 
 	@Override

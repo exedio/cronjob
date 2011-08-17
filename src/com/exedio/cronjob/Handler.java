@@ -24,6 +24,8 @@ import java.util.Date;
 
 import org.apache.log4j.Logger;
 
+import com.exedio.cope.util.JobStop;
+
 final class Handler
 {
 	private static final Logger logger = CronjobManager.logger;
@@ -46,6 +48,7 @@ final class Handler
 	private int lastRunResult = 0;
 	private boolean lastRunSuccessful;
 	private boolean activated;
+	private JobStopInfo deactivateInfo = null;
 	private int successfulRuns;
 	private long averageTimeNeeded;
 	private long timeNeeded;
@@ -115,12 +118,13 @@ final class Handler
 		return (interruptCount>0) ? (interruptTotal / interruptCount) : 0;
 	}
 
-	boolean requestsStop()
+	void stopIfRequested() throws JobStop
 	{
 		final long now = System.currentTimeMillis();
 		registerInterruptRequest(now);
 		lastInterruptRequest = now;
-		return !activated;
+		if(!activated)
+			throw deactivateInfo.newJobStop();
 	}
 
 	private void registerInterruptRequest(final long now)
@@ -276,9 +280,15 @@ final class Handler
 		return result;
 	}
 
-	void setActivated(final boolean activated)
+	void setActivated(final boolean activated, final JobStopInfo info)
 	{
 		this.activated = activated;
+
+		if(!activated)
+			deactivateInfo = info;
+		else
+			deactivateInfo = null;
+
 		if (logger.isInfoEnabled())
 			logger.info("Cronjob: " + jobName + " was "+(activated ? "" : "de")+"activated at "+DATE_FORMAT.format(new Date()));
 	}
