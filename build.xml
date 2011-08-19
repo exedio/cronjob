@@ -138,7 +138,7 @@
 
 	<target name="all" depends="build, jar.src" />
 
-	<target name="hudson" depends="all, tomcat">
+	<target name="jenkins" depends="all, tomcat">
 		<copy todir="${basedir}/build/success">
 			<fileset file="${build.dir}/exedio-cronjob.jar"/>
 			<fileset file="${build.dir}/exedio-cronjob-src.zip"/>
