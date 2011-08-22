@@ -2,7 +2,7 @@
 	<settings defaultResolver="default"/>
 	<property
 			name="shared.root"
-			value="http://hudson.exedio.com/hudson/job/[module]/[revision]/artifact/main/build/success" />
+			value="http://jenkins.exedio.com/job/[module]/[revision]/artifact/main/build/success" />
 	<property
 			name="sharedthirdparty.root"
 			value="http://download.exedio.com/artifacts" />
