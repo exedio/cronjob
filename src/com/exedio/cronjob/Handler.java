@@ -233,10 +233,7 @@ final class Handler
 		lastException=e;
 		fails++;
 		final Date failedAt= new Date();
-		logger.error("Execution of Cronjob: " + jobName + " FAILED at "+DATE_FORMAT.format(failedAt)+" !!!");
-		logger.error("******************** CronjobException - START ********************");
-		logger.error( "", e ); // prints stack trace
-		logger.error("******************** CronjobException - END **********************");
+		log(e, failedAt);
 	}
 
 	private void atCatch(final Throwable e, final long msb)
@@ -245,10 +242,7 @@ final class Handler
 		fails++;
 		final Date failedAt= new Date();
 		timeNeeded=failedAt.getTime()-msb;
-		logger.error("Execution of Cronjob: " + jobName + " FAILED at "+DATE_FORMAT.format(failedAt)+" !!!");
-		logger.error("******************** CronjobException - START ********************");
-		logger.error( "", e ); // prints stack trace
-		logger.error("******************** CronjobException - END **********************");
+		log(e, failedAt);
 		lastRunSuccessful=false;
 		registerInterruptRequest(failedAt.getTime());
 	}
@@ -278,6 +272,14 @@ final class Handler
 			result=false;
 		}
 		return result;
+	}
+
+	private void log(final Throwable e, final Date failedAt)
+	{
+		logger.error("Execution of Cronjob: " + jobName + " FAILED at "+DATE_FORMAT.format(failedAt)+" !!!");
+		logger.error("******************** CronjobException - START ********************");
+		logger.error( "", e ); // prints stack trace
+		logger.error("******************** CronjobException - END **********************");
 	}
 
 	void setActivated(final boolean activated, final JobStopInfo info)
