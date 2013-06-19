@@ -16,4 +16,6 @@ TODO for cronjob
 * log last failure / last success
 * log trigger cause (auto/manual) and authentication used
 * allow specification of time of day (2am-4am)
+* allow specification of on-time jobs
+* allow deferring / slowing down jobs
 * add lots of junit tests
