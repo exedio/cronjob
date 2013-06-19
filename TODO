@@ -5,9 +5,13 @@ TODO for cronjob
 	The deactivation method must wait until the all cronjobs are finished.
 	So this must be the same functionality as destroy()
 * careful evaluation, that no threads are lost
+* allow killing / restarting the thread for any cronjob
 * careful evaluation, that after destroy has been called, no
 	new cronjob can start
-* send email on failure
+* send email
+	- on failure
+	- if runtime exceeds timeout
+	- if progress interval exceeds timeout (JobContext#incrementProgress)
 * refactoring: use TimerTask
 * log last failure / last success
 * log trigger cause (auto/manual) and authentication used
