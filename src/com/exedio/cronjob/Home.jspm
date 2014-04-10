@@ -88,7 +88,26 @@ final class Home_Jspm
 							<input type="submit" name="<%=PageCop.ALL%>" value="<%=PageCop.ACTIVATE  %>" />
 							<input type="submit" name="<%=PageCop.ALL%>" value="<%=PageCop.DEACTIVATE%>" />
 						</td>
-						<td colspan="12"></td>
+						<td colspan="4"></td>
+						<td class="text"><%
+						{
+							int num = 0;
+							for(final Handler job : handlers)
+							{
+								if(job.getRunContext()!=null)
+									num++;
+							}
+							if(num!=0)
+							{
+								%><%=num%> running<%
+							}
+							else
+							{
+								%>none<%
+							}
+						}
+						%></td>
+						<td colspan="7"></td>
 					</tr><%
 					
 					for(final Handler job : handlers)
