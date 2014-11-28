@@ -124,7 +124,13 @@ final class Handler
 		registerInterruptRequest(now);
 		lastInterruptRequest = now;
 		if(!activated)
-			throw deactivateInfo.newJobStop();
+		{
+			if (deactivateInfo != null)
+				throw deactivateInfo.newJobStop();
+			else
+				// cronjob has never been activated (set to 'on')
+				throw new JobStop("cronjob not active ('on')");
+		}
 	}
 
 	private void registerInterruptRequest(final long now)
