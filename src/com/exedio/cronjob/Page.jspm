@@ -45,6 +45,7 @@ final class Page_Jspm
 		<meta http-equiv="refresh" content="5; URL=<%=cop%>"><%
 		}
 		%>
+		<link rel="shortcut icon" href="<%=CronjobManager.shortcutIcon%>" type="image/png">
 		<link rel="STYLESHEET" type="text/css" href="<%=CronjobManager.stylesheet%>">
 	</head>
 	<body>

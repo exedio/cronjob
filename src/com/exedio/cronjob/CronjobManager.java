@@ -47,6 +47,7 @@ public class CronjobManager extends CopsServlet
 
 	static final Resource stylesheet = new Resource("cronjob.css");
 	static final Resource logo = new Resource("logo.png");
+	static final Resource shortcutIcon = new Resource("shortcutIcon.png");
 
 	private List<Handler> handlers;
 
