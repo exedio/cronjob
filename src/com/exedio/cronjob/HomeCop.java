@@ -19,7 +19,6 @@
 package com.exedio.cronjob;
 
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 final class HomeCop extends PageCop

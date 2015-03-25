@@ -18,11 +18,10 @@
 
 package com.exedio.cronjob.example;
 
+import com.exedio.cope.util.JobContext;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
-import com.exedio.cope.util.JobContext;
 
 final class NetworkBlockedJob extends AbstractJob
 {

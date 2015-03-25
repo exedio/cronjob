@@ -19,7 +19,6 @@
 package com.exedio.cronjob;
 
 import java.security.Principal;
-
 import javax.servlet.http.HttpServletRequest;
 
 final class JobStopInfoRequest extends JobStopInfo

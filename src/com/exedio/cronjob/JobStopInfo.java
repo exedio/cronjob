@@ -18,9 +18,8 @@
 
 package com.exedio.cronjob;
 
-import java.util.Date;
-
 import com.exedio.cope.util.JobStop;
+import java.util.Date;
 
 abstract class JobStopInfo
 {

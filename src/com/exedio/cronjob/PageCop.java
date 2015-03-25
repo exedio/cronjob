@@ -18,12 +18,10 @@
 
 package com.exedio.cronjob;
 
+import com.exedio.cops.Cop;
 import java.util.Arrays;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-
-import com.exedio.cops.Cop;
 
 abstract class PageCop extends Cop
 {

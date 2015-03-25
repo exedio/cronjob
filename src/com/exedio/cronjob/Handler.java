@@ -18,13 +18,11 @@
 
 package com.exedio.cronjob;
 
+import com.exedio.cope.util.JobStop;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import org.apache.log4j.Logger;
-
-import com.exedio.cope.util.JobStop;
 
 final class Handler
 {

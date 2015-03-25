@@ -18,13 +18,11 @@
 
 package com.exedio.cronjob.example;
 
-import java.util.Arrays;
-import java.util.List;
-
-import javax.servlet.ServletConfig;
-
 import com.exedio.cronjob.CronjobStore;
 import com.exedio.cronjob.Job;
+import java.util.Arrays;
+import java.util.List;
+import javax.servlet.ServletConfig;
 
 public final class ExampleStore implements CronjobStore
 {

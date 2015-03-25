@@ -18,12 +18,11 @@
 
 package com.exedio.cronjob;
 
+import com.exedio.cope.util.EmptyJobContext;
+import com.exedio.cope.util.JobStop;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import com.exedio.cope.util.EmptyJobContext;
-import com.exedio.cope.util.JobStop;
 
 final class RunContext extends EmptyJobContext
 {
