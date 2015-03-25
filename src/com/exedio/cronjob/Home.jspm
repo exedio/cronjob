@@ -26,6 +26,7 @@ final class Home_Jspm
 	static final void write(
 				final Out out,
 				final HomeCop cop,
+				final int running,
 				final long now,
 				final List<Handler> handlers)
 	{
@@ -91,12 +92,6 @@ final class Home_Jspm
 						<td colspan="4"></td>
 						<td class="text"><%
 						{
-							int running = 0;
-							for(final Handler job : handlers)
-							{
-								if(job.getRunContext()!=null)
-									running++;
-							}
 							if(running!=0)
 							{
 								%><%=running%> running<%
