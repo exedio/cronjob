@@ -34,6 +34,7 @@ public final class ExampleStore2 implements CronjobStore
 		System.out.println("ExampleStore2 constructor >" + config.getServletName() + '<');
 	}
 
+	@Override
 	public List<? extends Job> getJobs()
 	{
 		System.out.println("ExampleStore2.getJobs");
@@ -42,6 +43,7 @@ public final class ExampleStore2 implements CronjobStore
 		return Arrays.asList(job);
 	}
 
+	@Override
 	public long getInitialDelayInMilliSeconds()
 	{
 		System.out.println("ExampleStore2.getInitialDelayInMilliSeconds");

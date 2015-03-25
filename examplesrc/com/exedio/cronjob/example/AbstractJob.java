@@ -36,45 +36,53 @@ class AbstractJob implements Job
 		this.initialDelay = initialDelay;
 	}
 
+	@Override
 	public String getName()
 	{
 		//System.out.println(name + ".getName");
 		return name;
 	}
 
+	@Override
 	public void init() throws Exception
 	{
 		System.out.println(name + ".init");
 	}
 
+	@Override
 	public void destroy() throws Exception
 	{
 		System.out.println(name + ".destroy");
 	}
 
+	@Override
 	public void run(final JobContext ctx) throws Exception
 	{
 		System.out.println(name + ".run" + (ctx.supportsProgress()?"":" NO PROGRESS"));
 		ctx.incrementProgress(result++);
 	}
 
+	@Override
 	public boolean isActiveInitially()
 	{
 		return activeInitially;
 	}
 
+	@Override
 	public int getMinutesBetweenExecutions()
 	{
 		//System.out.println(name + ".getMinutesBetweenExecutions");
 		return minutesBetweenExecutions;
 	}
 
+	@Override
 	public long getInitialDelayInMilliSeconds()
 	{
 		//System.out.println(name + ".getInitialDelayInMilliSeconds"+initialDelay);
 		return initialDelay;
 	}
 
+	@Override
 	public long getStopTimeout()
 	{
 		return 5000;
