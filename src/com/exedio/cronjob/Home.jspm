@@ -26,6 +26,8 @@ final class Home_Jspm
 	static final void write(
 				final Out out,
 				final HomeCop cop,
+				final int active,
+				final int inactive,
 				final int running,
 				final long now,
 				final List<Handler> handlers)
@@ -34,7 +36,7 @@ final class Home_Jspm
 				<table>
 					<tr>
 						<th rowspan="2">&nbsp;</th>
-						<th rowspan="2">Active</th>
+						<th rowspan="2">Active<br><%=active%>/<%=inactive%></th>
 						<th rowspan="2">Name</th><%
 						
 					if(cop.showConfiguration)
@@ -86,8 +88,8 @@ final class Home_Jspm
 					<tr>
 						<th>All</th>
 						<td>
-							<input type="submit" name="<%=PageCop.ALL%>" value="<%=PageCop.ACTIVATE  %>" />
-							<input type="submit" name="<%=PageCop.ALL%>" value="<%=PageCop.DEACTIVATE%>" />
+							<input type="submit" name="<%=PageCop.ALL%>" value="<%=PageCop.ACTIVATE  %>"<% if(inactive==0) { %> disabled readonly<% } %> />
+							<input type="submit" name="<%=PageCop.ALL%>" value="<%=PageCop.DEACTIVATE%>"<% if(  active==0) { %> disabled readonly<% } %> />
 						</td>
 						<td colspan="4"></td>
 						<td class="text"><%

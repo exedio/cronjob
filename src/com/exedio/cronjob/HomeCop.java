@@ -76,12 +76,19 @@ final class HomeCop extends PageCop
 	@Override
 	void write(final Out out, final long now, final List<Handler> handlers)
 	{
+		int active = 0;
+		int inactive = 0;
 		int running = 0;
 		for(final Handler job : handlers)
 		{
+			if(job.isActivated())
+				active++;
+			else
+				inactive++;
+
 			if(job.getRunContext()!=null)
 				running++;
 		}
-		Home_Jspm.write(out, this, running, now, handlers);
+		Home_Jspm.write(out, this, active, inactive, running, now, handlers);
 	}
 }
