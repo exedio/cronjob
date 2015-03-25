@@ -91,15 +91,15 @@ final class Home_Jspm
 						<td colspan="4"></td>
 						<td class="text"><%
 						{
-							int num = 0;
+							int running = 0;
 							for(final Handler job : handlers)
 							{
 								if(job.getRunContext()!=null)
-									num++;
+									running++;
 							}
-							if(num!=0)
+							if(running!=0)
 							{
-								%><%=num%> running<%
+								%><%=running%> running<%
 							}
 							else
 							{
