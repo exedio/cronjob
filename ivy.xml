@@ -28,5 +28,6 @@
 		<dependency org="com.exedio" name="copeutil" rev="201" />
 		<dependency org="com.exedio" name="cops"     rev="200" />
 		<dependency org="com.exedio" name="jspm"     rev= "89" conf="build->runtime" />
+		<dependency org="findbugs-x" name="findbugs" rev="3.0.1" conf="build->default" />
 	</dependencies>
 </ivy-module>
