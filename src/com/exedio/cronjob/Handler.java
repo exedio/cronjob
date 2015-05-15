@@ -28,7 +28,7 @@ final class Handler
 {
 	private static final Logger logger = CronjobManager.logger;
 
-	private final int DURATION_BETWEEN_CHECKS=2705;
+	private static final int DURATION_BETWEEN_CHECKS = 2705;
 	private final DateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy - HH:mm:ss");
 
 	final String id;
