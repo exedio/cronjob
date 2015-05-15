@@ -19,6 +19,7 @@
 package com.exedio.cronjob;
 
 import com.exedio.cope.util.JobStop;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -299,6 +300,7 @@ final class Handler
 			logger.info("Cronjob: " + jobName + " was "+(activated ? "" : "de")+"activated at "+DATE_FORMAT.format(new Date()));
 	}
 
+	@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR") // TODO
 	void runNow()
 	{
 		runNow=true;
@@ -378,6 +380,7 @@ final class Handler
 			tryToExecute();
 		}
 
+		@SuppressFBWarnings("NO_NOTIFY_NOT_NOTIFYALL") // TODO
 		void notifyWaiter()
 		{
 			synchronized(WAITER)
@@ -394,6 +397,7 @@ final class Handler
 		}
 
 		@Override
+		@SuppressFBWarnings("UW_UNCOND_WAIT") // TODO
 		public void run()
 		{
 			while (doRun)
