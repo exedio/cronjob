@@ -20,6 +20,7 @@ package com.exedio.cronjob;
 
 import com.exedio.cops.CopsServlet;
 import com.exedio.cops.Resource;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -46,6 +47,7 @@ public class CronjobManager extends CopsServlet
 	static final Resource logo = new Resource("logo.png");
 	static final Resource shortcutIcon = new Resource("shortcutIcon.png");
 
+	@SuppressFBWarnings("SE_BAD_FIELD")
 	private List<Handler> handlers;
 
 	@Override
