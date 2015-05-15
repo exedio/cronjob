@@ -20,6 +20,7 @@ package com.exedio.cronjob;
 
 import com.exedio.cope.util.EmptyJobContext;
 import com.exedio.cope.util.JobStop;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -29,6 +30,7 @@ final class RunContext extends EmptyJobContext
 	private final Handler handler;
 	final long nanos = System.nanoTime();
 
+	@SuppressFBWarnings("VO_VOLATILE_INCREMENT")
 	private volatile int progress = 0;
 	private final ArrayList<Sample> samples = new ArrayList<Sample>();
 
