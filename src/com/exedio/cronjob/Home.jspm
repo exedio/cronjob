@@ -104,7 +104,7 @@ final class Home_Jspm
 							}
 						}
 						%></td>
-						<td colspan="7"></td>
+						<td colspan="9"></td>
 					</tr><%
 					
 					for(final Handler job : handlers)
