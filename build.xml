@@ -22,7 +22,7 @@
 	</target>
 	
 	<target name="compile" depends="jspm">
-		<compile srcdir= "src">
+		<compile srcdir="src">
 			<classpath>
 				<pathelement location="lib/exedio-cops.jar" />
 				<pathelement location="lib/exedio-cope-util.jar" />
