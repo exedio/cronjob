@@ -2,8 +2,13 @@
 
 <project name="cronjob" default="build" basedir=".">
 
+	<import>
+		<fileset dir="macros">
+			<include name="*.xml" />
+		</fileset>
+	</import>
+
 	<property name="build.dir"   value="build"/>
-	<property name="classes.dir" value="${build.dir}/classes"/>
 
 	<taskdef name="jspm" classname="com.exedio.jspm.AntTask" classpath="lib/exedio-jspm.jar" />
 	
@@ -14,33 +19,18 @@
 	</target>
 	
 	<target name="compile" depends="jspm">
-		<mkdir dir="${classes.dir}" />
-		<javac srcdir= "src"
-				destdir="${classes.dir}"
-				includeAntRuntime="false"
-				deprecation="on"
-				debug="on"
-				optimize="off">
+		<compile srcdir= "src">
 			<classpath>
 				<pathelement location="lib/exedio-cops.jar" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/log4j.jar" />
 			</classpath>
-			<compilerarg value="-Xlint:all" />
-			<compilerarg value="-encoding" />
-			<compilerarg value="ascii" />
-		</javac>
-		<copy todir="${classes.dir}">
-			<fileset dir="src">
-				<include name="**/*.png" />
-				<include name="**/*.css" />
-			</fileset>
-		</copy>
+		</compile>
 	</target>
 
 	<target name="jar" depends="compile">
-		<jar destfile="${build.dir}/exedio-cronjob.jar" basedir="${classes.dir}" filesonly="true" duplicate="fail" level="9">
+		<jar destfile="${build.dir}/exedio-cronjob.jar" basedir="build/classes/src" filesonly="true" duplicate="fail" level="9">
 			<manifest>
 				<attribute name="Specification-Title" value="exedio cronjob" />
 				<attribute name="Specification-Version" value="${build.tag}" />
@@ -63,29 +53,20 @@
 	</target>
 	
 	<target name="example.compile" depends="compile">
-		<mkdir dir="build/exampleclasses" />
-		<javac srcdir="examplesrc"
-				destdir="build/exampleclasses"
-				includeAntRuntime="false"
-				deprecation="on"
-				debug="on"
-				optimize="off">
+		<compile srcdir="examplesrc">
 			<classpath>
-				<pathelement location="${classes.dir}" />
+				<pathelement location="build/classes/src" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/log4j.jar" />
 			</classpath>
-			<compilerarg value="-Xlint:all" />
-			<compilerarg value="-encoding" />
-			<compilerarg value="ascii" />
-		</javac>
+		</compile>
 	</target>
 
 	<target name="web" depends="compile, example.compile">
 		<copy todir="build/web/WEB-INF/classes">
-			<fileset dir="${classes.dir}" />
-			<fileset dir="build/exampleclasses" />
+			<fileset dir="build/classes/src" />
+			<fileset dir="build/classes/examplesrc" />
 		</copy>
 		<copy todir="build/web/WEB-INF/lib">
 			<fileset file="lib/exedio-cops.jar" />
