@@ -90,7 +90,7 @@ final class Handler
 		{
 			final long last = lastTimeStarted.getTime();
 			final long now = new Date().getTime();
-			if ((now-last)>=(job.getMinutesBetweenExecutions()*1000*60))
+			if ((now-last)>=(job.getMinutesBetweenExecutions()*1000l*60))
 			{
 				return true;
 			}
