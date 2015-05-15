@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<project name="exedio-cronjob" default="build" basedir=".">
+<project name="cronjob" default="build" basedir=".">
 
 	<property name="build.dir"   value="build"/>
 	<property name="classes.dir" value="${build.dir}/classes"/>
