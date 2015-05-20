@@ -27,7 +27,7 @@
 				<pathelement location="lib/exedio-cops.jar" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/servlet-api.jar" />
-				<pathelement location="lib/log4j.jar" />
+				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
@@ -62,7 +62,7 @@
 				<pathelement location="build/classes/src" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/servlet-api.jar" />
-				<pathelement location="lib/log4j.jar" />
+				<pathelement location="lib/slf4j-api.jar" />
 			</classpath>
 		</compile>
 	</target>
@@ -75,7 +75,8 @@
 		<copy todir="build/web/WEB-INF/lib">
 			<fileset file="lib/exedio-cops.jar" />
 			<fileset file="lib/exedio-cope-util.jar" />
-			<fileset file="lib/log4j.jar" />
+			<fileset file="lib/slf4j-api.jar" />
+			<fileset file="lib/slf4j-simple.jar" />
 		</copy>
 		<copy todir="build/web/WEB-INF" file="conf/web.xml" />
 	</target>
@@ -122,7 +123,7 @@
 			<auxclasspath>
 				<pathelement location="${basedir}/lib/exedio-cope-util.jar" />
 				<pathelement location="${basedir}/lib/exedio-cops.jar" />
-				<pathelement location="${basedir}/lib/log4j.jar" />
+				<pathelement location="${basedir}/lib/slf4j-api.jar" />
 			</auxclasspath>
 		</findbugs>
 	</target>

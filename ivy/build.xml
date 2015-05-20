@@ -12,8 +12,9 @@
 		<copy overwrite="true" file="artifacts/exedio-cops-src.zip" tofile="../lib/exedio-cops.jar-src.zip" />
 		<copy overwrite="true" file="artifacts/servlet-api-jar.jar" tofile="../lib/servlet-api.jar" />
 		<copy overwrite="true" file="artifacts/servlet-api-source.jar" tofile="../lib/../lib/servlet-api-source.jar" />
-		<copy overwrite="true" file="artifacts/log4j-bundle.jar" tofile="../lib/log4j.jar" />
-		<copy overwrite="true" file="artifacts/log4j-source.jar" tofile="../lib/log4j-source.jar" />
+		<copy overwrite="true" file="artifacts/slf4j-api-jar.jar" tofile="../lib/slf4j-api.jar" />
+		<copy overwrite="true" file="artifacts/slf4j-api-source.jar" tofile="../lib/slf4j-api-source.jar" />
+		<copy overwrite="true" file="artifacts/slf4j-simple-jar.jar" tofile="../lib/slf4j-simple.jar" />
 		<copy overwrite="true" file="artifacts/findbugs-dist.tar.gz" tofile="../lib/findbugs.tar.gz" />
 		<copy overwrite="true" file="artifacts/findbugs-annotations-jar.jar" tofile="../lib/findbugs-annotations.jar" />
 	</target>

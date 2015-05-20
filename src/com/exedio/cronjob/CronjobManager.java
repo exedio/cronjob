@@ -35,11 +35,12 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CronjobManager extends CopsServlet
 {
-	static final Logger logger = Logger.getLogger( "com.exedio.cronjob" );
+	static final Logger logger = LoggerFactory.getLogger( "com.exedio.cronjob" );
 
 	private static final long serialVersionUID =100000000000001L;
 
