@@ -7,6 +7,6 @@
 	<classpathentry kind="lib" path="lib/exedio-cope-util.jar" sourcepath="lib/exedio-cope-util.jar-src.zip"/>
 	<classpathentry kind="lib" path="lib/exedio-cops.jar" sourcepath="lib/exedio-cops.jar-src.zip"/>
 	<classpathentry kind="lib" path="lib/findbugs-annotations.jar"/>
-	<classpathentry kind="lib" path="lib/slf4j-api.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-api.jar" sourcepath="lib/slf4j-api-source.jar"/>
 	<classpathentry kind="output" path=".eclipse-output"/>
 </classpath>
