@@ -111,6 +111,35 @@ final class Job_Jspm
 							</table><%
 						}
 	}
+
+	static final void write(
+				final Out out,
+				final Thread.State state,
+				final StackTraceElement[] stackTrace)
+	{
+				%>
+				<table>
+					<tr><th>State</th><td class="text"><%= state %></td></tr>
+					<tr><th>StackTrace</th>
+						<td class="text"><%
+						if(stackTrace!=null && stackTrace.length>0)
+						{
+							%>
+							<ul><%
+
+							for(final StackTraceElement element : stackTrace)
+							{
+								%>
+								<li><%=element.toString()%></li><%
+							}
+							%>
+							</ul><%
+						}
+						%>
+						</td>
+					</tr>
+				</table><%
+	}
 	
 	static final void write(
 				final Out out,

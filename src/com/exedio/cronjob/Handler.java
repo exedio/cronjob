@@ -330,6 +330,8 @@ final class Handler
 	int getMinutesBetweenExecutions() {return job.getMinutesBetweenExecutions();}
 	Date getLastTimeStarted() {return lastTimeStarted;}
 	long getStopTimeout() {return stopTimeout;}
+	Thread.State        getThreadState()     { final Thread t = runningThread; return t!=null ? t.getState()      : null; }
+	StackTraceElement[] getThreadStackTrace(){ final Thread t = runningThread; return t!=null ? t.getStackTrace() : null; }
 
 	void startThread()
 	{

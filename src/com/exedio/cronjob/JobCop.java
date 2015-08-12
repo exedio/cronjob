@@ -73,6 +73,7 @@ final class JobCop extends PageCop
 	{
 		final Handler handler = handler(handlers);
 		Job_Jspm.write(out, handler);
+		Job_Jspm.write(out, handler.getThreadState(), handler.getThreadStackTrace());
 		Job_Jspm.write(out, now, handler, handler.getRunContext());
 	}
 

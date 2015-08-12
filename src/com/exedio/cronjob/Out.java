@@ -25,6 +25,7 @@ import com.exedio.cops.Resource;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -92,6 +93,12 @@ final class Out
 	void write(final long l)
 	{
 		bf.append(l);
+	}
+
+	void write(final Thread.State state)
+	{
+		if(state!=null)
+			write(state.name().toLowerCase(Locale.ENGLISH));
 	}
 
 	void write(final Resource resource)
