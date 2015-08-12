@@ -331,6 +331,7 @@ final class Handler
 	Date getLastTimeStarted() {return lastTimeStarted;}
 	long getStopTimeout() {return stopTimeout;}
 	Thread.State        getThreadState()     { final Thread t = runningThread; return t!=null ? t.getState()      : null; }
+	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
 	StackTraceElement[] getThreadStackTrace(){ final Thread t = runningThread; return t!=null ? t.getStackTrace() : null; }
 
 	void startThread()
