@@ -20,8 +20,6 @@ package com.exedio.cronjob;
 
 import com.exedio.cope.util.JobStop;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.slf4j.Logger;
 
@@ -30,7 +28,6 @@ final class Handler
 	private static final Logger logger = CronjobManager.logger;
 
 	private static final int DURATION_BETWEEN_CHECKS = 2705;
-	private final DateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy - HH:mm:ss");
 
 	final String id;
 	final Job job;
@@ -292,8 +289,7 @@ final class Handler
 		else
 			deactivateInfo = null;
 
-		if (logger.isInfoEnabled())
-			logger.info("Cronjob: " + jobName + " was "+(activated ? "" : "de")+"activated at "+DATE_FORMAT.format(new Date()));
+		logger.info(activated ? "activated {}" : "deactivated {}", jobName);
 	}
 
 	@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR") // TODO
