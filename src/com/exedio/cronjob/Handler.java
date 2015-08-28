@@ -237,8 +237,7 @@ final class Handler
 	{
 		lastException=e;
 		fails++;
-		final Date failedAt= new Date();
-		log(e, failedAt);
+		log(e);
 	}
 
 	private void atCatch(final Throwable e, final long msb)
@@ -247,7 +246,7 @@ final class Handler
 		fails++;
 		final Date failedAt= new Date();
 		timeNeeded=failedAt.getTime()-msb;
-		log(e, failedAt);
+		log(e);
 		lastRunSuccessful=false;
 		registerInterruptRequest(failedAt.getTime());
 	}
@@ -279,12 +278,9 @@ final class Handler
 		return result;
 	}
 
-	private void log(final Throwable e, final Date failedAt)
+	private void log(final Throwable e)
 	{
-		logger.error("Execution of Cronjob: " + jobName + " FAILED at "+DATE_FORMAT.format(failedAt)+" !!!");
-		logger.error("******************** CronjobException - START ********************");
-		logger.error( "", e ); // prints stack trace
-		logger.error("******************** CronjobException - END **********************");
+		logger.error(jobName, e);
 	}
 
 	void setActivated(final boolean activated, final JobStopInfo info)
