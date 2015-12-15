@@ -4,12 +4,12 @@
 	<target name="copy" depends="resolve">
 		<copy overwrite="true" file="artifacts/exedio-cope-util-jar.jar" tofile="../lib/exedio-cope-util.jar" />
 		<copy overwrite="true" file="artifacts/exedio-cope-util-log.txt" todir="../lib/" />
-		<copy overwrite="true" file="artifacts/exedio-cope-util-src.zip" tofile="../lib/exedio-cope-util.jar-src.zip" />
+		<copy overwrite="true" file="artifacts/exedio-cope-util-src.zip" todir="../lib/" />
 		<copy overwrite="true" file="artifacts/exedio-jspm-jar.jar" tofile="../lib/exedio-jspm.jar" />
 		<copy overwrite="true" file="artifacts/exedio-jspm-log.txt" todir="../lib/" />
 		<copy overwrite="true" file="artifacts/exedio-cops-jar.jar" tofile="../lib/exedio-cops.jar" />
 		<copy overwrite="true" file="artifacts/exedio-cops-log.txt" todir="../lib/" />
-		<copy overwrite="true" file="artifacts/exedio-cops-src.zip" tofile="../lib/exedio-cops.jar-src.zip" />
+		<copy overwrite="true" file="artifacts/exedio-cops-src.zip" todir="../lib/" />
 		<copy overwrite="true" file="artifacts/servlet-api-jar.jar" tofile="../lib/servlet-api.jar" />
 		<copy overwrite="true" file="artifacts/servlet-api-source.jar" tofile="../lib/../lib/servlet-api-source.jar" />
 		<copy overwrite="true" file="artifacts/slf4j-api-jar.jar" tofile="../lib/slf4j-api.jar" />
