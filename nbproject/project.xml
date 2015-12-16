@@ -66,7 +66,7 @@
             <compilation-unit>
                 <package-root>src</package-root>
                 <package-root>examplesrc</package-root>
-                <classpath mode="compile">lib/servlet-api.jar:lib/exedio-cope-util.jar:getlib</classpath>
+                <classpath mode="compile">lib/servlet-api.jar:lib/exedio-cope-util.jar:getlib:lib/exedio-cops-src.zip:lib/exedio-cops.jar:lib/findbugs-annotations.jar:lib/slf4j-api-source.jar:lib/slf4j-api.jar</classpath>
                 <source-level>1.5</source-level>
             </compilation-unit>
         </java-data>
