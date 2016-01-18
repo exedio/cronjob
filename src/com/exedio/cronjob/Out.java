@@ -20,9 +20,9 @@ package com.exedio.cronjob;
 
 import com.exedio.cops.BodySender;
 import com.exedio.cops.Cop;
-import com.exedio.cops.CopsServlet;
 import com.exedio.cops.Resource;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -113,6 +113,6 @@ final class Out
 
 	void sendBody() throws IOException
 	{
-		BodySender.send(response, bf, CopsServlet.UTF8);
+		BodySender.send(response, bf, StandardCharsets.UTF_8);
 	}
 }

@@ -12,24 +12,26 @@
 	</info>
 	<configurations>
 		<conf name="runtime" />
+		<conf name="sources" />
+		<conf name="changelog" />
 		<conf name="build" extends="runtime" visibility="private" />
 	</configurations>
 	<publications>
-		<artifact name="exedio-cronjob" />
-		<artifact name="exedio-cronjob" type="src" ext="zip" />
-		<artifact name="exedio-cronjob" type="log" ext="txt" />
+		<artifact name="exedio-cronjob" conf="runtime"   type="jar" ext="jar" />
+		<artifact name="exedio-cronjob" conf="sources"   type="src" ext="zip" />
+		<artifact name="exedio-cronjob" conf="changelog" type="log" ext="txt" />
 	</publications>
 	<dependencies>
-		<dependency org="javax.servlet" name="servlet-api" rev="2.4" />
+		<dependency org="javax.servlet" name="servlet-api" rev="2.4" conf="runtime->default; build->sources" />
 		<dependency org="org.slf4j" name="slf4j-api" rev="1.6.4">
 			<conf name="runtime" mapped="default" />
 			<conf name="build" mapped="sources" />
 		</dependency>
 		<dependency org="org.apache" name="apache-tomcat" rev="6.0.16" conf="build->default" />
 		<dependency org="org.slf4j" name="slf4j-simple" rev="1.6.4" conf="build->default" />
-		<dependency org="com.exedio" name="copeutil" rev="480" />
-		<dependency org="com.exedio" name="cops"     rev="200" />
-		<dependency org="com.exedio" name="jspm"     rev= "89" conf="build->runtime" />
+		<dependency org="com.exedio" name="copeutil" rev="483" conf="runtime->runtime; build->runtime,sources,changelog" />
+		<dependency org="com.exedio" name="cops"     rev="379" conf="runtime->runtime; build->runtime,sources,changelog" />
+		<dependency org="com.exedio" name="jspm"     rev="123" conf="build->runtime,changelog" />
 		<dependency org="findbugs-x" name="findbugs" rev="3.0.1" conf="build->default" />
 	</dependencies>
 </ivy-module>
