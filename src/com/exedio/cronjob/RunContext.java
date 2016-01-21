@@ -46,6 +46,7 @@ final class RunContext extends EmptyJobContext
 	}
 
 	@Override
+	@Deprecated
 	public boolean requestedToStop()
 	{
 		try
