@@ -27,7 +27,7 @@
 		</dependency>
 		<dependency org="org.apache" name="apache-tomcat" rev="6.0.16" conf="build->default" />
 		<dependency org="org.slf4j" name="slf4j-simple" rev="1.6.4" conf="build->default" />
-		<dependency org="com.exedio" name="copeutil" rev="201" />
+		<dependency org="com.exedio" name="copeutil" rev="480" />
 		<dependency org="com.exedio" name="cops"     rev="200" />
 		<dependency org="com.exedio" name="jspm"     rev= "89" conf="build->runtime" />
 		<dependency org="findbugs-x" name="findbugs" rev="3.0.1" conf="build->default" />
