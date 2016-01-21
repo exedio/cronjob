@@ -38,7 +38,7 @@ final class InterruptableQueryJob extends AbstractJob
 				Thread.sleep(1000);
 				System.out.println(name + ".run slept " + i);
 				ctx.incrementProgress(result++);
-				if(ctx.requestedToStop())
+				if(requestedToStop(ctx))
 				{
 					System.out.println(name + ".run interrupted");
 					return;
@@ -51,5 +51,11 @@ final class InterruptableQueryJob extends AbstractJob
 		}
 		System.out.println(name + ".run ready");
 		ctx.incrementProgress(result++);
+	}
+
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
+	private static boolean requestedToStop(final JobContext ctx)
+	{
+		return ctx.requestedToStop();
 	}
 }
