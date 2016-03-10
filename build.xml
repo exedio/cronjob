@@ -14,13 +14,13 @@
 	<property name="build.dir"   value="build"/>
 
 	<taskdef name="jspm" classname="com.exedio.jspm.AntTask" classpath="lib/exedio-jspm.jar" />
-	
+
 	<target name="jspm">
 		<jspm>
 			<fileset dir="src" includes="**/*.jspm" />
 		</jspm>
 	</target>
-	
+
 	<target name="compile" depends="jspm">
 		<compile srcdir="src">
 			<classpath>
@@ -55,7 +55,7 @@
 			</zipfileset>
 		</zip>
 	</target>
-	
+
 	<target name="example.compile" depends="compile">
 		<compile srcdir="examplesrc">
 			<classpath>
@@ -80,7 +80,7 @@
 		</copy>
 		<copy todir="build/web/WEB-INF" file="conf/web.xml" />
 	</target>
-		
+
 	<target name="catalina">
 		<property name="catalina.root" value="apache-tomcat-6.0.16" />
 		<untar src="lib/apache-tomcat.tar.gz"
@@ -103,11 +103,11 @@
 			</fileset>
 		</copy>
 	</target>
-	
+
 	<target name="tomcat" depends="web, catalina">
 		<copy file="conf/context.xml" tofile="tomcat/conf/Catalina/localhost/ROOT.xml" />
 	</target>
-	
+
 	<target name="findbugs" depends="compile, example.compile, findbugs.taskdef">
 		<findbugs
 					home="${basedir}/build/findbugs-home"

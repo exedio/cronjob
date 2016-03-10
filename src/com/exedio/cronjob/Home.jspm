@@ -38,7 +38,7 @@ final class Home_Jspm
 						<th rowspan="2">&nbsp;</th>
 						<th rowspan="2">Active<br><%=active%>/<%=total%></th>
 						<th rowspan="2">Name</th><%
-						
+
 					if(cop.showConfiguration)
 					{
 						%>
@@ -53,7 +53,7 @@ final class Home_Jspm
 					}
 						%>
 						<th rowspan="2">Running<br>since</th><%
-						
+
 					if(cop.showLastRun)
 					{
 						%>
@@ -70,7 +70,7 @@ final class Home_Jspm
 						<th colspan="2">Interrupt</th>
 					</tr>
 					<tr><%
-					
+
 					if(cop.showLastRun)
 					{
 						%>
@@ -106,7 +106,7 @@ final class Home_Jspm
 						%></td>
 						<td colspan="9"></td>
 					</tr><%
-					
+
 					for(final Handler job : handlers)
 					{
 						final String id = job.id;
@@ -124,7 +124,7 @@ final class Home_Jspm
 							<input type="submit" name="<%=id%>" value="<%=PageCop.DEACTIVATE%>"<% if(!isActivated) { %> disabled readonly<% } %> />
 						</nobr></td>
 						<td class="text" title="<%=className%>"><a href="<%=cop.toJob(job)%>"><%=name%></a></td><%
-						
+
 					if(cop.showConfiguration)
 					{
 						%>
@@ -139,12 +139,12 @@ final class Home_Jspm
 					}
 						%>
 						<td class="text"><%
-							
+
 							final RunContext runContext = job.getRunContext();
 							if(runContext!=null)
 							{
 								final int progress = runContext.getProgress();
-								
+
 								%><%=(now-job.getLastTimeStarted().getTime())%> ms<%
 								final long lastInterruptRequest = job.getLastInterruptRequest();
 								if(lastInterruptRequest!=0)
@@ -161,7 +161,7 @@ final class Home_Jspm
 								%>no<%
 							}
 						%></td><%
-						
+
 					if(cop.showLastRun)
 					{
 						%>
@@ -186,7 +186,7 @@ final class Home_Jspm
 				%>
 				</table>
 				<br><%
-					
+
 					for(final Handler job : handlers)
 					{
 						if(job.getLastException()!=null)
@@ -205,7 +205,7 @@ final class Home_Jspm
 								<tr>
 									<td class="text"><%=job.getLastException().getMessage()%></td>
 								</tr><%
-								
+
 							for(final StackTraceElement el : job.getLastException().getStackTrace())
 							{
 								%>

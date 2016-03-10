@@ -6,7 +6,7 @@
 	version="2.4">
 
 	<display-name>cronjob example</display-name>
-	
+
 	<servlet>
 		<servlet-name>cronjob</servlet-name>
 		<servlet-class>com.exedio.cronjob.CronjobManager</servlet-class>
@@ -20,7 +20,7 @@
 		<servlet-name>cronjob</servlet-name>
 		<url-pattern>/cronjob/*</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>cronjob2</servlet-name>
 		<servlet-class>com.exedio.cronjob.CronjobManager</servlet-class>
@@ -34,7 +34,7 @@
 		<servlet-name>cronjob2</servlet-name>
 		<url-pattern>/cronjob2/*</url-pattern>
 	</servlet-mapping>
-	
+
 	<login-config>
 		<auth-method>BASIC</auth-method>
 		<realm-name>cronjob realm, user=admin, password=nimda</realm-name>
@@ -44,5 +44,5 @@
 		<web-resource-collection><url-pattern>/cronjob2/*</url-pattern></web-resource-collection>
 		<auth-constraint><role-name>manager</role-name></auth-constraint>
 	</security-constraint>
-	
+
 </web-app>

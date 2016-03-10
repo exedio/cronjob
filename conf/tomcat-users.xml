@@ -3,7 +3,7 @@
 	BEWARE:
 	This file is overwritten (and canonized) by the tomcat server,
 	unless writing of this file is disabled in conf/server.xml as below:
-	
+
 	<Resource ...
 		factory="org.apache.catalina.users.MemoryUserDatabaseFactory"
 		readonly="true" />

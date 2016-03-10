@@ -51,7 +51,7 @@ final class Job_Jspm
 						<th>Avg</th>
 						<th>Max</th>
 					</tr><%
-					
+
 						final String id = job.id;
 						final String name = job.jobName;
 						final String className = job.job.getClass().getName();
@@ -82,7 +82,7 @@ final class Job_Jspm
 					</tr>
 				</table>
 				<br><%
-					
+
 						if(job.getLastException()!=null)
 						{
 							%>
@@ -99,7 +99,7 @@ final class Job_Jspm
 								<tr>
 									<td class="text"><%=job.getLastException().getMessage()%></td>
 								</tr><%
-								
+
 							for(final StackTraceElement el : job.getLastException().getStackTrace())
 							{
 								%>
@@ -140,7 +140,7 @@ final class Job_Jspm
 					</tr>
 				</table><%
 	}
-	
+
 	static final void write(
 				final Out out,
 				final long now,
@@ -188,10 +188,10 @@ final class Job_Jspm
 					</tr>
 				</table><%
 			}
-			
+
 				%>
 				<input type="submit" name="<%=JobCop.SAMPLE%>" value="sample" /><%
-				
+
 			if(runContext!=null)
 			{
 				final List<Sample> samples = runContext.getSamples();
@@ -203,7 +203,7 @@ final class Job_Jspm
 						<th>Time<small>/ms</small></th>
 						<th>Progress</th>
 					</tr><%
-					
+
 					for(final Sample sample : samples)
 					{
 					%>
