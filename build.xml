@@ -108,6 +108,21 @@
 		<copy file="conf/context.xml" tofile="tomcat/conf/Catalina/localhost/ROOT.xml" />
 	</target>
 
+	<target name="api">
+		<api title="cronjob">
+			<src>
+				<fileset dir="src" includes="**/*.java" />
+			</src>
+			<myClasspath>
+				<pathelement location="lib/exedio-cops.jar" />
+				<pathelement location="lib/exedio-cope-util.jar" />
+				<pathelement location="lib/servlet-api.jar" />
+				<pathelement location="lib/slf4j-api.jar" />
+				<pathelement location="lib/findbugs-annotations.jar" />
+			</myClasspath>
+		</api>
+	</target>
+
 	<target name="findbugs" depends="compile, example.compile, findbugs.taskdef">
 		<findbugs
 					home="${basedir}/build/findbugs-home"
@@ -142,7 +157,7 @@
 
 	<target name="build" depends="compile, jar" />
 
-	<target name="all" depends="build, jar.src, findbugs" />
+	<target name="all" depends="build, jar.src, api, findbugs" />
 
 	<target name="jenkins" depends="all, tomcat">
 		<copy todir="${basedir}/build/success">
