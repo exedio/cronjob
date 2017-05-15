@@ -6,4 +6,4 @@ jdk:
 before_script:
   - ant -version
 
-script: "ant jenkins"
+script: "ant clean jenkins"
