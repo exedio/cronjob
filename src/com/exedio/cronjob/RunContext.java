@@ -46,21 +46,6 @@ final class RunContext extends EmptyJobContext
 	}
 
 	@Override
-	@Deprecated
-	public boolean requestedToStop()
-	{
-		try
-		{
-			handler.stopIfRequested();
-			return false;
-		}
-		catch(final JobStop ignored)
-		{
-			return true;
-		}
-	}
-
-	@Override
 	public boolean supportsProgress()
 	{
 		return true;
