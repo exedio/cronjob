@@ -1,9 +1,4 @@
 
-import hudson.plugins.jacoco.model.CoverageGraphLayout
-import hudson.plugins.jacoco.model.CoverageGraphLayout.CoverageType
-import hudson.plugins.jacoco.model.CoverageGraphLayout.CoverageValue
-import java.awt.Color
-
 timestamps
 {
 	//noinspection GroovyAssignabilityCheck
@@ -47,7 +42,6 @@ timestamps
 				sh "${antHome}/bin/ant clean jenkins" +
 						' "-Dbuild.revision=${BUILD_NUMBER}"' +
 						' "-Dbuild.tag=git ${BRANCH_NAME} ' + scmResult.GIT_COMMIT + ' ' + scmResult.GIT_TREE + ' jenkins ${BUILD_NUMBER} ${BUILD_TIMESTAMP}"' +
-						' -Ddisable-ansi-colors=true' +
 						' -Dfindbugs.output=xml'
 
 				warnings(
@@ -70,21 +64,6 @@ timestamps
 						usePreviousBuildAsReference: false,
 						useStableBuildAsReference: false,
 				)
-				step([$class: 'JacocoPublisher',
-						changeBuildStatus: true,
-						minimumBranchCoverage: '30',
-						coverageGraphLayout:
-								new CoverageGraphLayout()
-								.baseStroke(2f)
-								.axis().skipZero().crop(50)
-								.plot().type(CoverageType.BRANCH).value(CoverageValue.PERCENTAGE).color(Color.BLUE)
-								.axis().skipZero().crop()
-								.plot().type(CoverageType.BRANCH).value(CoverageValue.MISSED).color(Color.RED)
-								.axis().skipZero().crop()
-								.plot().type(CoverageType.LINE).value(CoverageValue.MISSED).color(Color.ORANGE),
-						execPattern: 'build/jacoco.exec',
-						classPattern: 'build/classes/src',
-						sourcePattern: 'src'])
 				archive 'build/success/*'
 			}
 		}
@@ -95,11 +74,6 @@ timestamps
 		}
 		finally
 		{
-			// because junit failure aborts ant
-			junit(
-					allowEmptyResults: false,
-					testResults: 'build/testresults/**/*.xml',
-			)
 			def to = emailextrecipients([
 					[$class: 'CulpritsRecipientProvider'],
 					[$class: 'RequesterRecipientProvider']
