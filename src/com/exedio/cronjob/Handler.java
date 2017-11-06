@@ -341,7 +341,7 @@ final class Handler
 	}
 
 	@SuppressWarnings("deprecation") // OK: last resort
-	private static final void stop(final Thread t)
+	private static void stop(final Thread t)
 	{
 		t.stop();
 	}
