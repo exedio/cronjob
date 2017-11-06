@@ -2,6 +2,7 @@
 
 <project name="cronjob" default="build" basedir=".">
 
+	<!--suppress AntMissingPropertiesFileInspection -->
 	<property file="local.properties" />
 	<property file="project.properties" />
 
