@@ -49,6 +49,7 @@ public final class ExampleStore implements CronjobStore
 				new ErrorJob(1),
 				new SlowJob(1, 0),
 				new SlowJob(2, 5000),
+				new SleepJob(),
 				new InactiveJob(1),
 				new InactiveJob(2),
 				new InterruptableJob(),
