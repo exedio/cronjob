@@ -151,12 +151,7 @@ final class Handler
 					job.init();
 					initialized = true;
 				}
-				catch(final Exception e)
-				{
-					atCatch(e);
-					return;
-				}
-				catch(final AssertionError e)
+				catch(final Exception | AssertionError e)
 				{
 					atCatch(e);
 					return;
@@ -180,11 +175,7 @@ final class Handler
 				updateAverageTimeNeeded(timeNeeded);
 				registerInterruptRequest(finished.getTime());
 			}
-			catch (final Exception e)
-			{
-				atCatch(e, msb);
-			}
-			catch (final AssertionError e)
+			catch (final Exception | AssertionError e)
 			{
 				atCatch(e, msb);
 			}
@@ -217,12 +208,7 @@ final class Handler
 				job.destroy();
 				initialized = false;
 			}
-			catch(final Exception e)
-			{
-				atCatch(e);
-				return;
-			}
-			catch(final AssertionError e)
+			catch(final Exception | AssertionError e)
 			{
 				atCatch(e);
 				return;
