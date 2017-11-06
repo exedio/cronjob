@@ -64,7 +64,7 @@ public class CronjobManager extends CopsServlet
 			throw new RuntimeException("ERROR: Servlet-Init-Parameter: >> "+STORE+" << was expected but not found");
 		}
 
-		final List<CronjobStore> stores = new ArrayList<CronjobStore>();
+		final List<CronjobStore> stores = new ArrayList<>();
 		for ( final String storeName: storeNames.split(",") )
 		{
 			final Class<?> storeClass;
@@ -115,7 +115,7 @@ public class CronjobManager extends CopsServlet
 			}
 		}
 
-		handlers = new ArrayList<Handler>();
+		handlers = new ArrayList<>();
 		int idCounter = 1;
 		for ( final CronjobStore store: stores )
 		{

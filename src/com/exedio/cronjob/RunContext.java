@@ -32,7 +32,7 @@ final class RunContext extends EmptyJobContext
 
 	@SuppressFBWarnings("VO_VOLATILE_INCREMENT")
 	private volatile int progress = 0;
-	private final ArrayList<Sample> samples = new ArrayList<Sample>();
+	private final ArrayList<Sample> samples = new ArrayList<>();
 
 	RunContext(final Handler handler)
 	{
@@ -99,8 +99,8 @@ final class RunContext extends EmptyJobContext
 		{
 			return
 				samples.isEmpty()
-				? Collections.<Sample>emptyList()
-				: new ArrayList<Sample>(samples);
+				? Collections.emptyList()
+				: new ArrayList<>(samples);
 		}
 	}
 }
