@@ -179,7 +179,7 @@ public class CronjobManager extends CopsServlet
 		{
 			hostname = InetAddress.getLocalHost().getHostName();
 		}
-		catch(final UnknownHostException e)
+		catch(final UnknownHostException ignored)
 		{
 			// leave hostname==null
 		}

@@ -54,7 +54,7 @@ final class RunContext extends EmptyJobContext
 			handler.stopIfRequested();
 			return false;
 		}
-		catch(final JobStop js)
+		catch(final JobStop ignored)
 		{
 			return true;
 		}
