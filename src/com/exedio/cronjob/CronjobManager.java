@@ -48,6 +48,7 @@ public class CronjobManager extends CopsServlet
 	static final Resource logo = new Resource("logo.png");
 	static final Resource shortcutIcon = new Resource("shortcutIcon.png");
 
+	@SuppressWarnings("NonSerializableFieldInSerializableClass")
 	@SuppressFBWarnings("SE_BAD_FIELD")
 	private List<Handler> handlers;
 
