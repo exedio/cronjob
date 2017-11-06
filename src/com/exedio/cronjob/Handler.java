@@ -18,8 +18,11 @@
 
 package com.exedio.cronjob;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.util.JobStop;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.time.Duration;
 import java.util.Date;
 import org.slf4j.Logger;
 
@@ -45,6 +48,7 @@ final class Handler
 	private boolean lastRunSuccessful;
 	private boolean activated;
 	private JobStopInfo deactivateInfo = null;
+	private final Object sleeper = new Object();
 	private int successfulRuns;
 	private long averageTimeNeeded;
 	private long timeNeeded;
@@ -131,6 +135,32 @@ final class Handler
 			interruptMaximum = elapsed;
 		interruptTotal += elapsed;
 		interruptCount++;
+	}
+
+	@SuppressFBWarnings({"UW_UNCOND_WAIT","WA_NOT_IN_LOOP"})
+	void sleepAndStopIfRequested(final Duration duration) throws JobStop
+	{
+		requireNonNull(duration, "duration");
+		stopIfRequested();
+
+		// omit nanoseconds because Object#wait has millisecond resolution only
+		final long durationMillis = duration.toMillis(); // fails if too large for toMillis
+		if(durationMillis<=0)
+			return;
+
+		try
+		{
+			synchronized(sleeper)
+			{
+				// don't care about spurious wakeup
+				sleeper.wait(durationMillis);
+			}
+		}
+		catch(final InterruptedException e)
+		{
+			throw new RuntimeException(e);
+		}
+		stopIfRequested();
 	}
 
 	void tryToExecute()
@@ -264,7 +294,13 @@ final class Handler
 		this.activated = activated;
 
 		if(!activated)
+		{
 			deactivateInfo = info;
+			synchronized(sleeper)
+			{
+				sleeper.notifyAll();
+			}
+		}
 		else
 			deactivateInfo = null;
 

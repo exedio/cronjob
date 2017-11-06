@@ -21,6 +21,7 @@ package com.exedio.cronjob;
 import com.exedio.cope.util.EmptyJobContext;
 import com.exedio.cope.util.JobStop;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -43,6 +44,12 @@ final class RunContext extends EmptyJobContext
 	public void stopIfRequested() throws JobStop
 	{
 		handler.stopIfRequested();
+	}
+
+	@Override
+	public void sleepAndStopIfRequested(final Duration duration) throws JobStop
+	{
+		handler.sleepAndStopIfRequested(duration);
 	}
 
 	@Override
