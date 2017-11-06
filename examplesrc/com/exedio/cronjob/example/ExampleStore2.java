@@ -20,7 +20,7 @@ package com.exedio.cronjob.example;
 
 import com.exedio.cronjob.CronjobStore;
 import com.exedio.cronjob.Job;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import javax.servlet.ServletConfig;
 
@@ -40,7 +40,7 @@ public final class ExampleStore2 implements CronjobStore
 		System.out.println("ExampleStore2.getJobs");
 		final NormalJob job = new NormalJob(10);
 		job.activeInitially = false;
-		return Arrays.asList(job);
+		return Collections.singletonList(job);
 	}
 
 	@Override
