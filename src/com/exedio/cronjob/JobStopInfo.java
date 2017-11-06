@@ -21,6 +21,7 @@ package com.exedio.cronjob;
 import com.exedio.cope.util.JobStop;
 import java.util.Date;
 
+@SuppressWarnings("AbstractClassWithoutAbstractMethods")
 abstract class JobStopInfo
 {
 	private final String jobName;
