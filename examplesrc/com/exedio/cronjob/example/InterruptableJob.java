@@ -35,6 +35,7 @@ final class InterruptableJob extends AbstractJob
 		{
 			for(int i = 0; i<10; i++)
 			{
+				//noinspection BusyWait
 				Thread.sleep(1000);
 				System.out.println(name + ".run slept " + i);
 				ctx.incrementProgress(result++);
