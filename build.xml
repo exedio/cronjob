@@ -173,4 +173,8 @@
 		</copy>
 	</target>
 
+	<target name="publishlocally" depends="jar, jar.src">
+		<ant dir="ivy" target="publishlocally" />
+	</target>
+
 </project>
