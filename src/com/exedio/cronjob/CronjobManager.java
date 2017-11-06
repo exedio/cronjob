@@ -151,7 +151,7 @@ public class CronjobManager extends CopsServlet
 			logger.info("CronjobManager is terminated. (" + System.identityHashCode(this) + ')');
 	}
 
-	private String getImplementationVersion()
+	private static String getImplementationVersion()
 	{
 		final String iv=CronjobManager.class.getPackage().getImplementationVersion();
 		return iv==null ? "" : iv;
