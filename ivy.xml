@@ -31,7 +31,7 @@
 		<dependency org="org.slf4j" name="slf4j-simple" rev="1.6.4" conf="build->default" />
 		<dependency org="com.exedio" name="copeutil" rev="623" conf="runtime->runtime; build->runtime,sources,changelog" />
 		<dependency org="com.exedio" name="cops"     rev="379" conf="runtime->runtime; build->runtime,sources,changelog" />
-		<dependency org="com.exedio" name="jspm"     rev="159" conf="build->runtime,changelog" />
+		<dependency org="com.exedio" name="jspm"     rev="202" conf="build->runtime,changelog" />
 		<dependency org="findbugs-x" name="findbugs" rev="3.0.1" conf="build->default" />
 	</dependencies>
 </ivy-module>
