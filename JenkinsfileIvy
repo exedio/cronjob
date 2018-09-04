@@ -2,7 +2,7 @@
 timestamps
 {
 	//noinspection GroovyAssignabilityCheck
-	node('GitCloneExedio')
+	node
 	{
 		try
 		{
