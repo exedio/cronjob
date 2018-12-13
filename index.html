@@ -37,14 +37,33 @@
 		<div>
 			A library for executing regular jobs within a java application.
 		</div>
+		<h2>Example Environment</h2>
 		<div>
-			<a href="http://localhost:8080/cronjob">Example</a>
+			The example environment provides a representative set of cronjobs,
+			for instance long running jobs, failing jobs etc.
+			To start the example environment do:
 		</div>
-		<div>
-			<a href="http://localhost:8080/cronjob2">Example2</a>
-			(authenticate as admin/nimda)
-		</div>
-		<h1>Life Cycle</h1>
+		<ol>
+			<li>
+				Build the application:<br>
+				Run <tt>ant tomcat</tt>.
+			</li>
+			<li>
+				Start tomcat:<br>
+				This is done by running
+				<tt>./catalina.sh run</tt> in directory <a href="tomcat/bin" target="_blank">tomcat/bin</a>.
+			</li>
+			<li>
+				Open the
+				<a href="http://localhost:8080/cronjob" target="_blank">Example Environment</a>.
+			</li>
+			<li>
+				There is also a
+				<a href="http://localhost:8080/cronjob2" target="_blank">Second Example Environment</a>
+				that requires authentication with user name <i>admin</i> and password <i>nimda</i>.
+			</li>
+		</ol>
+		<h2>Life Cycle</h2>
 		<div>
 			<img src="doc/life-cycle.png">
 		</div>
