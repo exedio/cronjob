@@ -18,11 +18,14 @@
 
 package com.exedio.cronjob.example;
 
+import static java.time.Duration.ofMinutes;
+import static java.time.Duration.ofSeconds;
+
 final class InactiveJob extends AbstractJob
 {
 	InactiveJob(final int number)
 	{
-		super("Inactive" + number, 1, 1000);
+		super("Inactive" + number, ofMinutes(1), ofSeconds(1));
 		activeInitially = false;
 	}
 }

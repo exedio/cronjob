@@ -28,6 +28,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -120,7 +121,7 @@ public class CronjobManager extends CopsServlet
 		int idCounter = 1;
 		for ( final CronjobStore store: stores )
 		{
-			final long storeInitialDelay = store.getInitialDelayInMilliSeconds();
+			final Duration storeInitialDelay = store.getInitialDelay();
 			for (final Job job: store.getJobs())
 				handlers.add(new Handler(job, idCounter++, storeInitialDelay));
 		}

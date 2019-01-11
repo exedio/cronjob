@@ -18,11 +18,14 @@
 
 package com.exedio.cronjob.example;
 
+import static java.time.Duration.ofMinutes;
+import static java.time.Duration.ofSeconds;
+
 final class NullNameJob extends AbstractJob
 {
 	NullNameJob()
 	{
-		super("NullName", 1, 1000);
+		super("NullName", ofMinutes(1), ofSeconds(1));
 	}
 
 	@Override

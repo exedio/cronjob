@@ -18,6 +18,9 @@
 
 package com.exedio.cronjob.example;
 
+import static java.time.Duration.ofMinutes;
+import static java.time.Duration.ofSeconds;
+
 import com.exedio.cope.util.JobContext;
 
 final class FailureInitJob extends AbstractJob
@@ -27,7 +30,7 @@ final class FailureInitJob extends AbstractJob
 
 	FailureInitJob(final int number)
 	{
-		super("FailureInit" + number, 1, 1000);
+		super("FailureInit" + number, ofMinutes(1), ofSeconds(1));
 		activeInitially = false;
 	}
 

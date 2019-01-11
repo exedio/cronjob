@@ -18,13 +18,16 @@
 
 package com.exedio.cronjob.example;
 
+import static java.time.Duration.ofMinutes;
+import static java.time.Duration.ofSeconds;
+
 import com.exedio.cope.util.JobContext;
 
 final class InterruptableSlowerJob extends AbstractJob
 {
 	InterruptableSlowerJob()
 	{
-		super("InterruptableSlower", 1000, 1000000);
+		super("InterruptableSlower", ofMinutes(1000), ofSeconds(1000));
 	}
 
 	@Override

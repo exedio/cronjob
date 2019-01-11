@@ -34,7 +34,7 @@ final class Job_Jspm
 						<th rowspan="2">Active</th>
 						<th rowspan="2">Name</th>
 						<th rowspan="2">Initial<br>Delay</th>
-						<th rowspan="2">Interval<br>/min</th>
+						<th rowspan="2">Interval</th>
 						<th rowspan="2">Stop<br>Timeout</th>
 						<th colspan="4">Last Run</th>
 						<th colspan="2">Total</th>
@@ -67,8 +67,8 @@ final class Job_Jspm
 							<input type="submit" name="<%=id%>" value="<%=PageCop.DEACTIVATE%>"<% if(!isActivated) { %> disabled readonly<% } %> />
 						</nobr></td>
 						<td class="text" title="<%=className%>"><%=name%></td>
-						<td<% if(!job.activeInitially){%> class="inactive"<%} %>><%=job.getInitialDelayInMilliSeconds()%></td>
-						<td><%=job.getMinutesBetweenExecutions()%></td>
+						<td<% if(!job.activeInitially){%> class="inactive"<%} %>><%=job.getInitialDelay()%></td>
+						<td><%=job.getIntervalBetweenExecutions()%></td>
 						<td><%=job.getStopTimeout()%></td>
 						<td class="text<% if(!wasLastRunSuccessful){ %> error<% } %>"><% if(wasLastRunSuccessful){ %>ok<% } else { %>FAILED<% } %></td>
 						<td><nobr><%=job.getLastTimeStarted()%></nobr></td>

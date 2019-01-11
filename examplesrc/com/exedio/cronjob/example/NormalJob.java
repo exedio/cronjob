@@ -18,10 +18,13 @@
 
 package com.exedio.cronjob.example;
 
+import static java.time.Duration.ofMinutes;
+import static java.time.Duration.ofSeconds;
+
 final class NormalJob extends AbstractJob
 {
 	NormalJob(final int number)
 	{
-		super("Normal" + number, 1, 1000);
+		super("Normal" + number, ofMinutes(1), ofSeconds(1));
 	}
 }

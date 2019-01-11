@@ -56,13 +56,13 @@ final class Handler
 	private int fails;
 	private RunningThread runningThread;
 	private final Date createdAt;
-	private final long initialDelayinMS;
-	private final long stopTimeout;
+	private final Duration initialDelay;
+	private final Duration stopTimeout;
 
 	/**
 	 * After construction use #startThread() to start running of the job.
 	 */
-	Handler(final Job job, final int id, final long initialDelayInMS)
+	Handler(final Job job, final int id, final Duration initialDelay)
 	{
 		this.id = "cronjob_"+String.valueOf(id);
 		this.job=job;
@@ -78,7 +78,7 @@ final class Handler
 		fails=0;
 		runNow=false;
 		createdAt=new Date();
-		this.initialDelayinMS=initialDelayInMS+job.getInitialDelayInMilliSeconds();
+		this.initialDelay = initialDelay.plus(job.getInitialDelay());
 		this.stopTimeout = job.getStopTimeout();
 	}
 
@@ -92,7 +92,7 @@ final class Handler
 		{
 			final long last = lastTimeStarted.getTime();
 			final long now = new Date().getTime();
-			return (now-last)>=(job.getMinutesBetweenExecutions()*1000l*60);
+			return (now-last)>=job.getIntervalBetweenExecutions().toMillis();
 		}
 	}
 
@@ -265,7 +265,7 @@ final class Handler
 			return true;
 		}
 		boolean result = true;
-		if ((new Date().getTime()-createdAt.getTime())<initialDelayinMS)
+		if ((new Date().getTime()-createdAt.getTime())<initialDelay.toMillis())
 		{
 			result=false;
 		}
@@ -333,10 +333,10 @@ final class Handler
 	int getNumberOfFails(){return fails;}
 	Throwable getLastException(){return lastException;}
 	RunContext getRunContext() {return runContext;}
-	long getInitialDelayInMilliSeconds() {return job.getInitialDelayInMilliSeconds();}
-	int getMinutesBetweenExecutions() {return job.getMinutesBetweenExecutions();}
+	Duration getInitialDelay() {return job.getInitialDelay();}
+	Duration getIntervalBetweenExecutions() {return job.getIntervalBetweenExecutions();}
 	Date getLastTimeStarted() {return lastTimeStarted;}
-	long getStopTimeout() {return stopTimeout;}
+	Duration getStopTimeout() {return stopTimeout;}
 	Thread.State        getThreadState()     { final Thread t = runningThread; return t!=null ? t.getState()      : null; }
 	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
 	StackTraceElement[] getThreadStackTrace(){ final Thread t = runningThread; return t!=null ? t.getStackTrace() : null; }
@@ -360,7 +360,7 @@ final class Handler
 				{
 					runningThread.notifyWaiter();
 				}
-				runningThread.join(stopTimeout);
+				runningThread.join(stopTimeout.toMillis());
 				logger.info("job:"+jobName+" joined");
 				if(runningThread.isAlive())
 				{

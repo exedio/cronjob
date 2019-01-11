@@ -43,7 +43,7 @@ final class Home_Jspm
 					{
 						%>
 						<th rowspan="2">Initial<br>Delay</th>
-						<th rowspan="2">Interval<br>/min</th>
+						<th rowspan="2">Interval</th>
 						<th rowspan="2">Stop <a class="disable" href="<%=cop.toShowConfiguration(false)%>">x</a><br>Timeout</th><%
 					}
 					else
@@ -128,8 +128,8 @@ final class Home_Jspm
 					if(cop.showConfiguration)
 					{
 						%>
-						<td<% if(!job.activeInitially){%> class="inactive"<%} %>><%=job.getInitialDelayInMilliSeconds()%></td>
-						<td><%=job.getMinutesBetweenExecutions()%></td>
+						<td<% if(!job.activeInitially){%> class="inactive"<%} %>><%=job.getInitialDelay()%></td>
+						<td><%=job.getIntervalBetweenExecutions()%></td>
 						<td><%=job.getStopTimeout()%></td><%
 					}
 					else

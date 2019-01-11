@@ -18,13 +18,16 @@
 
 package com.exedio.cronjob.example;
 
+import static java.time.Duration.ofMinutes;
+import static java.time.Duration.ofSeconds;
+
 import com.exedio.cope.util.JobContext;
 
 final class FailureJob extends AbstractJob
 {
 	FailureJob(final int number)
 	{
-		super("Failure" + number, 1, 1000);
+		super("Failure" + number, ofMinutes(1), ofSeconds(1));
 	}
 
 	@Override

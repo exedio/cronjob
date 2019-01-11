@@ -18,8 +18,12 @@
 
 package com.exedio.cronjob.example;
 
+import static java.time.Duration.ZERO;
+import static java.time.Duration.ofSeconds;
+
 import com.exedio.cronjob.CronjobStore;
 import com.exedio.cronjob.Job;
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 import javax.servlet.ServletConfig;
@@ -43,12 +47,13 @@ public final class ExampleStore implements CronjobStore
 				new NormalJob(2),
 				new NormalJob(3),
 				new NormalJob(4),
+				new OftenJob(),
 				new FailureJob(1),
 				new FailureInitJob(1),
 				new AssertionFailureJob(1),
 				new ErrorJob(1),
-				new SlowJob(1, 0),
-				new SlowJob(2, 5000),
+				new SlowJob(1, ZERO),
+				new SlowJob(2, ofSeconds(5)),
 				new SleepJob(),
 				new InactiveJob(1),
 				new InactiveJob(2),
@@ -59,9 +64,9 @@ public final class ExampleStore implements CronjobStore
 	}
 
 	@Override
-	public long getInitialDelayInMilliSeconds()
+	public Duration getInitialDelay()
 	{
-		System.out.println("ExampleStore.getInitialDelayInMilliSeconds");
-		return 1000;
+		System.out.println("ExampleStore.getInitialDelay");
+		return ofSeconds(1);
 	}
 }

@@ -24,6 +24,7 @@ import com.exedio.cops.Resource;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.Date;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
@@ -57,6 +58,11 @@ final class Out
 	void write(final String s)
 	{
 		bf.append(s);
+	}
+
+	void write(final Duration d)
+	{
+		bf.append(d);
 	}
 
 	void write(final Date d)

@@ -7,6 +7,15 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Job methods return java.time.Duration and got new name:
+
+		getMinutesBetweenExecutions   -> getIntervalBetweenExecutions
+		getInitialDelayInMilliSeconds -> getInitialDelay (at CronjobStore as well)
+		getStopTimeout                   (name did not change)
+
+	Breaks backwards API compatibility.
+	The compiler will help you, if you have your @Override annotations in place.
+
 * HTTP header security:
 	Content-Security-Policy, Referrer-Policy, X-Content-Type-Options, X-Frame-Options, X-XSS-Protection
 	set in response.

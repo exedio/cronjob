@@ -18,21 +18,24 @@
 
 package com.exedio.cronjob.example;
 
+import static java.time.Duration.ofSeconds;
+
 import com.exedio.cope.util.JobContext;
 import com.exedio.cronjob.Job;
+import java.time.Duration;
 
 class AbstractJob implements Job
 {
 	protected boolean activeInitially = true;
 	protected final String name;
-	protected final int minutesBetweenExecutions;
-	protected final long initialDelay;
+	protected final Duration intervalBetweenExecutions;
+	protected final Duration initialDelay;
 	protected int result = 0;
 
-	AbstractJob(final String name, final int minutesBetweenExecutions, final long initialDelay)
+	AbstractJob(final String name, final Duration intervalBetweenExecutions, final Duration initialDelay)
 	{
 		this.name = name;
-		this.minutesBetweenExecutions = minutesBetweenExecutions;
+		this.intervalBetweenExecutions = intervalBetweenExecutions;
 		this.initialDelay = initialDelay;
 	}
 
@@ -69,22 +72,22 @@ class AbstractJob implements Job
 	}
 
 	@Override
-	public int getMinutesBetweenExecutions()
+	public Duration getIntervalBetweenExecutions()
 	{
-		//System.out.println(name + ".getMinutesBetweenExecutions");
-		return minutesBetweenExecutions;
+		//System.out.println(name + ".getIntervalBetweenExecutions");
+		return intervalBetweenExecutions;
 	}
 
 	@Override
-	public long getInitialDelayInMilliSeconds()
+	public Duration getInitialDelay()
 	{
-		//System.out.println(name + ".getInitialDelayInMilliSeconds"+initialDelay);
+		//System.out.println(name + ".getInitialDelay"+initialDelay);
 		return initialDelay;
 	}
 
 	@Override
-	public long getStopTimeout()
+	public Duration getStopTimeout()
 	{
-		return 5000;
+		return ofSeconds(5);
 	}
 }

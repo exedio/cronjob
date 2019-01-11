@@ -19,15 +19,16 @@
 package com.exedio.cronjob.example;
 
 import static java.lang.System.nanoTime;
+import static java.time.Duration.ofMinutes;
+import static java.time.Duration.ofSeconds;
 
 import com.exedio.cope.util.JobContext;
-import java.time.Duration;
 
 final class SleepJob extends AbstractJob
 {
 	SleepJob()
 	{
-		super("SleepJob", 1000, 5000);
+		super("SleepJob", ofMinutes(1000), ofSeconds(5));
 	}
 
 	@Override
@@ -37,7 +38,7 @@ final class SleepJob extends AbstractJob
 		final long start = nanoTime();
 		try
 		{
-			ctx.sleepAndStopIfRequested(Duration.ofSeconds(10));
+			ctx.sleepAndStopIfRequested(ofSeconds(10));
 		}
 		finally
 		{

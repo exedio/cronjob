@@ -18,6 +18,7 @@
 
 package com.exedio.cronjob;
 
+import java.time.Duration;
 import java.util.List;
 import javax.servlet.ServletConfig;
 
@@ -28,5 +29,5 @@ import javax.servlet.ServletConfig;
 public interface CronjobStore
 {
 	List<? extends Job> getJobs();
-	long getInitialDelayInMilliSeconds();
+	Duration getInitialDelay();
 }

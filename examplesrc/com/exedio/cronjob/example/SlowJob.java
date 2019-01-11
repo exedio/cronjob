@@ -18,13 +18,16 @@
 
 package com.exedio.cronjob.example;
 
+import static java.time.Duration.ofMinutes;
+
 import com.exedio.cope.util.JobContext;
+import java.time.Duration;
 
 final class SlowJob extends AbstractJob
 {
-	SlowJob(final int number, final int initialDelay)
+	SlowJob(final int number, final Duration initialDelay)
 	{
-		super("Slow" + number, 1000, initialDelay);
+		super("Slow" + number, ofMinutes(1000), initialDelay);
 	}
 
 	@Override

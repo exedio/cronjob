@@ -18,21 +18,12 @@
 
 package com.exedio.cronjob.example;
 
-import static java.time.Duration.ofMinutes;
 import static java.time.Duration.ofSeconds;
 
-import com.exedio.cope.util.JobContext;
-
-final class ErrorJob extends AbstractJob
+final class OftenJob extends AbstractJob
 {
-	ErrorJob(final int number)
+	OftenJob()
 	{
-		super("Error" + number, ofMinutes(1), ofSeconds(1));
-	}
-
-	@Override
-	public void run(final JobContext ctx)
-	{
-		throw new StackOverflowError("StackOverflowMessage");
+		super("Often", ofSeconds(1), ofSeconds(1));
 	}
 }

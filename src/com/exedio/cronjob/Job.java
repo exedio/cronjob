@@ -19,6 +19,7 @@
 package com.exedio.cronjob;
 
 import com.exedio.cope.util.JobContext;
+import java.time.Duration;
 
 public interface Job
 {
@@ -30,13 +31,13 @@ public interface Job
 
 	boolean isActiveInitially();
 
-	int getMinutesBetweenExecutions();
+	Duration getIntervalBetweenExecutions();
 
-	long getInitialDelayInMilliSeconds();
+	Duration getInitialDelay();
 
 	/**
-	 * @return the time (in milliseconds) the job will be given to finish before it
+	 * @return the time the job will be given to finish before it
 	 *			will be stopped forcefully
 	 */
-	long getStopTimeout();
+	Duration getStopTimeout();
 }

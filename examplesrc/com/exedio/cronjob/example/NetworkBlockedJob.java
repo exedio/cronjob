@@ -18,6 +18,9 @@
 
 package com.exedio.cronjob.example;
 
+import static java.time.Duration.ofDays;
+import static java.time.Duration.ofHours;
+
 import com.exedio.cope.util.JobContext;
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -27,7 +30,7 @@ final class NetworkBlockedJob extends AbstractJob
 {
 	NetworkBlockedJob()
 	{
-		super("NetworkBlocked", 60, 24*60*60*1000);
+		super("NetworkBlocked", ofHours(1), ofDays(1));
 	}
 
 	@Override
