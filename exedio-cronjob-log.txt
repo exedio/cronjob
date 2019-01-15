@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* HTTP header security:
+	Content-Security-Policy, Referrer-Policy, X-Content-Type-Options, X-Frame-Options, X-XSS-Protection
+	set in response.
 * requires JDK 1.8.0_60
 * added ivy configurations 'sources' and 'changelog'
 	sources and changelog won't be included in 'runtime' config per default anymore
