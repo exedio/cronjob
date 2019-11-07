@@ -24,7 +24,7 @@ timestamps
 				])
 
 				sh "${antHome}/bin/ant -buildfile ivy"
-				archive 'ivy/artifacts/*.html,ivy/artifacts/*.css'
+				archiveArtifacts 'ivy/artifacts/report/**'
 
 				sh "git status --porcelain --untracked-files=normal > git-status.txt"
 				def gitStatus = readFile('git-status.txt')

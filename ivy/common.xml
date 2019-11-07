@@ -3,11 +3,16 @@
 		xmlns:ivy="antlib:org.apache.ivy.ant"
 		name="ivy-common">
 
+	<echo taskname="which ant" message="${ant.version}" />
+	<echo taskname="which java" message="${java.vm.name} ${java.version}" />
+
 	<target name="prepare">
 		<delete dir="artifacts" />
 		<mkdir dir="artifacts" />
-		<get src="https://ivyartifacts.exedio.com/ivy.jar" dest="artifacts/ivy.jar" />
-		<get src="https://ivyartifacts.exedio.com/ivysettings.xml" dest="artifacts/ivysettings.xml" />
+		<get dest="artifacts" retries="1" httpusecaches="false">
+			<url url="https://ivyartifacts.exedio.com/ivy.jar" />
+			<url url="https://ivyartifacts.exedio.com/ivysettings.xml" />
+		</get>
 		<taskdef
 			resource="org/apache/ivy/ant/antlib.xml"
 			classpath="artifacts/ivy.jar"
@@ -18,7 +23,24 @@
 	<target name="resolve" depends="prepare">
 		<ivy:retrieve file="../ivy.xml" pattern="artifacts/lib/[artifact]-[type].[ext]" />
 		<fixcrlf srcDir="artifacts/lib" includes="**/*-log.txt,**/*-userlog.txt" fixlast="false" />
-		<ivy:report todir="artifacts" />
+		<ivy:report todir="artifacts/reportraw" graph="false" />
+		<copy todir="artifacts/report">
+			<fileset dir="artifacts/reportraw">
+				<include name="*.html" />
+				<include name="*.css" />
+			</fileset>
+			<filterset begintoken="http://" endtoken="images/">
+				<filter token="ant.apache.org/ivy/" value="resources/" />
+			</filterset>
+		</copy>
+		<!-- download icons, otherwise Content-Security-Policy of jenkins frontend complains -->
+		<get dest="artifacts/report/resources" retries="1">
+			<url url="https://ivyartifacts.exedio.com/resources/searched.gif" />
+			<url url="https://ivyartifacts.exedio.com/resources/downloaded.gif" />
+			<url url="https://ivyartifacts.exedio.com/resources/evicted.gif" />
+			<url url="https://ivyartifacts.exedio.com/resources/logo.png" />
+			<url url="https://ivyartifacts.exedio.com/resources/error.gif" />
+		</get>
 	</target>
 
 	<target name="publishlocally" depends="prepare">
