@@ -19,7 +19,7 @@ timestamps
 				env.BUILD_TIMESTAMP = new Date().format("yyyy-MM-dd_HH-mm-ss");
 				env.JAVA_HOME = tool jdk
 				env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
-				def antHome = tool 'Ant version 1.9.3'
+				def antHome = tool 'Ant version 1.9.4'
 
 				sh "java -version"
 				sh "${antHome}/bin/ant -version"

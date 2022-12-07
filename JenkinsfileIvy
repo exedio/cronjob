@@ -17,7 +17,7 @@ timestamps
 
 				env.JAVA_HOME = tool jdk
 				env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
-				def antHome = tool 'Ant version 1.9.3'
+				def antHome = tool 'Ant version 1.9.4'
 
 				properties([
 						buildDiscarder(logRotator(
